@@ -7,6 +7,7 @@ import { useRouter } from '../../routes/router';
 import { StudyBreadcrumbs } from './StudyBreadcrumbs';
 import { ChemFormula } from '../scientific/ChemFormula';
 import { NitrogenPhosphorusTheoryView } from './topics/NitrogenPhosphorusTheoryView';
+import { CarbonSiliconTheoryView } from './topics/CarbonSiliconTheoryView';
 
 interface Props {
   blockId: string;
@@ -51,6 +52,8 @@ export const StudyTopicTheoryPage: React.FC<Props> = ({ blockId, topicId }) => {
 
         {topic.id === 'elem-nonme-np' ? (
           <NitrogenPhosphorusTheoryView />
+        ) : topic.id === 'elem-nonme-csi' ? (
+          <CarbonSiliconTheoryView />
         ) : (
           <>
             {/* Academic Topic Header Card */}

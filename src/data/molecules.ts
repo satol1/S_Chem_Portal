@@ -423,5 +423,154 @@ export const MOLECULES_DATA: Molecule[] = [
       { source: 1, target: 3, order: 1 },
       { source: 2, target: 3, order: 1 }
     ]
+  },
+  {
+    id: 'co',
+    name: 'Монооксид углерода (CO)',
+    formula: 'CO',
+    iupacName: 'Оксид углерода(II) / Угарный газ',
+    category: 'Неорганическая',
+    description: 'Бесцветный газ без запаха, несолеобразующий оксид. Содержит тройную связь C≡O, одна из которых образована по донорно-акцепторному механизму.',
+    funFact: 'Угарный газ связывается с гемоглобином крови в 200–300 раз прочнее, чем кислород, образуя устойчивый карбоксигемоглобин.',
+    atoms: [
+      { element: 'C', x: -0.6, y: 0, z: 0, hybridization: 'sp' },
+      { element: 'O', x: 0.6, y: 0, z: 0, hybridization: 'sp' }
+    ],
+    bonds: [
+      { source: 0, target: 1, order: 3 }
+    ]
+  },
+  {
+    id: 'co2',
+    name: 'Диоксид углерода (CO₂)',
+    formula: 'CO₂',
+    iupacName: 'Оксид углерода(IV) / Углекислый газ',
+    category: 'Неорганическая',
+    description: 'Линейная молекула с sp-гибридизованным атомом углерода и двумя двойными C=O связями. Угол связи O-C-O равен строго 180°.',
+    funFact: 'При атмосферном давлении углекислый газ переходит из твердого состояния ("сухой лед") прямо в газообразное, минуя жидкое (сублимация).',
+    atoms: [
+      { element: 'C', x: 0, y: 0, z: 0, hybridization: 'sp' },
+      { element: 'O', x: -1.16, y: 0, z: 0, hybridization: 'sp2' },
+      { element: 'O', x: 1.16, y: 0, z: 0, hybridization: 'sp2' }
+    ],
+    bonds: [
+      { source: 0, target: 1, order: 2 },
+      { source: 0, target: 2, order: 2 }
+    ]
+  },
+  {
+    id: 'sio2',
+    name: 'Диоксид кремния (SiO₂)',
+    formula: 'SiO₂',
+    iupacName: 'Оксид кремния(IV) / Кварц / Кремнезем',
+    category: 'Неорганическая',
+    description: 'Вещество с атомной кристаллической решеткой. Каждая элементарная ячейка состоит из тетраэдров [SiO₄], связанных вершинами через мостиковые атомы кислорода.',
+    funFact: 'Кварц обладает пьезоэлектрическими свойствами — при деформации генерирует электрический ток, что используется в кварцевых часах.',
+    atoms: [
+      { element: 'Si', x: 0, y: 0, z: 0, hybridization: 'sp3' },
+      { element: 'O', x: 0.9, y: 0.9, z: 0.9, hybridization: 'sp3' },
+      { element: 'O', x: -0.9, y: -0.9, z: 0.9, hybridization: 'sp3' },
+      { element: 'O', x: -0.9, y: 0.9, z: -0.9, hybridization: 'sp3' },
+      { element: 'O', x: 0.9, y: -0.9, z: -0.9, hybridization: 'sp3' }
+    ],
+    bonds: [
+      { source: 0, target: 1, order: 1 },
+      { source: 0, target: 2, order: 1 },
+      { source: 0, target: 3, order: 1 },
+      { source: 0, target: 4, order: 1 }
+    ]
+  },
+  {
+    id: 'sih4',
+    name: 'Силан (SiH₄)',
+    formula: 'SiH₄',
+    iupacName: 'Моносилан / Кремневодород',
+    category: 'Неорганическая',
+    description: 'Бесцветный газ с резким неприятным запахом. Молекула имеет форму идеального тетраэдра с sp³-гибридизованным атомом кремния.',
+    funFact: 'В отличие от устойчивого метана (CH₄), силан SiH₄ самовоспламеняется на воздухе при комнатной температуре со взрывом!',
+    atoms: [
+      { element: 'Si', x: 0, y: 0, z: 0, hybridization: 'sp3' },
+      { element: 'H', x: 0.85, y: 0.85, z: 0.85 },
+      { element: 'H', x: -0.85, y: -0.85, z: 0.85 },
+      { element: 'H', x: -0.85, y: 0.85, z: -0.85 },
+      { element: 'H', x: 0.85, y: -0.85, z: -0.85 }
+    ],
+    bonds: [
+      { source: 0, target: 1, order: 1 },
+      { source: 0, target: 2, order: 1 },
+      { source: 0, target: 3, order: 1 },
+      { source: 0, target: 4, order: 1 }
+    ]
+  },
+  {
+    id: 'h2co3',
+    name: 'Угольная кислота (H₂CO₃)',
+    formula: 'H₂CO₃',
+    iupacName: 'Угольная кислота',
+    category: 'Неорганическая',
+    description: 'Слабая двухосновная кислота, существует только в разбавленных водных растворах и находится в равновесии с гидратом диоксида углерода CO₂·H₂O.',
+    funFact: 'Угольная кислота поддерживают постоянный pH крови человека (около 7.4) благодаря карбонатной буферной системе.',
+    atoms: [
+      { element: 'C', x: 0, y: 0, z: 0, hybridization: 'sp2' },
+      { element: 'O', x: 0, y: 1.22, z: 0, hybridization: 'sp2' },
+      { element: 'O', x: 1.1, y: -0.6, z: 0, hybridization: 'sp3' },
+      { element: 'O', x: -1.1, y: -0.6, z: 0, hybridization: 'sp3' },
+      { element: 'H', x: 1.7, y: -0.1, z: 0 },
+      { element: 'H', x: -1.7, y: -0.1, z: 0 }
+    ],
+    bonds: [
+      { source: 0, target: 1, order: 2 },
+      { source: 0, target: 2, order: 1 },
+      { source: 0, target: 3, order: 1 },
+      { source: 2, target: 4, order: 1 },
+      { source: 3, target: 5, order: 1 }
+    ]
+  },
+  {
+    id: 'h2sio3',
+    name: 'Метакремниевая кислота (H₂SiO₃)',
+    formula: 'H₂SiO₃',
+    iupacName: 'Метакремниевая кислота',
+    category: 'Неорганическая',
+    description: 'Очень слабая нерастворимая двухосновная кислота. Выпадает в виде аморфного студенистого геля при подкислении растворов силикатов.',
+    funFact: 'Высушенный гель кремниевой кислоты — силикагель — обладает огромной удельной поверхностью и применяется в качестве осушителя и адсорбента.',
+    atoms: [
+      { element: 'Si', x: 0, y: 0, z: 0, hybridization: 'sp3' },
+      { element: 'O', x: 0, y: 1.35, z: 0, hybridization: 'sp2' },
+      { element: 'O', x: 1.2, y: -0.6, z: 0, hybridization: 'sp3' },
+      { element: 'O', x: -1.2, y: -0.6, z: 0, hybridization: 'sp3' },
+      { element: 'H', x: 1.8, y: -0.1, z: 0 },
+      { element: 'H', x: -1.8, y: -0.1, z: 0 }
+    ],
+    bonds: [
+      { source: 0, target: 1, order: 2 },
+      { source: 0, target: 2, order: 1 },
+      { source: 0, target: 3, order: 1 },
+      { source: 2, target: 4, order: 1 },
+      { source: 3, target: 5, order: 1 }
+    ]
+  },
+  {
+    id: 'sic',
+    name: 'Карбид кремния / Карборунд (SiC)',
+    formula: 'SiC',
+    iupacName: 'Силиций карбид',
+    category: 'Неорганическая',
+    description: 'Бинарное соединение кремния и углерода со сверхпрочной тетраэдрической атомной кристаллической решеткой, близкой по твердости к алмазу.',
+    funFact: 'Карборунд по твердости уступает лишь алмазу и нитриду бора, поэтому активно используется для создания абразивов, бронепластин и тормозов спорткаров.',
+    atoms: [
+      { element: 'Si', x: 0, y: 0, z: 0, hybridization: 'sp3' },
+      { element: 'C', x: 0.9, y: 0.9, z: 0.9, hybridization: 'sp3' },
+      { element: 'C', x: -0.9, y: -0.9, z: 0.9, hybridization: 'sp3' },
+      { element: 'C', x: -0.9, y: 0.9, z: -0.9, hybridization: 'sp3' },
+      { element: 'C', x: 0.9, y: -0.9, z: -0.9, hybridization: 'sp3' }
+    ],
+    bonds: [
+      { source: 0, target: 1, order: 1 },
+      { source: 0, target: 2, order: 1 },
+      { source: 0, target: 3, order: 1 },
+      { source: 0, target: 4, order: 1 }
+    ]
   }
 ];
+

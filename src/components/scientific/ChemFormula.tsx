@@ -199,6 +199,63 @@ export function convertFormulaToKaTeX(raw: string): string {
       }
     }
 
+    // Handle double salts & hydrates with * or · e.g. Na2O*CaO*6SiO2 or CuSO4*5H2O
+    if (word.includes('*') || word.includes('·')) {
+      const parts = word.split(/[*·]/);
+      const formattedParts = parts.map(p => {
+        const cMatch = p.match(/^(\d+)(.+)$/);
+        if (cMatch) {
+          return `${cMatch[1]}\\mathrm{${cMatch[2].replace(/(\d+)/g, '_{$1}')}}`;
+        }
+        return `\\mathrm{${p.replace(/(\d+)/g, '_{$1}')}}`;
+      });
+      return `${coef}${formattedParts.join(' \\cdot ')}${charge}${phase}${trailingNote}`;
+    }
+
+    // Handle structural formulas with bonds e.g. C-C, C=C, C=O, C#N, C#O, O=C=O, Si-O, Si-Si, Si-O-Si, :C≡O:, :N≡N:
+    if (/^:?[A-Za-z0-9()]+(?:[=–—#-]|\\equiv|≡)[A-Za-z0-9()=#≡–—-]+:?$/.test(word)) {
+      let cleanWord = word;
+      let prefixDots = false;
+      let suffixDots = false;
+      if (cleanWord.startsWith(':')) {
+        prefixDots = true;
+        cleanWord = cleanWord.slice(1);
+      }
+      if (cleanWord.endsWith(':')) {
+        suffixDots = true;
+        cleanWord = cleanWord.slice(0, -1);
+      }
+
+      cleanWord = cleanWord.replace(/#/g, '≡');
+
+      const bondTokens = cleanWord.split(/([=≡-])/);
+      const formattedBondParts = bondTokens.map(part => {
+        if (part === '=') return '=';
+        if (part === '≡') return '\\equiv ';
+        if (part === '-') return '-';
+        return `\\mathrm{${part.replace(/(\d+)/g, '_{$1}')}}`;
+      });
+
+      let res = formattedBondParts.join('');
+      if (prefixDots) res = `:\\!${res}`;
+      if (suffixDots) res = `${res}\\!:`;
+      return `${coef}${res}${charge}${phase}${trailingNote}`;
+    }
+
+    // Handle orbital electron configurations e.g. 1s^2, 2s2, 2p^3, ns^2, np^2, 3d10
+    const orbitalMatch = word.match(/^([1-7n]?[spdf][xyz]?)\^?(\d+)$/i);
+    if (orbitalMatch) {
+      return `\\mathrm{${orbitalMatch[1]}}^{${orbitalMatch[2]}}${phase}${trailingNote}`;
+    }
+
+    // Handle general superscripts with ^
+    if (word.includes('^')) {
+      const parts = word.split('^');
+      const baseFormatted = parts[0].replace(/(\d+)/g, '_{$1}');
+      const expFormatted = parts[1];
+      return `${coef}\\mathrm{${baseFormatted}}^{${expFormatted}}${charge}${phase}${trailingNote}`;
+    }
+
     // Format numbers inside chemical formula as subscripts e.g. "NH4" -> "\mathrm{NH}_{4}"
     const formattedBody = word.replace(/(\d+)/g, '_{$1}');
 
