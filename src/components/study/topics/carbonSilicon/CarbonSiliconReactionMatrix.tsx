@@ -10,7 +10,7 @@ export const CarbonSiliconReactionMatrix: React.FC = () => {
             Матрица сравнительных свойств соединений Углерода и Кремния
           </h4>
           <p className="text-xs text-slate-500 font-normal">
-            Свойства оксидов, кислот и солей C и Si для ЕГЭ (Задания 8, 9, 24, 31)
+            Свойства оксидов, кислот и солей C и Si
           </p>
         </div>
         <span className="text-xs font-mono text-slate-700 bg-white px-2.5 py-1 rounded-lg border border-slate-200 font-bold">

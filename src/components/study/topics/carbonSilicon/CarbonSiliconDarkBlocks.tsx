@@ -6,7 +6,7 @@ export const CarbonSiliconDarkBlock1: React.FC = () => {
     <div className="p-5 sm:p-6 rounded-xl bg-slate-900 text-white space-y-3.5 text-xs sm:text-sm border border-slate-800">
       <div className="font-semibold text-white text-sm sm:text-base flex items-center justify-between border-b border-slate-800 pb-2">
         <span>Промышленный доменный процесс и Синтез-газ</span>
-        <span className="text-xs font-mono text-slate-400">Доменная печь • Задание 25</span>
+        <span className="text-xs font-mono text-slate-400">Доменная печь • Промышленный химизм</span>
       </div>
 
       <p className="text-slate-300 leading-relaxed font-normal">

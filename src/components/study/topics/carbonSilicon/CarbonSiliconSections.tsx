@@ -557,7 +557,7 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
               <div><ChemFormula formula="CaCO3 -t-> CaO + CO2^" className="font-bold text-slate-900" /> <span className="font-sans text-slate-500">(обжиг известняка)</span></div>
             </div>
 
-            <div className="text-xs font-bold text-slate-900 font-sans pt-2">3. Совместный (взаимный) необратимый гидролиз в Заданиях 30/31:</div>
+            <div className="text-xs font-bold text-slate-900 font-sans pt-2">3. Совместный (взаимный) необратимый гидролиз солей:</div>
             <div className="pl-3 space-y-1">
               <div><ChemFormula formula="2AlCl3 + 3Na2CO3 + 3H2O -> 2Al(OH)3v + 3CO2^ + 6NaCl" className="font-bold text-slate-900" /></div>
               <div><ChemFormula formula="Fe2(SO4)3 + 3K2CO3 + 3H2O -> 2Fe(OH)3v + 3CO2^ + 3K2SO4" className="font-bold text-slate-900" /></div>

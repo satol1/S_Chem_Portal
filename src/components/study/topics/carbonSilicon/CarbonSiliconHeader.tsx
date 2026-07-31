@@ -84,7 +84,7 @@ export const CarbonSiliconHeader: React.FC<HeaderProps> = ({
       <div className="p-5 rounded-xl bg-slate-50 border-l-4 border-l-amber-500 border-y border-r border-slate-200 text-slate-800 space-y-3 shadow-xs">
         <div className="flex items-center gap-2 font-bold text-slate-900 text-sm sm:text-base border-b border-slate-200/60 pb-2">
           <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0" />
-          <span>Важные экзаменационные «подводные камни» (ФИПИ Задания 8, 9, 31):</span>
+          <span>Важные экзаменационные «подводные камни» ФИПИ:</span>
         </div>
 
         <ul className="space-y-2.5 text-xs sm:text-sm text-slate-700 font-normal leading-relaxed">
@@ -103,7 +103,7 @@ export const CarbonSiliconHeader: React.FC<HeaderProps> = ({
           <li className="flex items-start gap-2">
             <span className="px-1.5 py-0.5 rounded bg-slate-200 text-slate-900 text-xs font-mono font-bold shrink-0">3</span>
             <div>
-              <strong>Совместный (взаимный) гидролиз в Задании 30/31</strong>: При смешивании растворов солей <ChemFormula formula="Al(3+)" />, <ChemFormula formula="Cr(3+)" />, <ChemFormula formula="Fe(3+)" /> с карбонатами или силикатами происходит ВЗАИМНЫЙ НЕОБРАТИМЫЙ ГИДРОЛИЗ с выпадением гидратированного оксида/гидроксида и выделением <ChemFormula formula="CO2^" /> или <ChemFormula formula="H2SiO3v" />: <ChemFormula formula="2AlCl3 + 3Na2CO3 + 3H2O -> 2Al(OH)3v + 3CO2^ + 6NaCl" className="font-bold text-slate-900" />.
+              <strong>Совместный (взаимный) гидролиз солей</strong>: При смешивании растворов солей <ChemFormula formula="Al(3+)" />, <ChemFormula formula="Cr(3+)" />, <ChemFormula formula="Fe(3+)" /> с карбонатами или силикатами происходит ВЗАИМНЫЙ НЕОБРАТИМЫЙ ГИДРОЛИЗ с выпадением гидратированного оксида/гидроксида и выделением <ChemFormula formula="CO2^" /> или <ChemFormula formula="H2SiO3v" />: <ChemFormula formula="2AlCl3 + 3Na2CO3 + 3H2O -> 2Al(OH)3v + 3CO2^ + 6NaCl" className="font-bold text-slate-900" />.
             </div>
           </li>
           <li className="flex items-start gap-2">
