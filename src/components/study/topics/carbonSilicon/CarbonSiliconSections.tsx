@@ -7,6 +7,11 @@ import { CarbonSiliconReactionMatrix } from './CarbonSiliconReactionMatrix';
 import { CarbonSiliconDarkBlock1, CarbonSiliconDarkBlock2 } from './CarbonSiliconDarkBlocks';
 import { CarbonSiliconFunFact } from './CarbonSiliconFunFacts';
 
+import diamondImg from '../../../../assets/images/allotropes/diamond.jpg';
+import graphiteImg from '../../../../assets/images/allotropes/graphite.jpg';
+import fullereneImg from '../../../../assets/images/allotropes/fullerene.jpg';
+import siliconImg from '../../../../assets/images/allotropes/silicon.jpg';
+
 interface SectionsProps {
   scrollToNav: () => void;
   handleGoToPractice: () => void;
@@ -147,14 +152,14 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
             <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start pt-1">
               <button 
                 onClick={() => setModalImage({ 
-                  src: '/images/allotropes/diamond.jpg', 
+                  src: diamondImg, 
                   title: 'Алмаз — 2D-структура тетраэдра (sp³-гибридизация, валентный угол 109°28\')' 
                 })}
                 className="relative rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-2xs group h-32 sm:h-36 w-full sm:w-36 shrink-0 flex items-center justify-center p-1.5 cursor-pointer hover:border-amber-500 transition-colors"
                 title="Нажмите для увеличения"
               >
                 <img 
-                  src="/images/allotropes/diamond.jpg" 
+                  src={diamondImg} 
                   alt="2D структура Алмаза" 
                   className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300 rounded" 
                 />
@@ -182,14 +187,14 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
             <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start pt-1">
               <button 
                 onClick={() => setModalImage({ 
-                  src: '/images/allotropes/graphite.jpg', 
+                  src: graphiteImg, 
                   title: 'Графит — 2D-структура графеновых слоев (sp²-гибридизация, межслойное расстояние 3.35 Å)' 
                 })}
                 className="relative rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-2xs group h-32 sm:h-36 w-full sm:w-36 shrink-0 flex items-center justify-center p-1.5 cursor-pointer hover:border-amber-500 transition-colors"
                 title="Нажмите для увеличения"
               >
                 <img 
-                  src="/images/allotropes/graphite.jpg" 
+                  src={graphiteImg} 
                   alt="2D структура Графита" 
                   className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300 rounded" 
                 />
@@ -217,14 +222,14 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
             <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start pt-1">
               <button 
                 onClick={() => setModalImage({ 
-                  src: '/images/allotropes/fullerene.jpg', 
+                  src: fullereneImg, 
                   title: 'Фуллерен C₆₀ — 2D-структура замкнутого икосаэдра (Buckyball)' 
                 })}
                 className="relative rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-2xs group h-32 sm:h-36 w-full sm:w-36 shrink-0 flex items-center justify-center p-1.5 cursor-pointer hover:border-amber-500 transition-colors"
                 title="Нажмите для увеличения"
               >
                 <img 
-                  src="/images/allotropes/fullerene.jpg" 
+                  src={fullereneImg} 
                   alt="2D структура Фуллерена C60" 
                   className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300 rounded" 
                 />
@@ -252,14 +257,14 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
             <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start pt-1">
               <button 
                 onClick={() => setModalImage({ 
-                  src: '/images/allotropes/silicon.jpg', 
+                  src: siliconImg, 
                   title: 'Кристаллический Кремний Si — 2D-структура кубической решетки (длина связи Si-Si 2.35 Å)' 
                 })}
                 className="relative rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-2xs group h-32 sm:h-36 w-full sm:w-36 shrink-0 flex items-center justify-center p-1.5 cursor-pointer hover:border-amber-500 transition-colors"
                 title="Нажмите для увеличения"
               >
                 <img 
-                  src="/images/allotropes/silicon.jpg" 
+                  src={siliconImg} 
                   alt="2D структура Кремния" 
                   className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300 rounded" 
                 />
