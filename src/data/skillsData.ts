@@ -1,0 +1,620 @@
+import type { SkillNode, SkillBranchMeta, GradeLevelMeta, BloomLevelMeta } from '../types/skillMap';
+
+export const GradeLevels: GradeLevelMeta[] = [
+  { id: '8-class', title: '8 Класс', subtitle: 'Базовый старт и Теория вещества', order: 1, badgeColor: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' },
+  { id: '9-class', title: '9 Класс / ОГЭ', subtitle: 'Растворы, ТЭД и Химия элементов', order: 2, badgeColor: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40' },
+  { id: '10-class', title: '10 Класс', subtitle: 'Органическая химия и Механизмы', order: 3, badgeColor: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40' },
+  { id: '11-class', title: '11 Класс / ЕГЭ', subtitle: 'Общая химия, Физхимия и ДВИ ВУЗ', order: 4, badgeColor: 'bg-violet-500/20 text-violet-300 border-violet-500/40' },
+  { id: 'university', title: 'ВУЗ / Academia', subtitle: 'Квантовая химия и Термодинамика', order: 5, badgeColor: 'bg-fuchsia-500/20 text-fuchsia-300 border-fuchsia-500/40' },
+];
+
+export const SKILL_BRANCHES: SkillBranchMeta[] = [
+  { id: 'general', name: 'Общая химия', color: 'emerald', bgGradient: 'from-emerald-500/20 to-teal-500/10', borderColor: 'border-emerald-500/50', iconName: 'Atom' },
+  { id: 'inorganic', name: 'Неорганическая химия', color: 'cyan', bgGradient: 'from-cyan-500/20 to-blue-500/10', borderColor: 'border-cyan-500/50', iconName: 'Flame' },
+  { id: 'organic', name: 'Органическая химия', color: 'indigo', bgGradient: 'from-indigo-500/20 to-purple-500/10', borderColor: 'border-indigo-500/50', iconName: 'Dna' },
+  { id: 'physical', name: 'Физическая химия и Кинетика', color: 'violet', bgGradient: 'from-violet-500/20 to-purple-500/10', borderColor: 'border-violet-500/50', iconName: 'Zap' },
+  { id: 'analytical', name: 'Эксперимент и Анализ', color: 'teal', bgGradient: 'from-teal-500/20 to-emerald-500/10', borderColor: 'border-teal-500/50', iconName: 'FlaskConical' },
+  { id: 'olympiad', name: 'Олимпиадная химия и ДВИ', color: 'rose', bgGradient: 'from-rose-500/20 to-amber-500/10', borderColor: 'border-rose-500/50', iconName: 'Trophy' },
+  { id: 'stem_project', name: 'STEM и Научный проект', color: 'fuchsia', bgGradient: 'from-fuchsia-500/20 to-rose-500/10', borderColor: 'border-fuchsia-500/50', iconName: 'Sparkles' },
+];
+
+export const BLOOM_LEVELS_META: BloomLevelMeta[] = [
+  { id: 'remember', name: 'Знание / Запоминание', num: 1, desc: 'Воспроизведение терминов и фактов' },
+  { id: 'understand', name: 'Понимание / Объяснение', num: 2, desc: 'Интерпретация сущности и связей' },
+  { id: 'apply', name: 'Применение / Алгоритм', num: 3, desc: 'Расчет по формулам и реакциям' },
+  { id: 'analyze', name: 'Анализ / Свойства', num: 4, desc: 'Выявление закономерностей' },
+  { id: 'evaluate', name: 'Оценка / Задачи ЕГЭ', num: 5, desc: 'Решение многостадийных проблем' },
+  { id: 'create', name: 'Синтез / Проект ВУЗ', num: 6, desc: 'Исследовательская STEM-работа' },
+];
+
+export const SKILL_NODES: SkillNode[] = [
+  // ================= 8 КЛАСС =================
+  {
+    id: 'skill-8-1',
+    code: 'SK-8.1',
+    title: 'Строение атома и Периодический закон',
+    subtitle: 'Протоны, нейтроны, электроны и электронные оболочки (s, p, d)',
+    description: 'Освоение структуры ядра, распределения электронов по слоям, физического смысла номера периода и группы в рамках концепции Д.И. Менделеева.',
+    gradeLevel: '8-class',
+    branch: 'general',
+    bloomLevel: 'remember',
+    fgosStandard: 'ФГОС ООО 3.1.1 (Базовые понятия)',
+    fipiExamTarget: 'ОГЭ №1, №2, №3',
+    ngssStandard: 'NGSS HS-PS1-1: Atomic Structure & Periodic Trends',
+    pedagogicalNote: 'Этап ориентации (Гальперин): формирование наглядного опорного образа атома и зависимости свойств от заряда ядра.',
+    prerequisites: [],
+    nextSkills: ['skill-8-2', 'skill-8-3', 'skill-8-4'],
+    position: { x: 80, y: 80 },
+    competencies: ['Системное мышление', 'Моделирование микромира', 'Чтение таблиц Менделеева'],
+    quiz: {
+      question: 'Какое максимальное число электронов может находиться на s-орбитали любого энергетического уровня?',
+      options: ['2', '6', '8', '10'],
+      correctIndex: 0,
+      explanation: 'На одной s-орбитали может находиться не более 2 электронов с противоположными спинами.'
+    }
+  },
+  {
+    id: 'skill-8-2',
+    code: 'SK-8.2',
+    title: 'Степень окисления и Валентность',
+    subtitle: 'Электроотрицательность, ковалентная и ионная связь',
+    description: 'Определение формального заряда атомов в молекулах, расстановка степеней окисления в бинарных соединениях и кислотах.',
+    gradeLevel: '8-class',
+    branch: 'general',
+    bloomLevel: 'understand',
+    fgosStandard: 'ФГОС ООО 3.1.3 (Химическая связь)',
+    fipiExamTarget: 'ОГЭ №4, №6',
+    ngssStandard: 'NGSS HS-PS1-2: Chemical Bonding & Valence Electrons',
+    pedagogicalNote: 'Использование алгоритмических опорных карточек Шаталова для безошибочной вычисления СО.',
+    prerequisites: ['skill-8-1'],
+    nextSkills: ['skill-9-1', 'skill-11-1'],
+    position: { x: 80, y: 240 },
+    competencies: ['Алгоритмический расчет', 'Определение типа связи', 'Анализ электроотрицательности'],
+    quiz: {
+      question: 'Чему равна степень окисления серы в серной кислоте H2SO4?',
+      options: ['+4', '+6', '-2', '+2'],
+      correctIndex: 1,
+      explanation: 'В H2SO4: 2*(+1) + x + 4*(-2) = 0 => 2 + x - 8 = 0 => x = +6.'
+    }
+  },
+  {
+    id: 'skill-8-3',
+    code: 'SK-8.3',
+    title: 'Классы неорганических веществ',
+    subtitle: 'Оксиды, основания, кислоты, соли — классификация и номенклатура',
+    description: 'Умение соотносить формулу вещества с его классом, генетическая связь между неорганическими соединениями.',
+    gradeLevel: '8-class',
+    branch: 'inorganic',
+    bloomLevel: 'apply',
+    fgosStandard: 'ФГОС ООО 3.2.1 (Классификация неорганики)',
+    fipiExamTarget: 'ОГЭ №5, №7, №8',
+    ngssStandard: 'NGSS HS-PS1-3: Matter Classification & Properties',
+    pedagogicalNote: 'Поэтапное отрабатывание классификационной матрицы Зайцева: от формулы к названию и реакционной способности.',
+    prerequisites: ['skill-8-1'],
+    nextSkills: ['skill-9-2', 'skill-9-3'],
+    position: { x: 80, y: 400 },
+    competencies: ['Номенклатура IUPAC', 'Классификация веществ', 'Составление химических формул'],
+    quiz: {
+      question: 'К какому классу относится вещество Ca(OH)2?',
+      options: ['Кислотная соль', 'Растворимое основание (щёлочь)', 'Оксид', 'Нерастворимое основание'],
+      correctIndex: 1,
+      explanation: 'Гидроксид кальция Ca(OH)2 — это растворимое основание (щелочь).'
+    }
+  },
+  {
+    id: 'skill-8-4',
+    code: 'SK-8.4',
+    title: 'Стехиометрия, Газовые законы и Смеси',
+    subtitle: 'Молярная масса, Закон Авогадро, средняя молярная масса смеси M_ср',
+    description: 'Количественные расчеты в химии: расчет массы, объема газов при н.у., составление уравнений реакций со смесями газов.',
+    gradeLevel: '8-class',
+    branch: 'general',
+    bloomLevel: 'apply',
+    fgosStandard: 'ФГОС ООО 3.2.4 (Количественные отношения)',
+    fipiExamTarget: 'ОГЭ №18, №19',
+    ngssStandard: 'NGSS HS-PS1-7: Molar Mass & Gas Stoichiometry',
+    pedagogicalNote: 'Олимпиадный старт (Школьный этап ВсОШ): вычисление объемных и массовых долей газов.',
+    prerequisites: ['skill-8-1'],
+    nextSkills: ['skill-9-1', 'skill-9-4'],
+    position: { x: 80, y: 560 },
+    competencies: ['Стехиометрический расчет', 'Газовые законы', 'Расчет смесей газов'],
+    quiz: {
+      question: 'Чему равен объем 2 моль углекислого газа CO2 при нормальных условиях (н.у.)?',
+      options: ['22.4 л', '44.8 л', '11.2 л', '67.2 л'],
+      correctIndex: 1,
+      explanation: 'При н.у. 1 моль любого идеального газа занимает 22.4 л. Для 2 моль V = 2 * 22.4 = 44.8 л.'
+    }
+  },
+  {
+    id: 'skill-8-5',
+    code: 'SK-8.5',
+    title: 'Физико-химический эксперимент и Разделение смесей',
+    subtitle: 'Перегонка, фильтрование, выпаривание, качественные признаки реакций',
+    description: 'Освоение лабораторного оборудования, техники безопасности и способов очистки веществ.',
+    gradeLevel: '8-class',
+    branch: 'analytical',
+    bloomLevel: 'evaluate',
+    fgosStandard: 'ФГОС ООО 3.5.1 (Практические навыки и Практикум)',
+    fipiExamTarget: 'ОГЭ №23, №24 (Эксперимент)',
+    ngssStandard: 'NGSS HS-PS1-3: Experimental Separation Techniques',
+    pedagogicalNote: 'Формирование экспериментальной культуры по методологии химических практикумов МГУ.',
+    prerequisites: ['skill-8-3'],
+    nextSkills: ['skill-9-2', 'skill-9-5'],
+    position: { x: 80, y: 720 },
+    competencies: ['Лабораторная техника', 'Правила ТБ', 'Разделение смесей'],
+    quiz: {
+      question: 'Какой метод следует использовать для разделения смеси воды и растительного масла?',
+      options: ['Выпаривание', 'Делительная воронка (отстаивание)', 'Фильтрование через бумажный фильтр', 'Дистилляция'],
+      correctIndex: 1,
+      explanation: 'Масло и вода образуют несмешивающиеся жидкости с разной плотностью, которые эффективно разделяются в делительной воронке.'
+    }
+  },
+
+  // ================= 9 КЛАСС / ОГЭ и ОЛИМПИАДЫ 9 КЛ =================
+  {
+    id: 'skill-9-1',
+    code: 'SK-9.1',
+    title: 'Теория электролитической диссоциации (ТЭД)',
+    subtitle: 'Электролиты, неэлектролиты, сильные и слабые кислоты',
+    description: 'Понимание процессов распада веществ на ионы в водном растворе, роли гидратации и диполей воды.',
+    gradeLevel: '9-class',
+    branch: 'general',
+    bloomLevel: 'understand',
+    fgosStandard: 'ФГОС ООО 3.3.1 (Растворы и диссоциация)',
+    fipiExamTarget: 'ОГЭ №13, №14',
+    ngssStandard: 'NGSS HS-PS1-5: Aqueous Solution Dynamics',
+    pedagogicalNote: 'Деятельностный подход Давыдова: анализ природы химической связи для прогноза диссоциации.',
+    prerequisites: ['skill-8-2', 'skill-8-3'],
+    nextSkills: ['skill-9-2'],
+    position: { x: 460, y: 80 },
+    competencies: ['Анализ ионных состояний', 'Работа с таблицей растворимости', 'Физико-химическое моделирование'],
+    quiz: {
+      question: 'Какое из перечисленных веществ является слабым электролитом?',
+      options: ['HCl', 'NaOH', 'CH3COOH', 'KNO3'],
+      correctIndex: 2,
+      explanation: 'Уксусная кислота CH3COOH — слабая органическая кислота, диссоциирует обратимо и неполностью.'
+    }
+  },
+  {
+    id: 'skill-9-2',
+    code: 'SK-9.2',
+    title: 'Реакции ионного обмена (РИО)',
+    subtitle: 'Полные и сокращенные ионные уравнения, условия необратимости',
+    description: 'Составление РИО с выпадением осадка, выделением газа или образованием слабого электролита (воды).',
+    gradeLevel: '9-class',
+    branch: 'inorganic',
+    bloomLevel: 'apply',
+    fgosStandard: 'ФГОС ООО 3.3.2 (Ионные реакции)',
+    fipiExamTarget: 'ОГЭ №14, №21',
+    ngssStandard: 'NGSS HS-PS1-7: Ionic Exchange Equations',
+    pedagogicalNote: 'Применение интерактивного алгоритма исключения зрительных ионов.',
+    prerequisites: ['skill-9-1', 'skill-8-3'],
+    nextSkills: ['skill-9-3', 'skill-11-2'],
+    position: { x: 460, y: 240 },
+    competencies: ['Составление ионных уравнений', 'Прогнозирование осаждения', 'Качественный анализ'],
+    quiz: {
+      question: 'При взаимодействии каких ионов образуется белый творожистый осадок?',
+      options: ['Ba2+ и SO4 2-', 'Ag+ и Cl-', 'Cu2+ и OH-', 'Fe3+ и OH-'],
+      correctIndex: 1,
+      explanation: 'Ионы серебра Ag+ и хлорид-ионы Cl- образуют белый творожистый осадок AgCl.'
+    }
+  },
+  {
+    id: 'skill-9-3',
+    code: 'SK-9.3',
+    title: 'Химия пниктогенов: Азот и Фосфор',
+    subtitle: 'Аммиак, азотная кислота, фосфаты, специфические свойства',
+    description: 'Глубокое освоение химических свойств неметаллов 15 (V-A) группы: окислительные свойства HNO3, получение аммиака и фосфорных солей.',
+    gradeLevel: '9-class',
+    branch: 'inorganic',
+    bloomLevel: 'analyze',
+    fgosStandard: 'ФГОС ООО 3.4.2 (Неметаллы VA группы)',
+    fipiExamTarget: 'ОГЭ №10, №11, №21',
+    ngssStandard: 'NGSS HS-PS1-4: Main Group Element Reactivity',
+    pedagogicalNote: 'Систематизация реакций в матрицах превращений АГУ/МГУ.',
+    prerequisites: ['skill-8-3', 'skill-9-2'],
+    nextSkills: ['skill-11-2'],
+    position: { x: 460, y: 400 },
+    resources: [
+      { type: 'trainer', title: 'Тренажер Задания №31 (Азот и Фосфор - 63 варианта)', urlOrTopicId: 'inorg-31-np' }
+    ],
+    trainerTopicId: 'inorg-31-np',
+    competencies: ['Анализ свойств неметаллов', 'Цепочки превращений', 'Промышленный синтез аммиака'],
+    quiz: {
+      question: 'Какой газ выделяется при взаимодействии концентрированной HNO3 с медью Cu?',
+      options: ['H2', 'NO2 (бурый газ)', 'N2O', 'NH3'],
+      correctIndex: 1,
+      explanation: 'Концентрированная азотная кислота восстанавливается медью до диоксида азота NO2 (бурого газа).'
+    }
+  },
+  {
+    id: 'skill-9-4',
+    code: 'SK-9.4',
+    title: 'Химия d-металлов и Комплексообразование',
+    subtitle: 'Хром, Марганец, Железо, Медь — степени окисления и гидроксиды',
+    description: 'Освоение амфотерных свойств гидроксидов хрома и железа, окислительно-восстановительных переходов Mn(VII) -> Mn(IV) -> Mn(II).',
+    gradeLevel: '9-class',
+    branch: 'olympiad',
+    bloomLevel: 'analyze',
+    fgosStandard: 'ФГОС ООО 3.4.5 (Металлы побочных подгрупп)',
+    fipiExamTarget: 'ОГЭ №11 / Муниципальный этап ВсОШ',
+    ngssStandard: 'NGSS HS-PS1-2: Transition Metal Reactivity & Coordination',
+    pedagogicalNote: 'Понимание электронного строения d-оболочки (Зайцев / ВсОШ 9 кл).',
+    prerequisites: ['skill-8-2', 'skill-9-2'],
+    nextSkills: ['skill-11-2', 'skill-univ-3'],
+    position: { x: 460, y: 560 },
+    competencies: ['d-элементы', 'Амфотерность', 'Олимпиадная неорганика'],
+    quiz: {
+      question: 'Какой цвет имеет осадок гидроксида хрома(III) Cr(OH)3?',
+      options: ['Серо-зеленый', 'Ярко-желтый', 'Синий', 'Бурый'],
+      correctIndex: 0,
+      explanation: 'Гидроксид хрома(III) Cr(OH)3 представляет собой амфотерный осадок серо-зеленого цвета.'
+    }
+  },
+  {
+    id: 'skill-9-5',
+    code: 'SK-9.5',
+    title: 'Олимпиадный качественный анализ и Мысленный эксперимент',
+    subtitle: 'Расшифровка неорганических шифров (вещества А, Б, В, Г)',
+    description: 'Решение классических олимпиадных задач-загадок: анализ аналитических признаков, выпадение осадков, качественные реакции на ионы.',
+    gradeLevel: '9-class',
+    branch: 'olympiad',
+    bloomLevel: 'evaluate',
+    fgosStandard: 'Стандарт ВсОШ 9 кл / Ломоносов',
+    fipiExamTarget: 'ВсОШ 9 класс / Олимпиада Ломоносов',
+    ngssStandard: 'NGSS HS-PS1-3: Qualitative Chemical Identification',
+    pedagogicalNote: 'Дедуктивный химический анализ (школа ВсОШ ЦПМК).',
+    prerequisites: ['skill-9-2', 'skill-9-3'],
+    nextSkills: ['skill-10-4', 'skill-11-5'],
+    position: { x: 460, y: 720 },
+    competencies: ['Дедуктивный анализ', 'Логика химических связей', 'Качественный анализ ионов'],
+    quiz: {
+      question: 'Какой реагент позволяет поэтапно открыть ионы Fe2+ и Fe3+ в растворе?',
+      options: ['Желтая и красная кровяные соли K4[Fe(CN)6] и K3[Fe(CN)6]', 'BaCl2', 'AgNO3', 'Na2SO4'],
+      correctIndex: 0,
+      explanation: 'K3[Fe(CN)6] дает турнбулеву синь с Fe2+, а K4[Fe(CN)6] дает берлинскую лазурь с Fe3+.'
+    }
+  },
+
+  // ================= 10 КЛАСС / ОРГАНИКА и ОЛИМПИАДЫ 10 КЛ =================
+  {
+    id: 'skill-10-1',
+    code: 'SK-10.1',
+    title: 'Теория строения органических соединений А.М. Бутлерова',
+    subtitle: 'Гибридизация sp3, sp2, sp, изомерия и гомология',
+    description: 'Фундамент органической химии: зависимость свойств от химического строения, пространственная изомерия (оптическая, цис-транс).',
+    gradeLevel: '10-class',
+    branch: 'organic',
+    bloomLevel: 'understand',
+    fgosStandard: 'ФГОС СОО 4.1.1 (Органическая химия)',
+    fipiExamTarget: 'ЕГЭ №11, №12',
+    ngssStandard: 'NGSS HS-PS1-1: Carbon Bonding & Molecular Architecture',
+    pedagogicalNote: '3D-моделирование молекул Бутлерова и анализ электронного смещения эффектов (+I, -I, +M, -M).',
+    prerequisites: ['skill-8-1', 'skill-8-2'],
+    nextSkills: ['skill-10-2', 'skill-10-3'],
+    position: { x: 840, y: 80 },
+    competencies: ['3D стереохимия', 'Номенклатура IUPAC органики', 'Анализ гибридизации'],
+    quiz: {
+      question: 'Какой тип гибридизации атомов углерода характерен для молекулы бензола C6H6?',
+      options: ['sp3', 'sp2', 'sp', 'sp3d'],
+      correctIndex: 1,
+      explanation: 'Все 6 атомов углерода в бензольном кольце находятся в sp2-гибридизованном состоянии.'
+    }
+  },
+  {
+    id: 'skill-10-2',
+    code: 'SK-10.2',
+    title: 'Углеводороды и Механизмы реакций (SR, AdE, SEAr)',
+    subtitle: 'Алканы, Алкены, Алкины, Дены и Арены',
+    description: 'Освоение реакций радикального замещения (Марковников, Зайцев), электрофильного присоединения и ароматического замещения.',
+    gradeLevel: '10-class',
+    branch: 'organic',
+    bloomLevel: 'apply',
+    fgosStandard: 'ФГОС СОО 4.1.3 (Углеводороды)',
+    fipiExamTarget: 'ЕГЭ №12, №13, №32',
+    ngssStandard: 'NGSS HS-PS1-4: Organic Reaction Kinetics',
+    pedagogicalNote: 'Применение правила Марковникова на основе стабильности карбокатионов (Давыдовский теоретический анализ).',
+    prerequisites: ['skill-10-1'],
+    nextSkills: ['skill-10-3', 'skill-11-3'],
+    position: { x: 840, y: 240 },
+    competencies: ['Механизмы реакций', 'Прогноз продуктов присоединения', 'Органический синтез'],
+    quiz: {
+      question: 'Какой основной продукт образуется при гидратации пропена (CH3-CH=CH2) по правилу Марковникова?',
+      options: ['Пропанол-1', 'Пропанол-2', 'Пропаналь', 'Ацетон'],
+      correctIndex: 1,
+      explanation: 'По правилу Марковникова водород присоединяется к более гидрогенизированному углероду, образуя пропанол-2 (CH3-CH(OH)-CH3).'
+    }
+  },
+  {
+    id: 'skill-10-3',
+    code: 'SK-10.3',
+    title: 'Кислородсодержащие и Азотсодержащие соединения',
+    subtitle: 'Спирты, Фенолы, Альдегиды, Карбоновые кислоты, Амины и Белки',
+    description: 'Свойства функциональных групп: качественные реакции (серебряный зеркальный тест, свежеосажденный Cu(OH)2), свойства аминокислот.',
+    gradeLevel: '10-class',
+    branch: 'organic',
+    bloomLevel: 'analyze',
+    fgosStandard: 'ФГОС СОО 4.1.5 (Функциональная органика)',
+    fipiExamTarget: 'ЕГЭ №14, №15, №32, №33',
+    ngssStandard: 'NGSS HS-LS1-6: Biomolecules & Organic Synthesis',
+    pedagogicalNote: 'Поэтапное формирование умственных действий в распутывании сложных органик-цепочек ЕГЭ №32.',
+    prerequisites: ['skill-10-2'],
+    nextSkills: ['skill-11-3'],
+    position: { x: 840, y: 400 },
+    competencies: ['Качественные реакции органики', 'Биоорганический анализ', 'Многостадийный органический синтез'],
+    quiz: {
+      question: 'С помощью какого реагента можно отличить альдегид от спирта?',
+      options: ['NaOH', 'Аммиачный раствор оксида серебра [Ag(NH3)2]OH', 'NaCl', 'HCl'],
+      correctIndex: 1,
+      explanation: 'Реакция «серебряного зеркала» с аммиачным раствором Ag2O специфика для альдегидной группы.'
+    }
+  },
+  {
+    id: 'skill-10-4',
+    code: 'SK-10.4',
+    title: 'Олимпиадные механизмы SN1, SN2, E1, E2 & Стереохимия',
+    subtitle: 'Карбокатионы, правила Зайцева/Гофмана, R/S номенклатура, хиральность',
+    description: 'Глубокое изучение электронных факторов органического синтеза: стабильность карбокатионов, сопряжение, R/S энантиомеры.',
+    gradeLevel: '10-class',
+    branch: 'olympiad',
+    bloomLevel: 'evaluate',
+    fgosStandard: 'Углубленный курс 10 кл / ДВИ МГУ / ВсОШ',
+    fipiExamTarget: 'ДВИ МГУ / ВсОШ 10 класс / Высшая проба',
+    ngssStandard: 'NGSS Advanced Organic Kinetics & Stereochemistry',
+    pedagogicalNote: 'Концепция электронных эффектов Хюккеля и инверсии Вальдена (МГУ им. М.В. Ломоносова).',
+    prerequisites: ['skill-10-2'],
+    nextSkills: ['skill-10-5', 'skill-univ-4'],
+    position: { x: 840, y: 560 },
+    competencies: ['Олимпиадный органик-синтез', 'Стереохимия', 'Механизмы SN и E'],
+    quiz: {
+      question: 'По какому механизму протекает нуклеофильное замещение в третичных галогеналканах (например, (CH3)3C-Cl)?',
+      options: ['SN1 (двухстадийный через карбокатион)', 'SN2 (одностадийный)', 'SEAr', 'SR'],
+      correctIndex: 0,
+      explanation: 'Третичные карбокатионы очень стабильны, поэтому замещение идет по механизму SN1 с образованием интермедиата R+.'
+    }
+  },
+  {
+    id: 'skill-10-5',
+    code: 'SK-10.5',
+    title: 'Физико-химические методы установления структуры органики',
+    subtitle: 'Спектроскопия ЯМР 1H, 13C, ИК-спектроскопия, масс-спектрометрия',
+    description: 'Определение строения неизвестных органических молекул по ИК-полосам поглощения, химическим сдвигам ЯМР и фрагментации массы.',
+    gradeLevel: '10-class',
+    branch: 'analytical',
+    bloomLevel: 'create',
+    fgosStandard: 'ВсОШ 10-11 класс / Олимпиада Менделеева',
+    fipiExamTarget: 'Заключительный этап ВсОШ / ДВИ МГУ',
+    ngssStandard: 'NGSS Advanced Molecular Spectroscopy',
+    pedagogicalNote: 'Анализ спектральных карт (Школа олимпиадного мастерства).',
+    prerequisites: ['skill-10-3', 'skill-10-4'],
+    nextSkills: ['skill-univ-4'],
+    position: { x: 840, y: 720 },
+    competencies: ['Расшифровка ЯМР', 'ИК-спектроскопия', 'Установление структуры'],
+    quiz: {
+      question: 'Какой сигнал в ИК-спектре указывает на наличие карбонильной группы C=O?',
+      options: ['Интенсивная полоса около 1700 см-1', 'Широкая полоса 3300 см-1', 'Узкий пик 2200 см-1', 'Пик 1050 см-1'],
+      correctIndex: 0,
+      explanation: 'Валентные колебания двойной связи C=O дают очень интенсивную полосу поглощения в области 1680–1750 см-1.'
+    }
+  },
+
+  // ================= 11 КЛАСС / ЕГЭ и ДВИ ВУЗ =================
+  {
+    id: 'skill-11-1',
+    code: 'SK-11.1',
+    title: 'Химическая кинетика и Равновесие (Принцип Ле Шателье)',
+    subtitle: 'Скорость реакции, энергия активации, смещение равновесия',
+    description: 'Количественное описание скорости реакций (Закон действующих масс Вант-Гоффа), факторы смещения химического равновесия.',
+    gradeLevel: '11-class',
+    branch: 'physical',
+    bloomLevel: 'apply',
+    fgosStandard: 'ФГОС СОО 4.2.1 (Кинетика и равновесие)',
+    fipiExamTarget: 'ЕГЭ №18, №22',
+    ngssStandard: 'NGSS HS-PS1-5: Reaction Rates & Le Chatelier Principle',
+    pedagogicalNote: 'Экспериментально-теоретический подход: прогнозирование смещения равновесия при изменении P, T, C.',
+    prerequisites: ['skill-8-2', 'skill-9-1'],
+    nextSkills: ['skill-11-4', 'skill-univ-1'],
+    position: { x: 1220, y: 80 },
+    competencies: ['Расчет скорости реакций', 'Принцип Ле Шателье', 'Управление технологическим процессом'],
+    quiz: {
+      question: 'В какую сторону сместится равновесие реакции N2 + 3H2 <=> 2NH3 + Q при повышении температуры?',
+      options: ['В сторону продуктов (вправо)', 'В сторону исходных веществ (влево)', 'Не сместится', 'Зависит от давления'],
+      correctIndex: 1,
+      explanation: 'По принципу Ле Шателье при нагревании экзотермической реакции (+Q) равновесие смещается в сторону эндотермической реакции (влево).'
+    }
+  },
+  {
+    id: 'skill-11-2',
+    code: 'SK-11.2',
+    title: 'Окислительно-восстановительные реакции (ОВР) и Электронный баланс',
+    subtitle: 'Окислители, восстановители, метод электронно-ионного баланса (полуреакций)',
+    description: 'Мастерство составителя ОВР: перманганат калия KMnO4 в кислой/нейтральной/щелочной средах, дихроматы K2Cr2O7, реакция №29 ЕГЭ.',
+    gradeLevel: '11-class',
+    branch: 'inorganic',
+    bloomLevel: 'analyze',
+    fgosStandard: 'ФГОС СОО 4.2.3 (ОВР процессы)',
+    fipiExamTarget: 'ЕГЭ №19, №29',
+    ngssStandard: 'NGSS HS-PS1-7: Oxidation-Reduction & Redox Balancing',
+    pedagogicalNote: 'Использование оригинальной системы фильтрации агентов ОВР, реализованной в тренажере портала.',
+    prerequisites: ['skill-8-2', 'skill-9-2', 'skill-9-3'],
+    nextSkills: ['skill-11-5', 'skill-univ-2'],
+    position: { x: 1220, y: 240 },
+    resources: [
+      { type: 'trainer', title: 'Интерактивный тренажер ОВР (Задание №29 - 20 задач)', urlOrTopicId: 'ovr-29' }
+    ],
+    trainerTopicId: 'ovr-29',
+    competencies: ['Метод электронного баланса', 'Прогноз продуктов ОВР в разных средах', 'Составление полуреакций'],
+    quiz: {
+      question: 'Во что превращается ион MnO4- (фиолетовый) в КИСЛОЙ среде в результате ОВР?',
+      options: ['MnO2 (коричневый осадок)', 'Mn2+ (обесцвечивание/почти бесцветный)', 'MnO4 2- (зеленый)', 'Mn2O7'],
+      correctIndex: 1,
+      explanation: 'В кислой среде перманганат-ион MnO4- полностью восстанавливается до катиона Mn2+ (раствор обесцвечивается).'
+    }
+  },
+  {
+    id: 'skill-11-3',
+    code: 'SK-11.3',
+    title: 'Сложные расчетные задачи высокой сложности (№34)',
+    subtitle: 'Атомистика, кристаллогидраты, растворимость и параллельные реакции',
+    description: 'Вершина школьной химии: многостадийные математико-химические расчеты со смесями, выражением массовых долей и выходом реакции.',
+    gradeLevel: '11-class',
+    branch: 'general',
+    bloomLevel: 'evaluate',
+    fgosStandard: 'ФГОС СОО 4.3.1 (Расчетные задачи)',
+    fipiExamTarget: 'ЕГЭ №34',
+    ngssStandard: 'NGSS HS-PS1-7: Advanced Stoichiometric Analysis',
+    pedagogicalNote: 'Формирование системного алгоритма составления уравнений баланса элементов и масс (школа Вяткина/ВУЗ).',
+    prerequisites: ['skill-9-2', 'skill-10-3', 'skill-11-2'],
+    nextSkills: ['skill-univ-1', 'skill-univ-3'],
+    position: { x: 1220, y: 400 },
+    competencies: ['Сложная стехиометрия', 'Алгебраическое моделирование реакций', 'Анализ растворимости и масс'],
+    quiz: {
+      question: 'Что такое растворимость соли при данной температуре?',
+      options: ['Массовая доля соли в растворе', 'Максимальная масса соли, растворяющаяся в 100 г воды', 'Объем газа при н.у.', 'Количество вещества в 1 литре'],
+      correctIndex: 1,
+      explanation: 'Растворимость — это максимальная масса вещества (в граммах), которая может раствориться в 100 г растворителя (воды) при данной температуре.'
+    }
+  },
+  {
+    id: 'skill-11-4',
+    code: 'SK-11.4',
+    title: 'Кристаллохимия и Термохимия ДВИ МГУ',
+    subtitle: 'Кристаллические решетки, Закон Гесса, энтальпии dH, энергия решетки',
+    description: 'Подготовка к ДВИ МГУ/СПбГУ: расчет плотности металлов по параметрам элементарной ячейки, энтальпии реакций и газовые законы при нагреве.',
+    gradeLevel: '11-class',
+    branch: 'olympiad',
+    bloomLevel: 'evaluate',
+    fgosStandard: 'Программа ДВИ МГУ им. М.В. Ломоносова / СПбГУ',
+    fipiExamTarget: 'ДВИ МГУ / Всерос 11 класс',
+    ngssStandard: 'NGSS Advanced Crystal Structure & Enthalpy Calculations',
+    pedagogicalNote: 'Термодинамика химических процессов по стандартам химического факультета МГУ.',
+    prerequisites: ['skill-11-1'],
+    nextSkills: ['skill-univ-2'],
+    position: { x: 1220, y: 560 },
+    competencies: ['ДВИ МГУ', 'Закон Гесса', 'Кристаллохимия'],
+    quiz: {
+      question: 'Какое соотношение выражает Закон Гесса для теплового эффекта химической реакции?',
+      options: ['dH реакции равен сумме dH образования продуктов минус сумма dH образования исходных', 'dH зависит от пути реакции', 'dH всегда равен нулю', 'dH равен только кинетической энергии'],
+      correctIndex: 0,
+      explanation: 'Тепловой эффект реакции зависит только от начального и конечного состояний веществ и равен разности энтальпий продуктов и реагентов.'
+    }
+  },
+  {
+    id: 'skill-11-5',
+    code: 'SK-11.5',
+    title: 'Многостадийные олимпиадные цепочки и ДВИ Синтез',
+    subtitle: 'Генетическая связь органики и неорганики уровня олимпиад I уровня',
+    description: 'Расшифровка зашифрованных схем превращений вещества (А -> Б -> В -> Г -> Д) с нетривиальными реагентами (SeO2, NBS, BBr3, LDA).',
+    gradeLevel: '11-class',
+    branch: 'olympiad',
+    bloomLevel: 'create',
+    fgosStandard: 'Олимпиада Ломоносов / Покори Воробьевы Горы / ВсОШ',
+    fipiExamTarget: 'Олимпиады I уровня / ДВИ МГУ',
+    ngssStandard: 'NGSS Advanced Organic & Inorganic Synthesis Schemes',
+    pedagogicalNote: 'Синтетическая логика (Кафедра органической химии МГУ).',
+    prerequisites: ['skill-10-4', 'skill-11-2'],
+    nextSkills: ['skill-univ-4'],
+    position: { x: 1220, y: 720 },
+    competencies: ['Олимпиадные цепочки', 'ДВИ МГУ синтез', 'Нестандартные реагенты'],
+    quiz: {
+      question: 'Какой реагент применяется для селективного аллильного бромирования алкенов без присоединения по двойной связи?',
+      options: ['N-бромсукцинимид (NBS)', 'Br2 в CCl4 на свету', 'HBr концентрированный', 'KBr + H2SO4'],
+      correctIndex: 0,
+      explanation: 'NBS (N-бромсукцинимид) при нагревании с инициатором дает низкую концентрацию Br2, что приводит исключительно к аллильному замещению.'
+    }
+  },
+
+  // ================= ВУЗ / ACADEMIA =================
+  {
+    id: 'skill-univ-1',
+    code: 'SK-UNI.1',
+    title: 'Квантовая химия и Строение молекул',
+    subtitle: 'Уравнение Шрёдингера, метод молекулярных орбиталей (МО ЛКАО)',
+    description: 'Университетский уровень: квантово-механическая модель атома, оператор Гамильтониана, связывающие и разрыхляющие орбитали, диаграммы МО.',
+    gradeLevel: 'university',
+    branch: 'physical',
+    bloomLevel: 'create',
+    fgosStandard: 'ФГОС ВО 04.03.01 Химия (Фундаментальный цикл)',
+    ngssStandard: 'Advanced University Physical Chemistry / Quantum Mechanics',
+    pedagogicalNote: 'Метапредметная интеграция высшей математики, дифференциальных уравнений и физики конденсированного состояния.',
+    prerequisites: ['skill-11-1'],
+    nextSkills: [],
+    position: { x: 1600, y: 140 },
+    competencies: ['Квантово-химические расчеты', 'Диаграммы МО ЛКАО', 'Спектроскопия и теория групп'],
+    quiz: {
+      question: 'Какое значение принимает порядок связи в молекуле азота N2 согласно методу МО ЛКАО?',
+      options: ['1', '2', '3', '0'],
+      correctIndex: 2,
+      explanation: 'В молекуле N2 имеется 8 электронов на связывающих МО и 2 на разрыхляющих, Порядок = (8 - 2)/2 = 3.'
+    }
+  },
+  {
+    id: 'skill-univ-2',
+    code: 'SK-UNI.2',
+    title: 'Химическая термодинамика и Электрохимия',
+    subtitle: 'Энтальпия H, Энтропия S, Энергия Гиббса G, Уравнение Нернста',
+    description: 'Строгий критерий самопроизвольного протекания процессов (dG < 0), электродные потенциалы, гальванические элементы и коррозия.',
+    gradeLevel: 'university',
+    branch: 'physical',
+    bloomLevel: 'create',
+    fgosStandard: 'ФГОС ВО 04.03.01 (Физическая химия)',
+    ngssStandard: 'Advanced University Chemical Thermodynamics',
+    pedagogicalNote: 'Моделирование систем с вычислением термодинамических функций по закону Гесса и вычисление ЭДС элементов.',
+    prerequisites: ['skill-11-1', 'skill-11-2', 'skill-11-4'],
+    nextSkills: [],
+    position: { x: 1600, y: 320 },
+    competencies: ['Расчет энергии Гиббса', 'Электрохимическое моделирование', 'Уравнение Нернста'],
+    quiz: {
+      question: 'При каком условии химическая реакция протекает самопроизвольно при постоянных T и P?',
+      options: ['dH > 0', 'dG < 0', 'dS = 0', 'dG > 0'],
+      correctIndex: 1,
+      explanation: 'Критерием самопроизвольного протекания изобарно-изотермического процесса является уменьшение энергии Гиббса: ΔG < 0.'
+    }
+  },
+  {
+    id: 'skill-univ-3',
+    code: 'SK-UNI.3',
+    title: 'Комплексные соединения и Координационная химия',
+    subtitle: 'Теория Вернера, теория кристаллического поля (ТКП), дентатность лигандов',
+    description: 'Строение комплексов переходных металлов (Fe, Cu, Co, Pt), расщепление d-орбиталей в октаэдрическом и тетраэдрическом полях, хелаты.',
+    gradeLevel: 'university',
+    branch: 'inorganic',
+    bloomLevel: 'create',
+    fgosStandard: 'ФГОС ВО 04.03.01 (Неорганическая и Координационная химия)',
+    ngssStandard: 'Advanced Inorganic Coordination Chemistry',
+    pedagogicalNote: 'Исследовательский STEM-проект по синтезу и спектрофотометрии комплексов меди и железа.',
+    prerequisites: ['skill-9-3', 'skill-9-4', 'skill-11-2'],
+    nextSkills: [],
+    position: { x: 1600, y: 500 },
+    competencies: ['Координационная химия', 'Теория кристаллического поля', 'Синтез хелатов и биокомплексов'],
+    quiz: {
+      question: 'Какое координационное число имеет центральный атом Fe в комплексе K4[Fe(CN)6]?',
+      options: ['4', '6', '2', '8'],
+      correctIndex: 1,
+      explanation: 'Лиганд CN- монодентатный, во внутренней сфере 6 цианид-ионов, поэтому координационное число железа равно 6.'
+    }
+  },
+  {
+    id: 'skill-univ-4',
+    code: 'SK-UNI.4',
+    title: 'Ретросинтетический анализ и Направленный органический синтез',
+    subtitle: 'Синтоны, защитные группы, планирование многостадийного синтеза сложных молекул',
+    description: 'Университетская и академическая вершина: метод ретросинтеза Элайаса Кори, стратегия расчленения связей, ортогональные защитные группы.',
+    gradeLevel: 'university',
+    branch: 'olympiad',
+    bloomLevel: 'create',
+    fgosStandard: 'ФГОС ВО 04.03.01 / Олимпиада Менделеева',
+    ngssStandard: 'Advanced Organic Retrosynthetic Analysis & Chemical Design',
+    pedagogicalNote: 'Ретросинтез по Кори (Нобелевская премия / Научно-исследовательская химия).',
+    prerequisites: ['skill-10-4', 'skill-10-5', 'skill-11-5'],
+    nextSkills: [],
+    position: { x: 1600, y: 680 },
+    competencies: ['Ретросинтез', 'Защитные группы', 'Научное проектирование'],
+    quiz: {
+      question: 'Что понимается под термином «Синтон» в ретросинтетическом анализе Кори?',
+      options: ['Гипотетический структурный фрагмент (катионный или анионный), соответствующий реально существующему реагенту', 'Идеальный газ', 'Молекула растворителя', 'Спектральный пик'],
+      correctIndex: 0,
+      explanation: 'Синтон — это условный фрагмент молекулы с формальным зарядом (например, R+ или R-), который замещается соответствующим синтетическим эквивалентом (реагентом).'
+    }
+  }
+];

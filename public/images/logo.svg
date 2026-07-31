@@ -1,0 +1,204 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <!-- Sky Blue Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#60B3FF" />
+      <stop offset="100%" stop-color="#3FA0FF" />
+    </linearGradient>
+
+    <!-- Glass Gradient Highlights -->
+    <linearGradient id="glassHighlight" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.6"/>
+      <stop offset="30%" stop-color="#FFFFFF" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.0"/>
+    </linearGradient>
+
+    <!-- Clip Path for Circular Logo Badge -->
+    <clipPath id="circleClip">
+      <circle cx="250" cy="250" r="235" />
+    </clipPath>
+  </defs>
+
+  <!-- Transparent outside, Circular Badge inside -->
+  <g clip-path="url(#circleClip)">
+    <!-- Base Blue Background -->
+    <rect x="0" y="0" width="500" height="500" fill="url(#bgGrad)" />
+
+    <!-- Subtle Hexagon Grid Pattern in Background -->
+    <g stroke="#2C7CD4" stroke-width="2" stroke-opacity="0.32" fill="none">
+      <!-- Hexagons Row 1 -->
+      <polygon points="70,40 105,20 140,40 140,80 105,100 70,80" />
+      <polygon points="140,40 175,20 210,40 210,80 175,100 140,80" />
+      <polygon points="210,40 245,20 280,40 280,80 245,100 210,80" />
+      <polygon points="280,40 315,20 350,40 350,80 315,100 280,80" />
+      <polygon points="350,40 385,20 420,40 420,80 385,100 350,80" />
+
+      <!-- Hexagons Row 2 -->
+      <polygon points="35,100 70,80 105,100 105,140 70,160 35,140" />
+      <polygon points="105,100 140,80 175,100 175,140 140,160 105,140" />
+      <polygon points="175,100 210,80 245,100 245,140 210,160 175,140" />
+      <polygon points="245,100 280,80 315,100 315,140 280,160 245,140" />
+      <polygon points="315,100 350,80 385,100 385,140 350,160 315,140" />
+      <polygon points="385,100 420,80 455,100 455,140 420,160 385,140" />
+
+      <!-- Hexagons Row 3 -->
+      <polygon points="70,160 105,140 140,160 140,200 105,220 70,200" />
+      <polygon points="140,160 175,140 210,160 210,200 175,220 140,200" />
+      <polygon points="210,160 245,140 280,160 280,200 245,220 210,200" />
+      <polygon points="280,160 315,140 350,160 350,200 315,220 280,200" />
+      <polygon points="350,160 385,140 420,160 420,200 385,220 350,200" />
+
+      <!-- Hexagons Row 4 -->
+      <polygon points="35,220 70,200 105,220 105,260 70,280 35,260" />
+      <polygon points="105,220 140,200 175,220 175,260 140,280 105,260" />
+      <polygon points="175,220 210,200 245,220 245,260 210,280 175,260" />
+      <polygon points="245,220 280,200 315,220 315,260 280,280 245,260" />
+      <polygon points="315,220 350,200 385,220 385,260 350,280 315,260" />
+      <polygon points="385,220 420,200 455,220 455,260 420,280 385,260" />
+
+      <!-- Hexagons Row 5 -->
+      <polygon points="70,280 105,260 140,280 140,320 105,340 70,320" />
+      <polygon points="140,280 175,260 210,280 210,320 175,340 140,320" />
+      <polygon points="210,280 245,260 280,280 280,320 245,340 210,320" />
+      <polygon points="280,280 315,260 350,280 350,320 315,340 280,320" />
+      <polygon points="350,280 385,260 420,280 420,320 385,340 350,320" />
+
+      <!-- Hexagons Row 6 -->
+      <polygon points="35,340 70,320 105,340 105,380 70,400 35,380" />
+      <polygon points="105,340 140,320 175,340 175,380 140,400 105,380" />
+      <polygon points="175,340 210,320 245,340 245,380 210,400 175,380" />
+      <polygon points="245,340 280,320 315,340 315,380 280,400 245,380" />
+      <polygon points="315,340 350,320 385,340 385,380 350,400 315,380" />
+      <polygon points="385,340 420,320 455,340 455,380 420,400 385,380" />
+    </g>
+
+    <!-- Shelf Line -->
+    <line x1="40" y1="390" x2="460" y2="390" stroke="#2C2456" stroke-width="7" stroke-linecap="round" />
+
+    <!-- ==================== FLASK 2: MIDDLE TALL CYLINDER ==================== -->
+    <g id="middleCylinder">
+      <!-- Outer Glass Fill & Contour -->
+      <path d="M 230 140 L 230 385 C 230 388 232 390 235 390 L 273 390 C 276 390 278 388 278 385 L 278 140 Z"
+            fill="#FFFFFF" stroke="#2C2456" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" />
+
+      <!-- Flared Top Spout Lip -->
+      <path d="M 224 140 C 224 133 232 133 234 133 L 274 133 C 285 133 286 140 278 140 Z"
+            fill="#E2E6F2" stroke="#2C2456" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" />
+
+      <!-- Pink Liquid Fill -->
+      <path d="M 233 215 
+               C 240 205, 250 220, 260 210 
+               C 268 202, 273 212, 275 210 
+               L 275 384 C 275 386 274 387 272 387 
+               L 236 387 C 234 387 233 386 233 384 Z"
+            fill="#ED2B93" stroke="#2C2456" stroke-width="5" stroke-linejoin="round" />
+
+      <!-- Darker Pink Wave Shade -->
+      <path d="M 233 215 C 240 205, 250 220, 260 210 C 268 202, 273 212, 275 210"
+            fill="none" stroke="#2C2456" stroke-width="5" stroke-linecap="round" />
+
+      <!-- Bubbles inside pink liquid -->
+      <circle cx="245" cy="245" r="4.5" fill="#2C2456" />
+      <circle cx="262" cy="275" r="3.5" fill="#2C2456" />
+      <circle cx="242" cy="310" r="5" fill="#2C2456" />
+      <circle cx="258" cy="345" r="4" fill="#2C2456" />
+
+      <!-- Floating Bubbles above liquid in cylinder neck -->
+      <circle cx="252" cy="180" r="6" fill="#ED2B93" stroke="#2C2456" stroke-width="4" />
+      <circle cx="240" cy="162" r="3.5" fill="#2C2456" />
+    </g>
+
+    <!-- Floating Pink Bubbles outside cylinder top -->
+    <circle cx="258" cy="105" r="14" fill="#ED2B93" stroke="#2C2456" stroke-width="6" />
+    <circle cx="266" cy="78" r="7.5" fill="#ED2B93" stroke="#2C2456" stroke-width="4.5" />
+    <circle cx="253" cy="65" r="4" fill="#ED2B93" stroke="#2C2456" stroke-width="3" />
+
+    <!-- ==================== FLASK 1: LEFT ROUND FLASK WITH CORK ==================== -->
+    <g id="leftFlask">
+      <!-- Outer Glass Fill & Contour -->
+      <path d="M 172 165 L 172 230
+               C 142 245 120 278 120 318
+               C 120 360 152 390 192 390
+               C 232 390 264 360 264 318
+               C 264 278 242 245 212 230
+               L 212 165 Z"
+            fill="#FFFFFF" stroke="#2C2456" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" />
+
+      <!-- Top Lip Ring -->
+      <rect x="164" y="155" width="56" height="12" rx="4"
+            fill="#E2E6F2" stroke="#2C2456" stroke-width="6" stroke-linejoin="round" />
+
+      <!-- Cork Stopper -->
+      <path d="M 174 155 L 170 130 C 170 126 174 124 178 124 L 206 124 C 210 124 214 126 214 130 L 210 155 Z"
+            fill="#D49A6A" stroke="#2C2456" stroke-width="6" stroke-linejoin="round" />
+      <line x1="172" y1="140" x2="212" y2="140" stroke="#B87B4B" stroke-width="3" stroke-linecap="round" />
+
+      <!-- Red/Coral Liquid Fill -->
+      <path d="M 124 315 
+               C 134 300, 146 315, 156 302
+               C 166 290, 178 308, 188 295
+               C 198 285, 210 305, 220 294
+               C 230 285, 242 305, 252 298
+               C 260 305, 263 310, 263 318
+               C 263 357 232 386 192 386
+               C 152 386 124 357 124 318 Z"
+            fill="#FF4D4D" stroke="#2C2456" stroke-width="5" stroke-linejoin="round" />
+
+      <!-- Cloud Wave Foam Top -->
+      <path d="M 124 315 
+               C 134 300, 146 315, 156 302
+               C 166 290, 178 308, 188 295
+               C 198 285, 210 305, 220 294
+               C 230 285, 242 305, 252 298"
+            fill="none" stroke="#2C2456" stroke-width="5" stroke-linecap="round" />
+
+      <!-- Bubbles inside Red Liquid -->
+      <circle cx="155" cy="340" r="5" fill="#2C2456" />
+      <circle cx="178" cy="365" r="4" fill="#2C2456" />
+      <circle cx="215" cy="348" r="6" fill="#2C2456" />
+      <circle cx="235" cy="330" r="4" fill="#2C2456" />
+      <circle cx="190" cy="325" r="7" fill="#FF7070" stroke="#2C2456" stroke-width="4" />
+      <circle cx="210" cy="312" r="4.5" fill="#FF7070" stroke="#2C2456" stroke-width="3" />
+
+      <!-- Bubbles in neck -->
+      <circle cx="185" cy="250" r="5.5" fill="#FF4D4D" stroke="#2C2456" stroke-width="3.5" />
+      <circle cx="198" cy="222" r="4" fill="#2C2456" />
+      <circle cx="180" cy="205" r="6" fill="#FF4D4D" stroke="#2C2456" stroke-width="4" />
+    </g>
+
+    <!-- ==================== FLASK 3: RIGHT ERLENMEYER FLASK ==================== -->
+    <g id="rightFlask">
+      <!-- Outer Glass Fill & Contour -->
+      <path d="M 292 210 L 278 265 L 244 380 C 242 387 246 390 252 390 L 388 390 C 394 390 398 387 396 380 L 362 265 L 348 210 Z"
+            fill="#FFFFFF" stroke="#2C2456" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" />
+
+      <!-- Top Lip Ring -->
+      <rect x="284" y="200" width="72" height="12" rx="4"
+            fill="#E2E6F2" stroke="#2C2456" stroke-width="6" stroke-linejoin="round" />
+
+      <!-- Turquoise / Cyan Liquid Fill -->
+      <path d="M 262 320 
+               C 278 305, 295 328, 312 312 
+               C 328 298, 345 320, 360 308 
+               C 370 316, 375 320, 377 325 
+               L 394 382 C 395 385 394 386 390 386 
+               L 250 386 C 246 386 245 385 246 382 Z"
+            fill="#00E5A3" stroke="#2C2456" stroke-width="5" stroke-linejoin="round" />
+
+      <!-- Liquid Wave Surface Line -->
+      <path d="M 262 320 C 278 305, 295 328, 312 312 C 328 298, 345 320, 360 308"
+            fill="none" stroke="#2C2456" stroke-width="5" stroke-linecap="round" />
+
+      <!-- Bubbles inside Turquoise Liquid -->
+      <circle cx="285" cy="355" r="5" fill="#2C2456" />
+      <circle cx="310" cy="340" r="7" fill="#00E5A3" stroke="#2C2456" stroke-width="4" />
+      <circle cx="332" cy="365" r="4.5" fill="#2C2456" />
+      <circle cx="355" cy="345" r="6" fill="#2C2456" />
+      <circle cx="372" cy="360" r="3.5" fill="#2C2456" />
+
+      <!-- Floating Bubbles above liquid in Erlenmeyer neck -->
+      <circle cx="310" cy="285" r="5.5" fill="#00E5A3" stroke="#2C2456" stroke-width="3.5" />
+      <circle cx="325" cy="255" r="4" fill="#2C2456" />
+    </g>
+  </g>
+</svg>
