@@ -1,4 +1,4 @@
-import { BookOpen, FileText, BarChart3, Video, Compass, ArrowRight, Sparkles } from 'lucide-react';
+import { BookOpen, FileText, BarChart3, Video, Compass, ArrowRight, Sparkles, Atom } from 'lucide-react';
 import { useRouter } from '../../routes/router';
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
 }
 
 export const FuturePortal: React.FC<Props> = ({ onOpenSkillMap }) => {
-  const { openSkillMap, openStudyBlock } = useRouter();
+  const { openSkillMap, openStudyBlock, openPeriodicTable } = useRouter();
   const handleOpenSkillMap = onOpenSkillMap || (() => openSkillMap());
   return (
     <section id="future" className="py-16 bg-white border-b border-slate-200">
@@ -95,18 +95,38 @@ export const FuturePortal: React.FC<Props> = ({ onOpenSkillMap }) => {
             </button>
           </div>
 
-          {/* 3. Лекционный хаб (In development) */}
-          <div className="clean-card p-6 bg-slate-50 border border-slate-200 flex flex-col justify-between">
-            <div>
-              <div className="w-10 h-10 rounded-xl bg-white border border-slate-200 text-amber-600 flex items-center justify-center font-bold mb-4 shadow-sm">
-                <BookOpen className="w-5 h-5" />
+          {/* 3. Интерактивная таблица Менделеева (AVAILABLE WITH VIOLET/INDIGO/CYAN COLOR SCHEME) */}
+          <div 
+            className="rounded-2xl p-6 bg-gradient-to-b from-slate-900 via-indigo-950 to-slate-950 border border-sky-500/60 ring-1 ring-sky-500/30 shadow-xl shadow-sky-500/10 relative overflow-hidden flex flex-col justify-between group cursor-pointer hover:border-sky-400 hover:shadow-2xl hover:shadow-sky-500/20 transition-all duration-300 hover:-translate-y-1"
+            onClick={() => openPeriodicTable()}
+          >
+            <div className="absolute -top-10 -right-10 w-36 h-36 bg-sky-500/20 rounded-full blur-2xl pointer-events-none" />
+            <div className="absolute -bottom-10 -left-10 w-36 h-36 bg-purple-500/15 rounded-full blur-2xl pointer-events-none" />
+            
+            <div className="relative z-10">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-sky-400 via-indigo-500 to-purple-500 text-slate-950 flex items-center justify-center font-bold shadow-md shadow-sky-500/20">
+                  <Atom className="w-5 h-5 text-slate-950" />
+                </div>
+                <span className="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase text-sky-300 bg-sky-500/20 border border-sky-500/40 px-2.5 py-1 rounded-full shadow-sm">
+                  <Sparkles className="w-3 h-3 text-sky-300" />
+                  Уже доступно
+                </span>
               </div>
-              <h3 className="text-base font-bold text-slate-900 mb-1">Лекционный хаб</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">Централизованная база теории и авторских видеолекций 24/7</p>
+
+              <h3 className="text-lg font-extrabold text-white mb-1.5">Таблица Менделеева</h3>
+              <p className="text-xs text-sky-100/90 leading-relaxed mb-4">
+                Интерактивный справочник 118 элементов с Боровской моделью атома, симулятором температуры (0–6000 K), теплокартами и подробной аналитикой.
+              </p>
             </div>
-            <span className="inline-block mt-3 text-[10px] font-bold uppercase text-amber-700 bg-amber-100 px-2.5 py-0.5 rounded-full w-fit">
-              В разработке
-            </span>
+
+            <button
+              onClick={(e) => { e.stopPropagation(); openPeriodicTable(); }}
+              className="relative z-10 w-full py-2.5 rounded-xl bg-gradient-to-r from-sky-400 via-indigo-500 to-purple-500 hover:from-sky-300 hover:to-purple-400 text-slate-950 font-extrabold text-xs shadow-md transition flex items-center justify-center gap-2 mt-2 group cursor-pointer"
+            >
+              <span>Открыть таблицу Менделеева</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </button>
           </div>
 
           {/* 4. Конспекты & Шпаргалки (In development) */}

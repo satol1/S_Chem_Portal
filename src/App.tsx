@@ -13,6 +13,7 @@ import { Inorganic31Trainer } from './components/trainers/Inorganic31Trainer';
 import { ReactionsTrainer } from './components/trainers/ReactionsTrainer';
 import { NitrogenPhosphorusTestTrainer } from './components/trainers/NitrogenPhosphorusTestTrainer';
 import { SkillMapPage } from './components/skillMap/SkillMapPage';
+import { PeriodicTablePage } from './components/periodicTable/PeriodicTablePage';
 import { Courses } from './components/sections/Courses';
 import { LocationContacts } from './components/sections/LocationContacts';
 import { FuturePortal } from './components/sections/FuturePortal';
@@ -60,7 +61,9 @@ const AppContent: React.FC = () => {
       <Header onOpenModal={() => handleOpenModal()} />
 
       <main className="flex-grow">
-        {match.route === 'skill-map' ? (
+        {match.route === 'periodic-table' ? (
+          <PeriodicTablePage />
+        ) : match.route === 'skill-map' ? (
           <SkillMapPage initialSkillId={match.skillId} />
         ) : match.route === 'trainers-catalog' ? (
           <TrainersCatalogPage />

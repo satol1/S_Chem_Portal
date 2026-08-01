@@ -8,7 +8,8 @@ export type RouteType =
   | 'reactions-np-trainer'
   | 'np-test-14-1-trainer'
   | 'skill-map'
-  | 'study-blocks';
+  | 'study-blocks'
+  | 'periodic-table';
 
 export interface RouteMatch {
   route: RouteType;
@@ -28,6 +29,7 @@ interface RouterContextType {
   openTrainerTopic: (topicId: string) => void;
   openSkillMap: (skillId?: string) => void;
   openStudyBlock: (blockId?: string, topicId?: string, mode?: 'theory' | 'practice') => void;
+  openPeriodicTable: () => void;
 }
 
 export function getRouteFromLocation(): string {
@@ -99,6 +101,10 @@ export function parseRoute(rawPath: string): RouteMatch {
 
   if (cleanPath === '/trainers/np-test-14-1') {
     return { route: 'np-test-14-1-trainer', path: '/trainers/np-test-14-1' };
+  }
+
+  if (cleanPath === '/periodic-table' || cleanPath === '/periodic-table/') {
+    return { route: 'periodic-table', path: '/periodic-table' };
   }
 
   if (cleanPath === '/skill-map') {
@@ -202,6 +208,8 @@ export const RouterProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     }
   }, [navigate]);
 
+  const openPeriodicTable = useCallback(() => navigate('/periodic-table'), [navigate]);
+
   const value = useMemo(
     () => ({
       currentPath,
@@ -212,8 +220,9 @@ export const RouterProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       openTrainerTopic,
       openSkillMap,
       openStudyBlock,
+      openPeriodicTable,
     }),
-    [currentPath, match, navigate, goHome, openTrainersCatalog, openTrainerTopic, openSkillMap, openStudyBlock]
+    [currentPath, match, navigate, goHome, openTrainersCatalog, openTrainerTopic, openSkillMap, openStudyBlock, openPeriodicTable]
   );
 
   return (

@@ -78,3 +78,192 @@ p, span, li, button, input, select {
   background-color: #e4eef7;
 }
 
+/* Стили Интерактивной Таблицы Менделеева */
+.glass-panel {
+  background: rgba(18, 26, 43, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+}
+
+.glass-modal {
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(56, 189, 248, 0.15);
+}
+
+.table-scroll-wrapper {
+  width: 100%;
+  overflow: hidden;
+  padding: 4px 0;
+}
+
+.periodic-grid-container {
+  display: grid;
+  grid-template-columns: repeat(18, minmax(0, 1fr));
+  gap: 4px;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 2px;
+}
+
+.element-cell {
+  position: relative;
+  aspect-ratio: 1 / 1.12;
+  border-radius: 6px;
+  padding: 3px 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease, border-color 0.18s ease, opacity 0.18s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  background: rgba(18, 26, 43, 0.6);
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.element-cell:hover {
+  transform: translateY(-4px) scale(1.05) translateZ(0);
+  z-index: 10;
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.5), 0 0 15px var(--cell-glow);
+}
+
+.element-cell.dimmed {
+  opacity: 0.22;
+  filter: grayscale(80%);
+  transform: scale(0.96) translateZ(0);
+}
+
+.element-cell.active-selected {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+  transform: translateY(-4px) scale(1.06) translateZ(0);
+  z-index: 20;
+}
+
+.cell-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: clamp(8px, 0.75vw, 10px);
+  font-family: monospace;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1;
+}
+
+.cell-number {
+  font-weight: 700;
+}
+
+.cell-mass {
+  font-size: clamp(7px, 0.65vw, 9px);
+  opacity: 0.8;
+  white-space: nowrap;
+}
+
+.cell-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 1px 0;
+}
+
+.cell-symbol {
+  font-family: var(--font-heading);
+  font-size: clamp(12px, 1.25vw, 20px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.cell-name-ru {
+  font-size: clamp(7px, 0.7vw, 10px);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.95);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  margin-top: 1px;
+  line-height: 1.1;
+}
+
+.cell-bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: clamp(6px, 0.6vw, 8px);
+  color: rgba(255, 255, 255, 0.7);
+  font-family: monospace;
+  line-height: 1;
+}
+
+.cell-config {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.state-badge {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.state-solid { background-color: #38bdf8; box-shadow: 0 0 6px #38bdf8; }
+.state-liquid { background-color: #f59e0b; box-shadow: 0 0 6px #f59e0b; }
+.state-gas { background-color: #ec4899; box-shadow: 0 0 6px #ec4899; }
+.state-synthetic { background-color: #a855f7; box-shadow: 0 0 6px #a855f7; }
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 8, 15, 0.82);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content {
+  width: 100%;
+  max-width: 920px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 20px;
+  padding: 30px;
+  position: relative;
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 12s linear infinite;
+}
+
+

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { 
-  BookOpen, Zap, Filter 
+  BookOpen, FlaskConical, Filter 
 } from 'lucide-react';
 import { STUDY_BLOCKS } from '../../data/studyBlocksData';
 import { useRouter } from '../../routes/router';
@@ -144,13 +144,13 @@ export const StudyBlockDetailPage: React.FC<Props> = ({ blockId }) => {
               </div>
 
               {/* Action Buttons for Theory and Practice */}
-              <div className="pt-6 mt-6 border-t border-slate-100 space-y-2">
+              <div className="pt-4 mt-6 border-t border-slate-100 grid grid-cols-2 gap-2">
                 <button
                   onClick={() => openStudyBlock(block.id, topic.id, 'theory')}
-                  className="w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs shadow-sm transition flex items-center justify-center gap-2"
+                  className="py-2 px-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs shadow-sm transition flex items-center justify-center gap-1.5 min-w-0"
                 >
-                  <BookOpen className="w-3.5 h-3.5 text-amber-400" />
-                  <span>Читать теорию темы</span>
+                  <BookOpen className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                  <span className="truncate">Теория</span>
                 </button>
 
                 {(() => {
@@ -159,14 +159,16 @@ export const StudyBlockDetailPage: React.FC<Props> = ({ blockId }) => {
                   return (
                     <button
                       onClick={() => openStudyBlock(block.id, topic.id, 'practice')}
-                      className={`w-full py-2.5 px-4 rounded-xl font-extrabold text-xs transition flex items-center justify-center gap-2 ${
+                      className={`py-2 px-2.5 rounded-lg font-extrabold text-xs transition flex items-center justify-center gap-1.5 min-w-0 ${
                         hasTrainers
                           ? 'bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-sm shadow-amber-500/20 border border-amber-400'
                           : 'bg-slate-100 hover:bg-slate-200 text-slate-500 border border-slate-200'
                       }`}
                     >
-                      <Zap className={`w-3.5 h-3.5 ${hasTrainers ? 'text-slate-950' : 'text-slate-400'}`} />
-                      <span>Практика и Тренажер ({trainersCount})</span>
+                      <FlaskConical className={`w-3.5 h-3.5 shrink-0 ${hasTrainers ? 'text-slate-950' : 'text-slate-400'}`} />
+                      <span className="truncate">
+                        Практика{trainersCount > 0 ? ` (${trainersCount})` : ''}
+                      </span>
                     </button>
                   );
                 })()}
