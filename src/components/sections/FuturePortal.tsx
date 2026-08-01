@@ -14,9 +14,6 @@ export const FuturePortal: React.FC<Props> = ({ onOpenSkillMap }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="max-w-3xl mb-10">
-          <span className="text-xs font-bold uppercase tracking-wider text-amber-700 block mb-2">
-            Развитие экосистемы
-          </span>
           <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
             Будущие и интерактивные разделы образовательного портала
           </h2>
@@ -76,7 +73,7 @@ export const FuturePortal: React.FC<Props> = ({ onOpenSkillMap }) => {
                 </div>
                 <span className="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase text-amber-300 bg-amber-500/20 border border-amber-500/30 px-2.5 py-1 rounded-full shadow-sm">
                   <Sparkles className="w-3 h-3 text-amber-400" />
-                  Уже доступно
+                  Теория и тренажеры
                 </span>
               </div>
 
@@ -110,7 +107,7 @@ export const FuturePortal: React.FC<Props> = ({ onOpenSkillMap }) => {
                 </div>
                 <span className="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase text-sky-300 bg-sky-500/20 border border-sky-500/40 px-2.5 py-1 rounded-full shadow-sm">
                   <Sparkles className="w-3 h-3 text-sky-300" />
-                  Уже доступно
+                  Интерактивный справочник
                 </span>
               </div>
 
