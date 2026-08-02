@@ -8,7 +8,7 @@ export const SulfurOxygenTheoryView: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>('section-general');
 
   const navItems = [
-    { id: 'section-general', label: '1. Строение S и O' },
+    { id: 'section-general', label: '1. Свойства элементов VI-A' },
     { id: 'section-allotropes', label: '2. Аллотропия S₈ и O₃' },
     { id: 'section-peroxide', label: '3. Пероксид H₂O₂' },
     { id: 'section-sulfides', label: '4. H₂S и Сульфиды' },
@@ -26,21 +26,16 @@ export const SulfurOxygenTheoryView: React.FC = () => {
     }
   };
 
-  const handleGoToPractice = () => {
-    openStudyBlock('elements-chemistry', 'elem-nonme-so', 'practice');
-  };
-
   return (
     <div className="space-y-8 font-body text-slate-800 leading-relaxed text-sm sm:text-base">
       <SulfurOxygenHeader
         navItems={navItems}
         activeSection={activeSection}
         setActiveSection={setActiveSection}
-        handleGoToPractice={handleGoToPractice}
       />
       <SulfurOxygenSections
         scrollToNav={scrollToNav}
-        handleGoToPractice={handleGoToPractice}
+        handleGoToPractice={() => openStudyBlock('elements-chemistry', 'elem-nonme-so', 'practice')}
       />
     </div>
   );

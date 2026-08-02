@@ -1,131 +1,131 @@
 import React from 'react';
-import { Lightbulb, Zap, ArrowRight, ShieldAlert, Sparkles, Atom, Flame, FlaskConical, Layers, Factory, Box } from 'lucide-react';
-import { TopicQuickNavTags, type QuickNavTag } from '../../TopicQuickNavTags';
+import { 
+  Zap, ArrowRight, Lightbulb, AlertTriangle, 
+  FlaskConical, Atom, TestTube, Orbit 
+} from 'lucide-react';
+import { ChemFormula } from '../../../scientific/ChemFormula';
+import { TermTooltip } from '../../../scientific/TermTooltip';
 import { TopicNavGrid } from '../../TopicNavGrid';
+import { TopicQuickNavTags, type QuickNavTag } from '../../TopicQuickNavTags';
+import { useRouter } from '../../../../routes/router';
 
 interface HeaderProps {
   navItems: { id: string; label: string }[];
   activeSection: string;
   setActiveSection: (id: string) => void;
-  handleGoToPractice: () => void;
 }
 
 export const SulfurOxygenHeader: React.FC<HeaderProps> = ({
   navItems,
   activeSection,
-  setActiveSection,
-  handleGoToPractice
+  setActiveSection
 }) => {
   const quickNavTags: QuickNavTag[] = [
-    { label: 'Строение S и O', targetId: 'section-general', icon: Atom },
-    { label: 'Аллотропия S₈ и O₃', targetId: 'section-allotropes', icon: Layers },
-    { label: 'Пероксид H₂O₂', targetId: 'section-peroxide', icon: FlaskConical },
-    { label: 'H₂S и Сульфиды', targetId: 'section-sulfides', icon: Flame },
-    { label: 'Оксиды SO₂ и SO₃', targetId: 'section-oxides', icon: Sparkles },
-    { label: 'Серная кислота (H₂SO₄)', targetId: 'section-h2so4', icon: FlaskConical },
-    { label: 'Сульфаты и Олеум', targetId: 'section-salts', icon: Layers },
-    { label: 'Контактный способ', targetId: 'section-industry', icon: Factory },
-    { label: '3D-Модели', targetId: 'section-molecules-3d', icon: Box },
+    { targetId: 'section-allotropes', label: 'Аллотропия S₈ и O₃', icon: Atom },
+    { targetId: 'section-h2so4', label: 'Серная кислота и ОВР', icon: TestTube },
+    { targetId: 'section-molecules-3d', label: '3D-Модели веществ', icon: Orbit },
   ];
+  const { openStudyBlock } = useRouter();
+
+  const handleGoToPractice = () => {
+    openStudyBlock('elements-chemistry', 'elem-nonme-so', 'practice');
+  };
 
   return (
-    <div className="space-y-6">
-      {/* Main Topic Header Card */}
-      <div className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-sm space-y-5">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="px-3 py-1 rounded-lg text-xs font-mono font-bold bg-slate-900 text-amber-400">
+    <div className="space-y-8 font-body text-slate-800 leading-relaxed text-sm sm:text-base">
+      
+      {/* 1. Academic Topic Header Card */}
+      <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-4">
+        <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-slate-600 font-medium">
+          <span className="px-2.5 py-0.5 rounded bg-slate-100 text-slate-900 font-mono font-semibold">
             ХЭ-06
           </span>
-          <span className="text-xs font-bold text-slate-500">
-            Химия элементов (Неорганика)
-          </span>
-          <span className="text-xs font-bold text-slate-700 bg-slate-100 px-2.5 py-0.5 rounded border border-slate-200">
-            ЕГЭ / ДВИ / Всерос
-          </span>
+          <span>•</span>
+          <span>Химия элементов</span>
+          <span>•</span>
+          <span>VI-A Группа (Подгруппа кислорода)</span>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight">
-          Сера (S) и кислород (O)
+        <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight flex items-center gap-3">
+          <FlaskConical className="w-8 h-8 text-slate-800 shrink-0" />
+          <span>Химия серы (S) и кислорода (O)</span>
         </h1>
 
-        <p className="text-sm font-semibold text-amber-800">
-          Халькогены, аллотропия (S₈, O₃), пероксид водорода H₂O₂, сульфиды, олеум, контактный способ производства H₂SO₄ и специфические ОВР
+        <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal max-w-4xl">
+          Халькогены, аллотропия (S₈, O₃), пероксид водорода H₂O₂, сульфиды, оксиды SO₂, SO₃, концентрированная серная кислота H₂SO₄ (олеум), контактный способ производства и 3D-модели веществ.
         </p>
 
-        <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-          Фундаментальный академический конспект по элементам VI-A группы. Положение в ПСХО, квантовые ограничения валентности кислорода (до II), валентные возможности серы (II, IV, VI), свойства O₂, O₃, H₂O₂, H₂S, SO₂, SO₃, концентрированной серной кислоты H₂SO₄, промышленный контактный способ и разбор критериев ФИПИ.
-        </p>
-
-        {/* Quick Nav Tags Component */}
-        <div className="pt-2">
+        <div className="pt-4 flex flex-wrap items-center justify-between gap-4 border-t border-slate-100 text-xs sm:text-sm text-slate-600">
           <TopicQuickNavTags tags={quickNavTags} />
-        </div>
-
-        {/* Quick Action Button to Practice */}
-        <div className="pt-4 flex flex-wrap items-center justify-between gap-4 border-t border-slate-100">
-          <span className="text-xs text-slate-500 font-medium">
-            Академический конспект по кодификатору ФИПИ 2026 года
-          </span>
 
           <button
             onClick={handleGoToPractice}
-            className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs shadow transition flex items-center gap-2"
+            className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs sm:text-sm shadow-sm transition flex items-center gap-2"
           >
-            <Zap className="w-4 h-4 fill-slate-950" />
-            <span>Перейти к практикуму и тренажерам</span>
+            <Zap className="w-4 h-4 text-amber-400 fill-amber-400" />
+            <span>Перейти к практикуму темы</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>
       </div>
 
-      {/* Key Idea Lightbulb Banner */}
-      <div className="p-6 rounded-3xl bg-amber-50 border border-amber-200 text-amber-950 flex items-start gap-4 shadow-sm">
-        <div className="p-3 rounded-2xl bg-amber-500 text-slate-950 shrink-0">
-          <Lightbulb className="w-6 h-6" />
+      {/* 2. Key Idea Lightbulb Banner */}
+      <div className="p-4 sm:p-5 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 flex items-start gap-3.5 shadow-xs">
+        <div className="p-2.5 rounded-lg bg-slate-200 text-slate-800 shrink-0">
+          <Lightbulb className="w-5 h-5 text-slate-700" />
         </div>
-        <div>
-          <h3 className="text-base font-extrabold text-amber-950 mb-1">
+        <div className="space-y-1 text-xs sm:text-sm">
+          <h3 className="font-bold text-slate-900">
             Ключевая идея темы:
           </h3>
-          <p className="text-xs sm:text-sm font-medium text-amber-900 leading-relaxed">
-            Кислород — второй по электроотрицательности элемент (после фтора), ограничен валентностью II из-за отсутствия d-орбиталей на 2-м периоде. Сера за счет доступных 3d-орбиталей расширяет валентную оболочку до VI и образует степени окисления -2, 0, +2, +4, +6. Концентрированная H₂SO₄ — мощнейший ОВР-окислитель и дегидрататор, пассивирующий Fe, Cr, Al на холоду.
+          <p className="text-slate-600 leading-relaxed font-normal">
+            Кислород — второй по электроотрицательности элемент (после фтора), ограничен валентностью II из-за отсутствия d-орбиталей на 2-м периоде. Сера за счет доступных 3d-орбиталей расширяет валентную оболочку до VI и образует степени окисления -2, 0, +2, +4, +6. Концентрированная <ChemFormula formula="H2SO4" className="font-semibold text-slate-900" /> — мощнейший ОВР-окислитель и дегидрататор, пассивирующий Fe, Cr, Al на холоду.
           </p>
         </div>
       </div>
 
-      {/* FIPI Pitfalls Alert Callout */}
-      <div className="p-6 rounded-3xl bg-rose-50 border border-rose-200 text-rose-950 space-y-3 shadow-sm">
-        <div className="flex items-center gap-2 text-rose-900 font-extrabold text-sm">
-          <ShieldAlert className="w-5 h-5 text-rose-600 shrink-0" />
-          <span>Важные экзаменационные подводные камни ФИПИ (Задания 8, 9, 29, 31):</span>
+      {/* 3. Important Exam Pitfalls Alert Banner */}
+      <div className="p-5 rounded-xl bg-slate-50 border-l-4 border-l-amber-500 border-y border-r border-slate-200 text-slate-800 space-y-3 shadow-xs">
+        <div className="flex items-center gap-2 font-bold text-slate-900 text-sm sm:text-base border-b border-slate-200/60 pb-2">
+          <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0" />
+          <span>Важные экзаменационные «подводные камни» ФИПИ:</span>
         </div>
-        <ul className="space-y-2 pl-5 list-disc text-xs sm:text-sm text-rose-900 font-medium leading-relaxed">
-          <li>
-            <strong>Концентрированная H₂SO₄ с металлами:</strong> РЕАКЦИЯ ИДЕТ БЕЗ ВЫДЕЛЕНИЯ ВОДОРОДА (H₂)! Газом-продуктом восстановлена сера: SO₂, S или H₂S.
+
+        <ul className="space-y-2.5 text-xs sm:text-sm text-slate-700 font-normal leading-relaxed">
+          <li className="flex items-start gap-2">
+            <span className="px-1.5 py-0.5 rounded bg-slate-200 text-slate-900 text-xs font-mono font-bold shrink-0">1</span>
+            <div>
+              <strong>Концентрированная <ChemFormula formula="H2SO4" /> с металлами</strong>: РЕАКЦИЯ ИДЕТ БЕЗ ВЫДЕЛЕНИЯ ВОДОРОДА (<ChemFormula formula="H2" />)! Газообразным продуктом является <ChemFormula formula="SO2" />, элементная сера <ChemFormula formula="S" /> или сероводород <ChemFormula formula="H2S" /> в зависимости от активности металла.
+            </div>
           </li>
-          <li>
-            <strong>Пассивация на холоду:</strong> Железо (Fe), хром (Cr) и алюминий (Al) НЕ РЕАГИРУЮТ с концентрированной H₂SO₄ при 20°C! Для проведения реакции необходим нагрев.
+          <li className="flex items-start gap-2">
+            <span className="px-1.5 py-0.5 rounded bg-slate-200 text-slate-900 text-xs font-mono font-bold shrink-0">2</span>
+            <div>
+              <strong>Пассивация на холоду</strong>: Железо (<ChemFormula formula="Fe" />), хром (<ChemFormula formula="Cr" />) и алюминий (<ChemFormula formula="Al" />) НЕ РЕАГИРУЮТ с концентрированной <ChemFormula formula="H2SO4" /> при 20°C! Для снятия пассивирующей пленки необходим нагрев.
+            </div>
           </li>
-          <li>
-            <strong>Нерастворимость сульфидов:</strong> Сульфиды меди (CuS), свинца (PbS), серебра (Ag₂S) и ртути (HgS) НЕ растворяются в разбавленных неокисляющих кислотах (HCl, H₂SO₄ разб).
+          <li className="flex items-start gap-2">
+            <span className="px-1.5 py-0.5 rounded bg-slate-200 text-slate-900 text-xs font-mono font-bold shrink-0">3</span>
+            <div>
+              <strong>Нерастворимость сульфидов в сильных кислотах</strong>: Сульфиды меди (<ChemFormula formula="CuS" />), свинца (<ChemFormula formula="PbS" />), серебра (<ChemFormula formula="Ag2S" />) и ртути (<ChemFormula formula="HgS" />) НЕ растворяются в разбавленных неокисляющих кислотах (<ChemFormula formula="HCl" />, <ChemFormula formula="H2SO4(разб)" />).
+            </div>
           </li>
-          <li>
-            <strong>Необратимый совместный гидролиз:</strong> При смешивании солей Al³⁺ или Cr³⁺ с сульфидами S²⁻ в растворе образуется осадок гидроксида Al(OH)₃/Cr(OH)₃ и выделяется газ H₂S!
-          </li>
-          <li>
-            <strong>Качественная реакция на SO₄²⁻:</strong> Образование белого мелкокристаллического осадка BaSO₄, нерастворимого ни в H₂O, ни в концентрированных HNO₃/HCl.
+          <li className="flex items-start gap-2">
+            <span className="px-1.5 py-0.5 rounded bg-slate-200 text-slate-900 text-xs font-mono font-bold shrink-0">4</span>
+            <div>
+              <strong><TermTooltip term="Совместный (взаимный) гидролиз солей" definition="Взаимно усиливающийся необратимый гидролиз солей слабых кислот и слабых оснований с выпадением осадка гидроксида и выделением H2S." /></strong>: При смешивании солей <ChemFormula formula="Al(3+)" /> или <ChemFormula formula="Cr(3+)" /> с сульфидами происходит взаимный гидролиз с выпадением осадка гидроксида и выделением газа <ChemFormula formula="H2S^" />.
+            </div>
           </li>
         </ul>
       </div>
 
-      {/* Navigation TOC Grid (#nav-toc) */}
-      <div id="nav-toc">
-        <TopicNavGrid
-          navItems={navItems}
-          activeSection={activeSection}
-          onSelectSection={setActiveSection}
-        />
-      </div>
+      {/* 4. Table of Contents Navigation Grid */}
+      <TopicNavGrid
+        navItems={navItems}
+        activeSection={activeSection}
+        onSelectSection={setActiveSection}
+      />
+
     </div>
   );
 };
