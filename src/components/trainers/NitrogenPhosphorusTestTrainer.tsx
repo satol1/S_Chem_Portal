@@ -12,8 +12,8 @@ export const NitrogenPhosphorusTestTrainer: React.FC<Props> = ({ onBackToCatalog
     <GenericTrainerContainer
       storageKey="np_test_14_1_trainer_progress"
       badgeText="Тест 14.1 • 66 Заданий"
-      moduleCategoryText="Тема: Азот и Фосфор"
-      title="Тренажер 14.1: Азот и Фосфор (Выбор, Цепочки, Соответствия)"
+      moduleCategoryText="Тема: Азот и фосфор"
+      title="Тренажер 14.1: Азот и фосфор (Выбор, Цепочки, Соответствия)"
       tasks={NP_TEST_TASKS}
       subtopics={NP_TEST_SUBTOPICS}
       maxScorePerTask={2}

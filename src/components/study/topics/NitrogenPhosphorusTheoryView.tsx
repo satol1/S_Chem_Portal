@@ -2,10 +2,18 @@ import React, { useState } from 'react';
 import { 
   Zap, ArrowRight, Lightbulb, AlertTriangle, 
   CheckCircle2, Flame, FlaskConical, Atom, TestTube, Orbit,
-  ArrowUp, BookOpen, Factory, Layers, Filter
+  Factory, Layers, Filter
 } from 'lucide-react';
 import { ChemFormula } from '../../scientific/ChemFormula';
+import { TermTooltip } from '../../scientific/TermTooltip';
 import { MoleculeViewer3D } from '../../interactive/MoleculeViewer3D';
+import { SectionBadge } from '../SectionBadge';
+import { ScrollToNavButton } from '../ScrollToNavButton';
+import { PracticeBanner } from '../PracticeBanner';
+import { TheoryCallout } from '../TheoryCallout';
+import { TopicNavGrid } from '../TopicNavGrid';
+import { DarkBlockCard } from '../DarkBlockCard';
+import { TopicQuickNavTags, type QuickNavTag } from '../TopicQuickNavTags';
 import { useRouter } from '../../../routes/router';
 
 /**
@@ -71,7 +79,7 @@ const AmmoniumDecompositionDiagram: React.FC = () => {
               <div className="font-semibold text-slate-900 flex items-center gap-1.5 text-sm sm:text-base">
                 <ChemFormula formula="NH3^" className="font-semibold text-slate-900" /> + летучая кислота
               </div>
-              <div className="pl-3 space-y-1 font-mono text-xs sm:text-sm text-slate-900">
+              <div className="pl-3 space-y-1 text-xs sm:text-sm text-slate-900">
                 <div className="flex items-center gap-2">
                   <ChemFormula formula="NH4Cl -t-> NH3^ + HCl^" className="font-semibold" />
                 </div>
@@ -89,13 +97,13 @@ const AmmoniumDecompositionDiagram: React.FC = () => {
               <div className="font-semibold text-slate-900 flex items-center gap-1.5 text-sm sm:text-base">
                 <ChemFormula formula="NH3^" className="font-semibold text-slate-900" /> + нелетучая кислота (или кислая соль)
               </div>
-              <div className="pl-3 space-y-1 font-mono text-xs sm:text-sm text-slate-900">
+              <div className="pl-3 space-y-1 text-xs sm:text-sm text-slate-900">
                 <div className="flex items-center gap-2">
                   <ChemFormula formula="(NH4)2HPO4 -t-> 2NH3^ + H3PO4" className="font-semibold" />
                 </div>
                 <div className="flex items-center gap-2">
                   <ChemFormula formula="(NH4)2SO4 -t-> NH3^ + NH4HSO4" className="font-semibold" />
-                  <span className="font-sans text-xs text-slate-500"><span className="whitespace-nowrap">(<ChemFormula formula="H2SO4" className="font-semibold text-slate-700" />)</span></span>
+                  <span className="text-xs text-slate-500"><span className="whitespace-nowrap">(<ChemFormula formula="H2SO4" className="font-semibold text-slate-700" />)</span></span>
                 </div>
               </div>
             </div>
@@ -105,7 +113,7 @@ const AmmoniumDecompositionDiagram: React.FC = () => {
               <div className="font-semibold text-slate-900 text-sm sm:text-base">
                 внутримолекулярное ок.-вос. разложение
               </div>
-              <div className="pl-3 space-y-1 font-mono text-xs sm:text-sm text-slate-900">
+              <div className="pl-3 space-y-1 text-xs sm:text-sm text-slate-900">
                 <div className="flex items-center gap-2">
                   <ChemFormula formula="(NH4)2Cr2O7 -t-> N2^ + Cr2O3 + 4H2O" className="font-semibold" />
                 </div>
@@ -135,7 +143,7 @@ const Hno3MatrixTable: React.FC = () => {
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3">
         <div>
           <h4 className="font-bold text-slate-900 text-sm sm:text-base">
-            Матрица взаимодействий Азотной кислоты (HNO₃)
+            Матрица взаимодействий азотной кислоты (HNO₃)
           </h4>
           <p className="text-xs text-slate-500 font-normal">Сводные продукты восстановления азота по категориям реагентов</p>
         </div>
@@ -187,7 +195,7 @@ const Hno3MatrixTable: React.FC = () => {
               <td className="p-3.5 sm:p-4 border-r border-slate-200 space-y-1">
                 <div className="text-xs text-amber-800 font-sans font-medium flex items-center gap-1">
                   <AlertTriangle className="w-3.5 h-3.5 text-amber-600 shrink-0" />
-                  <span>Пассивация при 20°C! Реакция только при t°:</span>
+                  <span><TermTooltip term="Пассивация" definition="Прекращение реакции металлов (Fe, Al, Cr) с концентрированной HNO₃ при 20°C из-за быстрого образования прочной поверхностной оксидной пленки." /> при 20°C! Реакция только при t°:</span>
                 </div>
                 <div className="font-mono">
                   <ChemFormula formula="Fe + 6HNO3(конц) -t-> Fe(NO3)3 + 3NO2^ + 3H2O" className="text-slate-900 font-semibold" />
@@ -238,14 +246,20 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>('comparison');
   const [hydrationTemp, setHydrationTemp] = useState<'cold' | 'warm' | 'hot'>('hot');
 
+  const quickNavTags: QuickNavTag[] = [
+    { targetId: 'comparison', label: 'Строение атомов', icon: Atom },
+    { targetId: 'hydrides', label: 'Свойства солей аммония', icon: TestTube },
+    { targetId: 'molecules-3d', label: '3D-Модели соединений', icon: Orbit },
+  ];
+
   const navItems = [
     { id: 'comparison', label: '1. Сравнение N и P' },
     { id: 'allotropes', label: '2. Простые вещества и Аллотропия' },
     { id: 'hydrides', label: '3. Водородные соединения и Соли аммония' },
-    { id: 'oxides', label: '4. Оксиды Азота и Фосфора' },
-    { id: 'acids', label: '5. Азотная кислота, Нитриты и Удобрения' },
+    { id: 'oxides', label: '4. Оксиды азота и фосфора' },
+    { id: 'acids', label: '5. Азотная кислота, нитриты и удобрения' },
     { id: 'qualitative', label: '6. Качественные реакции' },
-    { id: 'molecules-3d', label: '7. 3D-Модели веществ' },
+    { id: 'molecules-3d', label: '7. 3D-модели веществ' },
   ];
 
   const scrollToNav = () => {
@@ -272,7 +286,7 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
 
         <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight flex items-center gap-3">
           <FlaskConical className="w-8 h-8 text-slate-800 shrink-0" />
-          <span>Химия Азота (N) и Фосфора (P)</span>
+          <span>Химия азота (N) и фосфора (P)</span>
         </h1>
 
         <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal max-w-4xl">
@@ -280,11 +294,7 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
         </p>
 
         <div className="pt-4 flex flex-wrap items-center justify-between gap-4 border-t border-slate-100 text-xs sm:text-sm text-slate-600">
-          <div className="flex items-center gap-5">
-            <span className="flex items-center gap-1.5"><Atom className="w-4 h-4 text-slate-700" /> Строение атомов</span>
-            <span className="flex items-center gap-1.5"><TestTube className="w-4 h-4 text-slate-700" /> Свойства солей аммония</span>
-            <span className="flex items-center gap-1.5"><Orbit className="w-4 h-4 text-slate-700" /> 3D-Модели соединений</span>
-          </div>
+          <TopicQuickNavTags tags={quickNavTags} />
 
           <button
             onClick={() => openStudyBlock('elements-chemistry', 'elem-nonme-np', 'practice')}
@@ -298,75 +308,37 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
       </div>
 
       {/* Academic Table of Contents Navigation Grid */}
-      <div id="nav-toc" className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3.5 scroll-mt-6">
-        <div className="flex items-center justify-between text-slate-900 border-b border-slate-100 pb-2">
-          <span className="flex items-center gap-2 font-bold text-sm sm:text-base">
-            <BookOpen className="w-4 h-4 text-slate-700" />
-            <span>Содержание раздела</span>
-          </span>
-          <span className="text-xs text-slate-500 font-normal">7 разделов</span>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => {
-                setActiveSection(item.id);
-                const el = document.getElementById(item.id);
-                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }}
-              className={`px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium text-left transition border ${
-                activeSection === item.id
-                  ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
-                  : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200'
-              }`}
-            >
-              {item.label}
-            </button>
-          ))}
-        </div>
-      </div>
+      <TopicNavGrid
+        navItems={navItems}
+        activeSection={activeSection}
+        onSelectSection={setActiveSection}
+      />
 
       {/* SECTION 1: COMPARISON & VALENCE ANOMALY */}
       <section id="comparison" className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6 scroll-mt-6">
         <div className="border-b border-slate-100 pb-3 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-900 flex items-center justify-center font-bold text-sm font-mono">
-              01
-            </div>
+            <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                1. Сравнительный анализ: Азот и Фосфор
+                1. Сравнительный анализ: азот и фосфор
               </h2>
               <p className="text-xs sm:text-sm text-slate-500">Электронные конфигурации, квантовые ограничения и степени окисления</p>
             </div>
           </div>
 
-          <button
-            onClick={scrollToNav}
-            title="К содержанию"
-            className="p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 border border-slate-200 transition shrink-0"
-          >
-            <ArrowUp className="w-4 h-4" />
-          </button>
+          <ScrollToNavButton onClick={scrollToNav} />
         </div>
 
         {/* Theoretical introduction text */}
         <p className="text-slate-700 leading-relaxed font-normal">
-          Азот (<ChemFormula formula="N" className="font-semibold text-slate-900" />) и Фосфор (<ChemFormula formula="P" className="font-semibold text-slate-900" />) принадлежат к V-A группе (15-й группе) Периодической системы элементов Д.И. Менделеева — подгруппе p-элементов (пникогенам). На внешнем энергетическом уровне их атомы содержат по 5 валентных электронов (<ChemFormula math="ns^2\,np^3" className="font-semibold text-slate-900" />). Однако существенное различие в строении внешнего энергетического слоя обусловливает кардинальные различия в химическом поведении данных элементов.
+          Азот (<ChemFormula formula="N" className="font-semibold text-slate-900" />) и фосфор (<ChemFormula formula="P" className="font-semibold text-slate-900" />) принадлежат к V-A группе (15-й группе) Периодической системы элементов Д.И. Менделеева — подгруппе p-элементов (пникогенам). На внешнем энергетическом уровне их атомы содержат по 5 валентных электронов (<ChemFormula math="ns^2\,np^3" className="font-semibold text-slate-900" />). Однако существенное различие в строении внешнего энергетического слоя обусловливает кардинальные различия в химическом поведении данных элементов.
         </p>
 
         {/* Valence Anomaly Academic Alert */}
-        <div className="p-5 rounded-xl bg-slate-50 border-l-4 border-l-amber-500 border-y border-r border-slate-200 text-slate-800 space-y-2">
-          <div className="flex items-center gap-2 font-semibold text-slate-900 text-sm sm:text-base">
-            <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0" />
-            <span>Квантовое ограничение валентности Азота</span>
-          </div>
-          <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-normal">
-            Азот находится во 2-м периоде, где имеются только две квантовые подоболочки — 2s и 2p. Максимально возможное число валентных орбиталей атома азота равняется 4 (одна s-орбиталь и три p-орбитали <span className="whitespace-nowrap">(<ChemFormula math="2s, 2p_x, 2p_y, 2p_z" className="text-slate-900 font-semibold" />)</span>). Поэтому <strong>максимальная валентность азота равна 4</strong> (в азотной кислоте <ChemFormula formula="HNO3" className="text-slate-900 font-semibold" />, катионе аммония <ChemFormula formula="NH4+" className="text-slate-900 font-semibold" /> и оксиде азота V <ChemFormula formula="N2O5" className="text-slate-900 font-semibold" />). Атом фосфора находится в 3-м периоде и имеет свободные 3d-орбитали (<ChemFormula math="3s^2\,3p^3\,3d^0" className="text-slate-900 font-semibold" />), что позволяет ему переходить в возбужденное состояние (<ChemFormula math="3s^1\,3p^3\,3d^1" className="text-slate-900 font-semibold" />) и проявлять валентность V.
-          </p>
-        </div>
+        <TheoryCallout title="Квантовое ограничение валентности азота" icon={AlertTriangle}>
+          Азот находится во 2-м периоде, где имеются только две квантовые подоболочки — 2s и 2p. Максимально возможное число валентных орбиталей атома азота равняется 4 (одна s-орбиталь и три p-орбитали <span className="whitespace-nowrap">(<ChemFormula math="2s, 2p_x, 2p_y, 2p_z" className="text-slate-900 font-semibold" />)</span>). Поэтому <strong>максимальная валентность азота равна 4</strong> (в азотной кислоте <ChemFormula formula="HNO3" className="text-slate-900 font-semibold" />, катионе аммония <ChemFormula formula="NH4+" className="text-slate-900 font-semibold" /> и оксиде азота V <ChemFormula formula="N2O5" className="text-slate-900 font-semibold" />). Атом фосфора находится в 3-м периоде и имеет свободные 3d-орбитали (<ChemFormula math="3s^2\,3p^3\,3d^0" className="text-slate-900 font-semibold" />), что позволяет ему переходить в возбужденное состояние (<ChemFormula math="3s^1\,3p^3\,3d^1" className="text-slate-900 font-semibold" />) и проявлять валентность V.
+        </TheoryCallout>
 
         {/* Comparison Table */}
         <div className="overflow-x-auto border border-slate-200 rounded-xl">
@@ -433,24 +405,16 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
       <section id="allotropes" className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6 scroll-mt-6">
         <div className="border-b border-slate-100 pb-3 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-900 flex items-center justify-center font-bold text-sm font-mono">
-              02
-            </div>
+            <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                2. Простые вещества: Тройная связь N₂ и Аллотропы Фосфора
+                2. Простые вещества: тройная связь N₂ и аллотропы фосфора
               </h2>
               <p className="text-xs sm:text-sm text-slate-500">Свойства N2, промышленное получение P из фосфорита и разновидности фосфора</p>
             </div>
           </div>
 
-          <button
-            onClick={scrollToNav}
-            title="К содержанию"
-            className="p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 border border-slate-200 transition shrink-0"
-          >
-            <ArrowUp className="w-4 h-4" />
-          </button>
+          <ScrollToNavButton onClick={scrollToNav} />
         </div>
 
         <p className="text-slate-700 leading-relaxed font-normal">
@@ -462,7 +426,7 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
           <div className="p-6 rounded-xl bg-slate-900 text-white space-y-3.5">
             <div className="flex items-center justify-between">
               <span className="px-3 py-1 rounded bg-slate-800 text-slate-200 text-xs font-semibold border border-slate-700">
-                Молекулярный Азот (N₂)
+                Молекулярный азот (N₂)
               </span>
               <span className="text-xs font-mono text-slate-400">:N ≡ N:</span>
             </div>
@@ -475,7 +439,7 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
               Молекула <ChemFormula formula="N2" className="text-amber-300 font-medium" /> имеет тройную ковалентную связь <span className="whitespace-nowrap">(<ChemFormula math="1\sigma + 2\pi" className="text-amber-300 font-medium" />)</span>, энергия разрыва которой составляет <strong>945&nbsp;кДж/моль</strong>. Из-за этого азот инертен при нормальных условиях.
             </p>
 
-            <div className="p-3.5 rounded-lg bg-slate-800 border border-slate-700 space-y-1 text-xs sm:text-sm font-mono">
+            <div className="p-3.5 rounded-lg bg-slate-800 border border-slate-700 space-y-1 text-xs sm:text-sm">
               <div className="text-slate-400 font-medium text-xs">Реакция с литием при 20°C:</div>
               <div className="text-emerald-300 font-semibold">
                 <ChemFormula formula="6Li + N2 -> 2Li3N" className="text-emerald-300" /> (Нитрид лития)
@@ -487,7 +451,7 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-slate-900 font-semibold text-xs sm:text-sm">
                 <FlaskConical className="w-4 h-4 text-slate-700" />
-                <span>Историческая справка: Открытие Фосфора (1669 г.)</span>
+                <span>Историческая справка: Открытие фосфора (1669 г.)</span>
               </div>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
                 Алхимик Хенниг Бранд при выпаривании органических субстратов получил вещество, светившееся в&nbsp;темноте. Полученная модификация была названа <strong>Белым фосфором</strong>.
@@ -504,7 +468,7 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
         <div className="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-2.5 text-xs sm:text-sm">
           <div className="flex items-center gap-2 font-semibold text-slate-900 text-sm">
             <Factory className="w-4 h-4 text-slate-700 shrink-0" />
-            <span>Промышленный способ получения Фосфора в электропечах</span>
+            <span>Промышленный способ получения фосфора в электропечах</span>
           </div>
 
           <p className="text-slate-700 leading-relaxed font-normal">
@@ -552,9 +516,9 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
 
         {/* Reaction with alkali */}
         <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5 text-xs sm:text-sm">
-          <div className="font-semibold text-slate-900">Диспропорционирование Фосфора в&nbsp;щелочи:</div>
+          <div className="font-semibold text-slate-900"><TermTooltip term="Диспропорционирование" definition="Окислительно-восстановительная реакция, в которой атомы одного элемента в одинаковой степени окисления (P⁰) одновременно окисляются (+1) и восстанавливаются (-3)." /> фосфора в&nbsp;щелочи:</div>
           <div className="font-mono text-slate-900 font-semibold p-2.5 bg-white rounded border border-slate-200">
-            <ChemFormula formula="P4 + 3KOH + 3H2O -> PH3^ + 3KH2PO2" className="text-slate-900 font-semibold" /> (Гипофосфит калия)
+            <ChemFormula formula="P4 + 3KOH + 3H2O -> PH3^ + 3KH2PO2" className="text-slate-900 font-semibold" /> (<TermTooltip term="Гипофосфит калия" definition="Соль одноосновной фосфорноватистой кислоты H₃PO₂ с фосфором в степени окисления +1, проявляющая сильные восстановительные свойства." />)
           </div>
         </div>
       </section>
@@ -563,9 +527,7 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
       <section id="hydrides" className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6 scroll-mt-6">
         <div className="border-b border-slate-100 pb-3 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-900 flex items-center justify-center font-bold text-sm font-mono">
-              03
-            </div>
+            <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
                 3. Водородные соединения и Соли Аммония
@@ -574,25 +536,13 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
             </div>
           </div>
 
-          <button
-            onClick={scrollToNav}
-            title="К содержанию"
-            className="p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 border border-slate-200 transition shrink-0"
-          >
-            <ArrowUp className="w-4 h-4" />
-          </button>
+          <ScrollToNavButton onClick={scrollToNav} />
         </div>
 
         {/* Phosphine Natural Phenomenon Alert */}
-        <div className="p-5 rounded-xl bg-slate-50 border-l-4 border-l-amber-500 border-y border-r border-slate-200 text-slate-800 space-y-2">
-          <div className="flex items-center gap-2 font-semibold text-slate-900 text-sm sm:text-base">
-            <Lightbulb className="w-5 h-5 text-amber-600 shrink-0" />
-            <span>Природное явление: Природа «Блуждающих огней»</span>
-          </div>
-          <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-normal">
-            При гниении органических остатков без доступа воздуха выделяется фосфин <ChemFormula formula="PH3" className="text-slate-900 font-semibold" /> с&nbsp;примесью самовоспламеняющегося дифосфина <ChemFormula formula="P2H4" className="text-slate-900 font-semibold" />. На&nbsp;воздухе дифосфин вспыхивает при обычной температуре, поджигая фосфин и&nbsp;образуя блуждающие голубые огни на&nbsp;болотах и&nbsp;заброшенных участках.
-          </p>
-        </div>
+        <TheoryCallout title="Природное явление: Природа «Блуждающих огней»" icon={Lightbulb}>
+          При гниении органических остатков без доступа воздуха выделяется фосфин <ChemFormula formula="PH3" className="text-slate-900 font-semibold" /> с&nbsp;примесью самовоспламеняющегося дифосфина <ChemFormula formula="P2H4" className="text-slate-900 font-semibold" />. На&nbsp;воздухе дифосфин вспыхивает при обычной температуре, поджигая фосфин и&nbsp;образуя блуждающие голубые огни на&nbsp;болотах и&nbsp;заброшенных участках.
+        </TheoryCallout>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs sm:text-sm">
           {/* Ammonia */}
@@ -617,8 +567,8 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
               </li>
             </ul>
 
-            <div className="p-3.5 rounded-lg bg-white border border-slate-200 space-y-1.5 font-mono text-xs sm:text-sm">
-              <div className="font-semibold text-slate-900 font-sans">Режимы окисления NH₃:</div>
+            <div className="p-3.5 rounded-lg bg-white border border-slate-200 space-y-1.5 text-xs sm:text-sm">
+              <div className="font-semibold text-slate-900">Режимы окисления NH₃:</div>
               <div>1. Без катализатора: <ChemFormula formula="4NH3 + 3O2 -> 2N2^ + 6H2O" className="text-slate-900 font-semibold" /></div>
               <div>2. Каталитическое (Pt/Rh): <ChemFormula formula="4NH3 + 5O2 -(Pt/Rh)-> 4NO^ + 6H2O" className="text-slate-900 font-semibold" /></div>
             </div>
@@ -628,7 +578,7 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
           <div className="p-5 sm:p-6 rounded-xl bg-slate-50 border border-slate-200 space-y-3.5">
             <div className="flex items-center justify-between border-b border-slate-200 pb-2">
               <h3 className="font-semibold text-slate-900 text-sm sm:text-base">Фосфин (PH₃)</h3>
-              <span className="text-xs font-mono text-slate-600">Восстановитель</span>
+              <span className="text-xs text-slate-600">Восстановитель</span>
             </div>
 
             <ul className="space-y-2 text-slate-700 font-normal">
@@ -646,8 +596,8 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
               </li>
             </ul>
 
-            <div className="p-3.5 rounded-lg bg-white border border-slate-200 space-y-1.5 font-mono text-xs sm:text-sm">
-              <div className="font-semibold text-slate-900 font-sans">Гидролиз бинарных соединений:</div>
+            <div className="p-3.5 rounded-lg bg-white border border-slate-200 space-y-1.5 text-xs sm:text-sm">
+              <div className="font-semibold text-slate-900"><TermTooltip term="Бинарный гидролиз" definition="Необратимое разложение водой или кислотой нитридов (Mg₃N₂) и фосфидов (Ca₃P₂) с выделением аммиака NH₃ или ядовитого фосфина PH₃." />:</div>
               <div><ChemFormula formula="Mg3N2 + 6H2O -> 3Mg(OH)2v + 2NH3^" className="text-slate-900 font-semibold" /></div>
               <div><ChemFormula formula="Ca3P2 + 6HCl -> 3CaCl2 + 2PH3^" className="text-slate-900 font-semibold" /></div>
             </div>
@@ -668,7 +618,7 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
           </p>
 
           <p className="text-slate-700 leading-relaxed font-normal">
-            Это твердые кристаллические вещества с <em>ионной кристаллической решеткой</em>, в узлах которой находятся сложные катионы аммония <span className="whitespace-nowrap">(<ChemFormula formula="NH4+" className="font-semibold text-slate-900" />)</span> и анионы кислотных остатков. Все соли аммония хорошо растворимы в воде и являются сильными электролитами, полностью диссоциирующими на ионы в водных растворах.
+            Это твердые кристаллические вещества с <em>ионной кристаллической решеткой</em>, в узлах которой находятся сложные <TermTooltip term="катионы аммония NH₄⁺" definition="Катион, где 4-я связь N-H образована по донорно-акцепторному механизму: неподеленная пара азота N занимает свободную 1s-орбиталь протона H⁺." /> и анионы кислотных остатков. Все соли аммония хорошо растворимы в воде и являются сильными электролитами, полностью диссоциирующими на ионы в водных растворах.
           </p>
 
           <div className="space-y-3 bg-slate-50 p-5 rounded-xl border border-slate-200 text-xs sm:text-sm">
@@ -728,24 +678,16 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
       <section id="oxides" className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6 scroll-mt-6">
         <div className="border-b border-slate-100 pb-3 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-900 flex items-center justify-center font-bold text-sm font-mono">
-              04
-            </div>
+            <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                4. Оксиды Азота и Фосфора
+                4. Оксиды азота и фосфора
               </h2>
               <p className="text-xs sm:text-sm text-slate-500">Классификация оксидов азота и постадийная гидратация P2O5</p>
             </div>
           </div>
 
-          <button
-            onClick={scrollToNav}
-            title="К содержанию"
-            className="p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 border border-slate-200 transition shrink-0"
-          >
-            <ArrowUp className="w-4 h-4" />
-          </button>
+          <ScrollToNavButton onClick={scrollToNav} />
         </div>
 
         <p className="text-slate-700 leading-relaxed font-normal">
@@ -754,7 +696,7 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
 
         {/* Nitrogen Oxides Grid */}
         <div className="space-y-3 text-xs sm:text-sm">
-          <h3 className="font-semibold text-slate-900 text-sm">Оксиды Азота (степени окисления от&nbsp;+1 до&nbsp;+5):</h3>
+          <h3 className="font-semibold text-slate-900 text-sm">Оксиды азота (степени окисления от&nbsp;+1 до&nbsp;+5):</h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
             <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
@@ -794,7 +736,7 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div>
               <h3 className="font-semibold text-white text-base">
-                Постадийная гидратация Оксида Фосфора (V) — P₂O₅
+                Постадийная гидратация оксида фосфора (V) — P₂O₅
               </h3>
               <p className="text-slate-300 font-normal">Продукты гидратации в&nbsp;зависимости от&nbsp;температуры</p>
             </div>
@@ -832,7 +774,7 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
               <div>Холодная вода (0–15°C): <ChemFormula formula="P2O5 + H2O -> 2HPO3" className="text-amber-300 font-semibold" /> (Метафосфорная кислота)</div>
             )}
             {hydrationTemp === 'warm' && (
-              <div>Теплая вода (20–50°C): <ChemFormula formula="P2O5 + 2H2O -> H4P2O7" className="text-amber-300 font-semibold" /> (Пирофосфорная кислота)</div>
+              <div>Теплая вода (20–50°C): <ChemFormula formula="P2O5 + 2H2O -> H4P2O7" className="text-amber-300 font-semibold" /> (<TermTooltip term="Пирофосфорная кислота" definition="Четырехосновная кислота H₄P₂O₇, продукт межмолекулярной дегидратации двух молекул ортофосфорной кислоты при нагревании." />)</div>
             )}
             {hydrationTemp === 'hot' && (
               <div>Горячая вода / избыток: <ChemFormula formula="P2O5 + 3H2O -> 2H3PO4" className="text-amber-300 font-semibold" /> (Ортофосфорная кислота)</div>
@@ -845,24 +787,16 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
       <section id="acids" className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6 scroll-mt-6">
         <div className="border-b border-slate-100 pb-3 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-900 flex items-center justify-center font-bold text-sm font-mono">
-              05
-            </div>
+            <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                5. Азотная кислота, Нитриты и Минеральные Удобрения
+                5. Азотная кислота, нитриты и минеральные удобрения
               </h2>
               <p className="text-xs sm:text-sm text-slate-500">3-стадийный промышленный синтез HNO3, двойственные ОВР-свойства нитритов и классификация удобрений</p>
             </div>
           </div>
 
-          <button
-            onClick={scrollToNav}
-            title="К содержанию"
-            className="p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 border border-slate-200 transition shrink-0"
-          >
-            <ArrowUp className="w-4 h-4" />
-          </button>
+          <ScrollToNavButton onClick={scrollToNav} />
         </div>
 
         {/* Aqua Regia Academic Note */}
@@ -877,12 +811,7 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
         </div>
 
         {/* 3-Stage Industrial Synthesis of HNO3 */}
-        <div className="p-5 rounded-xl bg-slate-900 text-white space-y-3 text-xs sm:text-sm">
-          <h3 className="font-semibold text-white text-base flex items-center gap-2">
-            <Factory className="w-4 h-4 text-amber-400" />
-            <span>Промышленный 3-стадийный синтез Азотной кислоты:</span>
-          </h3>
-
+        <DarkBlockCard title="Промышленный 3-стадийный синтез азотной кислоты:" icon={Factory}>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 font-mono">
             <div className="p-3.5 rounded-lg bg-slate-800 border border-slate-700 space-y-1">
               <div className="text-slate-400 text-xs font-sans font-medium">Стадия 1: Окисление NH₃</div>
@@ -899,7 +828,7 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
               <div className="text-amber-300 font-semibold"><ChemFormula formula="4NO2 + O2 + 2H2O -> 4HNO3" className="text-amber-300" /></div>
             </div>
           </div>
-        </div>
+        </DarkBlockCard>
 
         {/* CLEAN ACADEMIC REFERENCE MATRIX TABLE */}
         <Hno3MatrixTable />
@@ -933,7 +862,7 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
         <div className="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-3 text-xs sm:text-sm">
           <div className="flex items-center gap-2 text-slate-900 font-semibold text-sm sm:text-base">
             <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0" />
-            <span>Основность кислородсодержащих кислот Фосфора</span>
+            <span>Основность кислородсодержащих кислот фосфора</span>
           </div>
 
           <p className="text-slate-700 leading-relaxed font-normal">
@@ -999,24 +928,16 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
       <section id="qualitative" className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6 scroll-mt-6">
         <div className="border-b border-slate-100 pb-3 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-900 flex items-center justify-center font-bold text-sm font-mono">
-              06
-            </div>
+            <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                6. Качественные реакции Азота и Фосфора
+                6. Качественные реакции азота и фосфора
               </h2>
               <p className="text-xs sm:text-sm text-slate-500">Аналитические методы обнаружения ионов NH₄⁺, NO₃⁻ и PO₄³⁻ в растворах</p>
             </div>
           </div>
 
-          <button
-            onClick={scrollToNav}
-            title="К содержанию"
-            className="p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 border border-slate-200 transition shrink-0"
-          >
-            <ArrowUp className="w-4 h-4" />
-          </button>
+          <ScrollToNavButton onClick={scrollToNav} />
         </div>
 
         {/* Extended Theory Text on Qualitative Analysis */}
@@ -1090,24 +1011,16 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
       <section id="molecules-3d" className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6 scroll-mt-6">
         <div className="border-b border-slate-100 pb-3 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-900 flex items-center justify-center font-bold text-sm font-mono">
-              07
-            </div>
+            <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                7. 3D-Модели соединений темы: Азот и Фосфор
+                7. 3D-модели соединений темы: азот и фосфор
               </h2>
               <p className="text-xs sm:text-sm text-slate-500">Пространственное строение молекул NH₃, PH₃, HNO₃, H₃PO₄, P₄</p>
             </div>
           </div>
 
-          <button
-            onClick={scrollToNav}
-            title="К содержанию"
-            className="p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 border border-slate-200 transition shrink-0"
-          >
-            <ArrowUp className="w-4 h-4" />
-          </button>
+          <ScrollToNavButton onClick={scrollToNav} />
         </div>
 
         <MoleculeViewer3D 
@@ -1117,25 +1030,10 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
       </section>
 
       {/* BOTTOM PRACTICE LINK BUTTON */}
-      <div className="bg-slate-900 text-white rounded-2xl p-6 sm:p-8 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 border border-slate-800">
-        <div className="space-y-1.5 text-center sm:text-left">
-          <h3 className="text-xl sm:text-2xl font-bold text-white">
-            Закрепите теорию на практике
-          </h3>
-          <p className="text-xs sm:text-sm text-slate-300 font-normal max-w-xl">
-            Перейти к тренажерам и практикуму по химии Азота и Фосфора.
-          </p>
-        </div>
-
-        <button
-          onClick={() => openStudyBlock('elements-chemistry', 'elem-nonme-np', 'practice')}
-          className="px-6 py-3.5 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-semibold text-xs sm:text-sm transition shrink-0 flex items-center gap-2"
-        >
-          <Zap className="w-4 h-4 text-amber-500 fill-amber-500" />
-          <span>Перейти к практикуму</span>
-          <ArrowRight className="w-4 h-4" />
-        </button>
-      </div>
+      <PracticeBanner 
+        onGoToPractice={() => openStudyBlock('elements-chemistry', 'elem-nonme-np', 'practice')}
+        description="Перейти к тренажерам и практикуму по химии азота и фосфора."
+      />
 
     </div>
   );

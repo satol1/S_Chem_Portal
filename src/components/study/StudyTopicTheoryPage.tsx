@@ -8,6 +8,7 @@ import { StudyBreadcrumbs } from './StudyBreadcrumbs';
 import { ChemFormula } from '../scientific/ChemFormula';
 import { NitrogenPhosphorusTheoryView } from './topics/NitrogenPhosphorusTheoryView';
 import { CarbonSiliconTheoryView } from './topics/CarbonSiliconTheoryView';
+import { SulfurOxygenTheoryView } from './topics/SulfurOxygenTheoryView';
 
 interface Props {
   blockId: string;
@@ -54,6 +55,8 @@ export const StudyTopicTheoryPage: React.FC<Props> = ({ blockId, topicId }) => {
           <NitrogenPhosphorusTheoryView />
         ) : topic.id === 'elem-nonme-csi' ? (
           <CarbonSiliconTheoryView />
+        ) : topic.id === 'elem-nonme-so' ? (
+          <SulfurOxygenTheoryView />
         ) : (
           <>
             {/* Academic Topic Header Card */}

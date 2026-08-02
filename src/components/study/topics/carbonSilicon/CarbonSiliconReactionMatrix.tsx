@@ -7,7 +7,7 @@ export const CarbonSiliconReactionMatrix: React.FC = () => {
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3">
         <div>
           <h4 className="font-bold text-slate-900 text-sm sm:text-base">
-            Матрица сравнительных свойств соединений Углерода и Кремния
+            Матрица сравнительных свойств соединений углерода и кремния
           </h4>
           <p className="text-xs text-slate-500 font-normal">
             Свойства оксидов, кислот и солей C и Si

@@ -111,12 +111,36 @@ export function convertFormulaToKaTeX(raw: string): string {
     return `__NOTE_PLACEHOLDER_${idx}__`;
   });
 
-  // Convert reaction arrows with conditions
+  // Convert reaction arrows with conditions (temperature, catalyst, reagents)
   text = text
-    .replace(/--t-->|-t->/g, ' \\xrightarrow{t^{\\circ}} ')
-    .replace(/-(Pt\/Rh)->/g, ' \\xrightarrow{Pt/Rh} ')
-    .replace(/<->|⇄/g, ' \\rightleftharpoons ')
-    .replace(/->|➔|→/g, ' \\rightarrow ');
+    // Temperature + Catalyst combinations: -t,cat->, -(t,cat)->, -t,k->, -(t,k)->, -t,кат->, -(t,кат)->, -t, cat->, -(t, cat)->
+    .replace(/-(?:\(?t\s*,\s*(?:cat|кат|к)\.?\)?|t,cat|t,кат|t,к)->/gi, ' \\xrightarrow{t^{\\circ},\\,\\text{кат.}} ')
+    // H2SO4 with temperature: -(H2SO4, t)->, -(H2SO4,t)->
+    .replace(/-\((?:H2SO4|H₂SO₄)\s*,\s*t\)->/gi, ' \\xrightarrow{\\mathrm{H_2SO_4},\\,t^{\\circ}} ')
+    // Pt/Rh with temperature: -(Pt/Rh, t)->, -(Pt/Rh,t)->
+    .replace(/-\(Pt\/Rh\s*,\s*t\)->/gi, ' \\xrightarrow{\\text{Pt/Rh},\\,t^{\\circ}} ')
+    // Pt/Rh catalyst only: -(Pt/Rh)->
+    .replace(/-(Pt\/Rh)->/gi, ' \\xrightarrow{\\text{Pt/Rh}} ')
+    // Catalyst only: -cat->, -(cat)->, -кат->, -(кат)->, -к->, -(к)->
+    .replace(/-(?:\(?cat\.?\)?|\(?кат\.?\)?|к)->/gi, ' \\xrightarrow{\\text{кат.}} ')
+    // Temperature only: --t--> or -t-> or -(t)->
+    .replace(/--t-->|-t->|-(t)->/gi, ' \\xrightarrow{t^{\\circ}} ')
+    // General parenthesized condition over arrow: -(cond)->
+    .replace(/-\(([^)]+)\)->/g, (_, cond) => {
+      const cleanCond = cond.trim().replace(/\s+/g, '\\,');
+      return ` \\xrightarrow{\\text{${cleanCond}}} `;
+    })
+    // Standard arrows
+    .replace(/<->|⇄/gi, ' \\rightleftharpoons ')
+    .replace(/->|➔|→/gi, ' \\rightarrow ');
+
+  // Protect all \xrightarrow{...} blocks from being split by whitespace
+  const xrightarrowPlaceholders: string[] = [];
+  text = text.replace(/\\xrightarrow\{[\s\S]*?\}(?=\s|$)/g, (match) => {
+    const idx = xrightarrowPlaceholders.length;
+    xrightarrowPlaceholders.push(match);
+    return ` __XRIGHTARROW_${idx}__ `;
+  });
 
   const tokens = text.split(/\s+/);
 
@@ -129,6 +153,15 @@ export function convertFormulaToKaTeX(raw: string): string {
       if (idxMatch) {
         const idx = parseInt(idxMatch[1], 10);
         return notePlaceholders[idx] || '';
+      }
+    }
+
+    // If token is a protected xrightarrow placeholder
+    if (token.startsWith('__XRIGHTARROW_')) {
+      const idxMatch = token.match(/__XRIGHTARROW_(\d+)__/);
+      if (idxMatch) {
+        const idx = parseInt(idxMatch[1], 10);
+        return xrightarrowPlaceholders[idx] || '';
       }
     }
 

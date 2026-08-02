@@ -12,7 +12,7 @@ export const OvrTrainer: React.FC<Props> = ({ onBackToCatalog }) => {
     <GenericTrainerContainer
       storageKey="ovr_trainer_progress"
       badgeText="Тренажер №29 • ЕГЭ"
-      moduleCategoryText="Тема: Азот и Фосфор"
+      moduleCategoryText="Тема: Азот и фосфор"
       title="Решебник ОВР (Задание 29)"
       tasks={OVR_TASKS}
       subtopics={OVR_SUBTOPICS}

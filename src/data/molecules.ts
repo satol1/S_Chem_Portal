@@ -571,6 +571,172 @@ export const MOLECULES_DATA: Molecule[] = [
       { source: 0, target: 3, order: 1 },
       { source: 0, target: 4, order: 1 }
     ]
+  },
+  {
+    id: 'o2',
+    name: 'Дикислород (O₂)',
+    formula: 'O₂',
+    iupacName: 'Дикислород',
+    category: 'Неорганическая',
+    description: 'Газ, необходимый для дыхания большинства живых организмов. Молекула дикислорода парамагнитна благодаря наличию двух неспаренных электронов на разрыхляющих π*-орбиталях.',
+    funFact: 'Жидкий кислород имеет светло-голубой цвет и втягивается в магнитное поле благодаря парамагнетизму!',
+    atoms: [
+      { element: 'O', x: -0.6, y: 0, z: 0, hybridization: 'sp2' },
+      { element: 'O', x: 0.6, y: 0, z: 0, hybridization: 'sp2' }
+    ],
+    bonds: [
+      { source: 0, target: 1, order: 2 }
+    ]
+  },
+  {
+    id: 'o3',
+    name: 'Озон (O₃)',
+    formula: 'O₃',
+    iupacName: 'Трикислород',
+    category: 'Неорганическая',
+    description: 'Аллотропная модификация кислорода с резким свежим запахом. Изогнутая молекула с валентным углом 116.8° и делокализованной 3-центровой 4-электронной π-связью.',
+    funFact: 'Озоновый слой атмосфера поглощает жесткое ультрафиолетовое излучение Солнца (УФ-B и УФ-C), защищая биосферу Земли.',
+    atoms: [
+      { element: 'O', x: 0, y: 0.35, z: 0, hybridization: 'sp2' },
+      { element: 'O', x: -1.08, y: -0.35, z: 0, hybridization: 'sp2' },
+      { element: 'O', x: 1.08, y: -0.35, z: 0, hybridization: 'sp2' }
+    ],
+    bonds: [
+      { source: 0, target: 1, order: 2 },
+      { source: 0, target: 2, order: 1 }
+    ]
+  },
+  {
+    id: 'h2o2',
+    name: 'Пероксид водорода (H₂O₂)',
+    formula: 'H₂O₂',
+    iupacName: 'Диводорода пероксид',
+    category: 'Неорганическая',
+    description: 'Несимметричная неплоская молекула со связью O-O. Степень окисления кислорода равна -1, что обуславливает двойственную ОВР функцию соединения.',
+    funFact: 'Пероксид водорода медленно самопроизвольно разлагается на воду и кислород, а MnO₂ мгновенно ускоряет эту реакцию со вспышкой катализа.',
+    atoms: [
+      { element: 'O', x: -0.7, y: 0, z: 0.2, hybridization: 'sp3' },
+      { element: 'O', x: 0.7, y: 0, z: -0.2, hybridization: 'sp3' },
+      { element: 'H', x: -1.1, y: 0.85, z: -0.3 },
+      { element: 'H', x: 1.1, y: -0.85, z: 0.3 }
+    ],
+    bonds: [
+      { source: 0, target: 1, order: 1 },
+      { source: 0, target: 2, order: 1 },
+      { source: 1, target: 3, order: 1 }
+    ]
+  },
+  {
+    id: 'h2s',
+    name: 'Сероводород (H₂S)',
+    formula: 'H₂S',
+    iupacName: 'Сульфан / Сернистый водород',
+    category: 'Неорганическая',
+    description: 'Бесцветный чрезвычайно токсичный газ с характерным запахом тухлых яиц. Угол связи H-S-H составляет около 92.1°, связи образованы p-орбиталями серы почти без гибридизации.',
+    funFact: 'Человеческий нос способен улавливать запах H₂S при ничтожных концентрациях, однако при более высоких концентрациях парализует обонятельный нерв.',
+    atoms: [
+      { element: 'S', x: 0, y: 0.1, z: 0, hybridization: 'sp3' },
+      { element: 'H', x: -0.96, y: -0.7, z: 0 },
+      { element: 'H', x: 0.96, y: -0.7, z: 0 }
+    ],
+    bonds: [
+      { source: 0, target: 1, order: 1 },
+      { source: 0, target: 2, order: 1 }
+    ]
+  },
+  {
+    id: 'so2',
+    name: 'Оксид серы(IV) / Сернистый газ (SO₂)',
+    formula: 'SO₂',
+    iupacName: 'Диоксид серы',
+    category: 'Неорганическая',
+    description: 'Бесцветный газ с резким удушливым запахом загорающейся спички. Уголковая молекула с sp²-гибридизацией центрального атома серы и валентным углом 119.5°.',
+    funFact: 'SO₂ используется для консервации сухофруктов и вин благодаря антибактериальным и восстановительным свойствам (пищевая добавка E220).',
+    atoms: [
+      { element: 'S', x: 0, y: 0.3, z: 0, hybridization: 'sp2' },
+      { element: 'O', x: -1.2, y: -0.4, z: 0, hybridization: 'sp2' },
+      { element: 'O', x: 1.2, y: -0.4, z: 0, hybridization: 'sp2' }
+    ],
+    bonds: [
+      { source: 0, target: 1, order: 2 },
+      { source: 0, target: 2, order: 2 }
+    ]
+  },
+  {
+    id: 'so3',
+    name: 'Оксид серы(VI) / Серный ангидрид (SO₃)',
+    formula: 'SO₃',
+    iupacName: 'Триоксид серы',
+    category: 'Неорганическая',
+    description: 'Плоская тригональная молекула с sp²-гибридизацией атома серы S(+6). Летучая жидкость при комнатной температуре, бурное взаимодействие с водой дает H₂SO₄.',
+    funFact: 'SO₃ растворяется в 100% серной кислоте с образованием олеума — тяжелой дымящейся маслянистой жидкости.',
+    atoms: [
+      { element: 'S', x: 0, y: 0, z: 0, hybridization: 'sp2' },
+      { element: 'O', x: 0, y: 1.43, z: 0, hybridization: 'sp2' },
+      { element: 'O', x: -1.24, y: -0.71, z: 0, hybridization: 'sp2' },
+      { element: 'O', x: 1.24, y: -0.71, z: 0, hybridization: 'sp2' }
+    ],
+    bonds: [
+      { source: 0, target: 1, order: 2 },
+      { source: 0, target: 2, order: 2 },
+      { source: 0, target: 3, order: 2 }
+    ]
+  },
+  {
+    id: 'h2so4',
+    name: 'Серная кислота (H₂SO₄)',
+    formula: 'H₂SO₄',
+    iupacName: 'Серная кислота',
+    category: 'Неорганическая',
+    description: 'Сильная двухосновная кислота с тетраэдрическим окружением атома серы. Концентрированная кислота — сильнейший водоотнимающий агент и ОВР-окислитель.',
+    funFact: 'Серная кислота является самым производимым химическим веществом в мире; объемы ее производства — главный индикатор химической промышленности страны.',
+    atoms: [
+      { element: 'S', x: 0, y: 0, z: 0, hybridization: 'sp3' },
+      { element: 'O', x: 0, y: 1.3, z: 0, hybridization: 'sp2' },
+      { element: 'O', x: 0, y: -1.3, z: 0, hybridization: 'sp2' },
+      { element: 'O', x: 1.2, y: 0, z: 0.7, hybridization: 'sp3' },
+      { element: 'O', x: -1.2, y: 0, z: -0.7, hybridization: 'sp3' },
+      { element: 'H', x: 1.8, y: 0.5, z: 0.7 },
+      { element: 'H', x: -1.8, y: -0.5, z: -0.7 }
+    ],
+    bonds: [
+      { source: 0, target: 1, order: 2 },
+      { source: 0, target: 2, order: 2 },
+      { source: 0, target: 3, order: 1 },
+      { source: 0, target: 4, order: 1 },
+      { source: 3, target: 5, order: 1 },
+      { source: 4, target: 6, order: 1 }
+    ]
+  },
+  {
+    id: 's8',
+    name: 'Ромбическая сера (S₈)',
+    formula: 'S₈',
+    iupacName: 'Октасерра',
+    category: 'Неорганическая',
+    description: 'Восьмичленный корончатый цикл S₈ — наиболее устойчивая аллотропная модификация серы (α-S) при стандартных условиях.',
+    funFact: 'Молекула S₈ напоминает королевскую корону, в которой атомы серы соединены одинарными ковалентными связями под углом 108°.',
+    atoms: [
+      { element: 'S', x: 1.4, y: 0.5, z: 0.4, hybridization: 'sp3' },
+      { element: 'S', x: 0.9, y: 1.2, z: -0.4, hybridization: 'sp3' },
+      { element: 'S', x: -0.3, y: 1.4, z: 0.4, hybridization: 'sp3' },
+      { element: 'S', x: -1.2, y: 0.7, z: -0.4, hybridization: 'sp3' },
+      { element: 'S', x: -1.4, y: -0.5, z: 0.4, hybridization: 'sp3' },
+      { element: 'S', x: -0.9, y: -1.2, z: -0.4, hybridization: 'sp3' },
+      { element: 'S', x: 0.3, y: -1.4, z: 0.4, hybridization: 'sp3' },
+      { element: 'S', x: 1.2, y: -0.7, z: -0.4, hybridization: 'sp3' }
+    ],
+    bonds: [
+      { source: 0, target: 1, order: 1 },
+      { source: 1, target: 2, order: 1 },
+      { source: 2, target: 3, order: 1 },
+      { source: 3, target: 4, order: 1 },
+      { source: 4, target: 5, order: 1 },
+      { source: 5, target: 6, order: 1 },
+      { source: 6, target: 7, order: 1 },
+      { source: 7, target: 0, order: 1 }
+    ]
   }
 ];
+
 

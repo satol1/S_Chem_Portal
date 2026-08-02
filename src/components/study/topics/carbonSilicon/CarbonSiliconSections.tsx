@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
-import { ArrowUp, ArrowRight, FlaskConical, ZoomIn, X } from 'lucide-react';
+import { FlaskConical, ZoomIn, X, AlertTriangle } from 'lucide-react';
+import { SectionBadge } from '../../SectionBadge';
+import { ScrollToNavButton } from '../../ScrollToNavButton';
+import { PracticeBanner } from '../../PracticeBanner';
 import { ChemFormula } from '../../../scientific/ChemFormula';
+import { TermTooltip } from '../../../scientific/TermTooltip';
 import { MoleculeViewer3D } from '../../../interactive/MoleculeViewer3D';
 import { AllotropesDiagram } from './CarbonSiliconAllotropesDiagram';
 import { CarbonSiliconReactionMatrix } from './CarbonSiliconReactionMatrix';
@@ -27,9 +31,7 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
       <section id="general" className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6 scroll-mt-6">
         <div className="border-b border-slate-100 pb-3 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-900 flex items-center justify-center font-bold text-sm font-mono">
-              01
-            </div>
+            <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
                 1. Сравнительный анализ элементов IV-A группы (C и Si)
@@ -40,17 +42,11 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
             </div>
           </div>
 
-          <button
-            onClick={scrollToNav}
-            title="К содержанию"
-            className="p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 border border-slate-200 transition shrink-0"
-          >
-            <ArrowUp className="w-4 h-4" />
-          </button>
+          <ScrollToNavButton onClick={scrollToNav} />
         </div>
 
         <p className="text-slate-700 leading-relaxed font-normal">
-          Углерод (<ChemFormula formula="C" className="font-semibold text-slate-900" />) и Кремний (<ChemFormula formula="Si" className="font-semibold text-slate-900" />) принадлежат к 14-й (IV-A) группе Периодической системы элементов Д.И. Менделеева. На внешнем энергетическом уровне их атомы содержат по 4 валентных электрона (<ChemFormula formula="ns^2 np^2" className="font-semibold text-slate-900" />). Существенные различия в радиусах атомов (<ChemFormula math="r(\mathrm{C}) = 0.077\,\text{нм}" className="font-semibold text-slate-900" />, <ChemFormula math="r(\mathrm{Si}) = 0.117\,\text{нм}" className="font-semibold text-slate-900" />) и значениях электроотрицательности определяют кардинальное отличие их химических свойств.
+          Углерод (<ChemFormula formula="C" className="font-semibold text-slate-900" />) и кремний (<ChemFormula formula="Si" className="font-semibold text-slate-900" />) принадлежат к 14-й (IV-A) группе Периодической системы элементов Д.И. Менделеева. На внешнем энергетическом уровне их атомы содержат по 4 валентных электрона (<ChemFormula formula="ns^2 np^2" className="font-semibold text-slate-900" />). Существенные различия в радиусах атомов (<ChemFormula math="r(\mathrm{C}) = 0.077\,\text{нм}" className="font-semibold text-slate-900" />, <ChemFormula math="r(\mathrm{Si}) = 0.117\,\text{нм}" className="font-semibold text-slate-900" />) и значениях электроотрицательности определяют кардинальное отличие их химических свойств.
         </p>
 
         {/* Detailed Comparison Table */}
@@ -66,23 +62,23 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
             <tbody className="divide-y divide-slate-200 text-slate-700">
               <tr className="hover:bg-slate-50/80">
                 <td className="p-3.5 font-semibold text-slate-900">Порядковый номер и атомная масса</td>
-                <td className="p-3.5 font-mono">Z = 6, Ar = 12.011</td>
-                <td className="p-3.5 font-mono">Z = 14, Ar = 28.085</td>
+                <td className="p-3.5">Z = 6, Ar = 12.011</td>
+                <td className="p-3.5">Z = 14, Ar = 28.085</td>
               </tr>
               <tr className="hover:bg-slate-50/80">
                 <td className="p-3.5 font-semibold text-slate-900">Электронная конфигурация</td>
-                <td className="p-3.5 font-mono">1s² 2s² 2p² (возбужд: 2s¹ 2p³)</td>
-                <td className="p-3.5 font-mono">1s² 2s² 2p⁶ 3s² 3p² 3d⁰ (есть 3d)</td>
+                <td className="p-3.5">1s² 2s² 2p² (возбужд: 2s¹ 2p³)</td>
+                <td className="p-3.5">1s² 2s² 2p⁶ 3s² 3p² 3d⁰ (есть 3d)</td>
               </tr>
               <tr className="hover:bg-slate-50/80">
                 <td className="p-3.5 font-semibold text-slate-900">Валентные состояния</td>
-                <td className="p-3.5 font-semibold text-slate-900">II (в CO), IV (в CO₂, CH₄)</td>
+                <td className="p-3.5 font-semibold text-slate-900"><TermTooltip term="III (в CO)" definition="В молекуле CO тройная связь (:C≡O:): 2 связи по обменному механизму + 1 по донорно-акцепторному. Валентность равна 3!" />, IV (в CO₂, CH₄)</td>
                 <td className="p-3.5 font-semibold text-slate-900">IV (к.ч. до 6 в [SiF₆]²⁻)</td>
               </tr>
               <tr className="hover:bg-slate-50/80">
                 <td className="p-3.5 font-semibold text-slate-900">Степени окисления</td>
-                <td className="p-3.5 font-mono">-4, 0, +2, +4</td>
-                <td className="p-3.5 font-mono">-4, 0, +4</td>
+                <td className="p-3.5">-4, 0, +2, +4</td>
+                <td className="p-3.5">-4, 0, +4</td>
               </tr>
               <tr className="hover:bg-slate-50/80">
                 <td className="p-3.5 font-semibold text-slate-900">Электроотрицательность (по Полингу)</td>
@@ -91,13 +87,13 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
               </tr>
               <tr className="hover:bg-slate-50/80">
                 <td className="p-3.5 font-semibold text-slate-900">Энергия одинарной связи Э-Э</td>
-                <td className="p-3.5 font-mono">348 кДж/моль (высшая прочность)</td>
-                <td className="p-3.5 font-mono">222 кДж/моль (умеренная)</td>
+                <td className="p-3.5">348 кДж/моль (высшая прочность)</td>
+                <td className="p-3.5">222 кДж/моль (умеренная)</td>
               </tr>
               <tr className="hover:bg-slate-50/80">
                 <td className="p-3.5 font-semibold text-slate-900">Энергия связи Э-О</td>
-                <td className="p-3.5 font-mono">358 кДж/моль</td>
-                <td className="p-3.5 font-mono text-emerald-800 font-bold">466 кДж/моль (сверхпрочная)</td>
+                <td className="p-3.5">358 кДж/моль</td>
+                <td className="p-3.5 text-emerald-800 font-bold">466 кДж/моль (сверхпрочная)</td>
               </tr>
             </tbody>
           </table>
@@ -118,24 +114,16 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
       <section id="allotropes" className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6 scroll-mt-6">
         <div className="border-b border-slate-100 pb-3 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-900 flex items-center justify-center font-bold text-sm font-mono">
-              02
-            </div>
+            <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                2. Аллотропия простых веществ Углерода и Кремния
+                2. <TermTooltip term="Аллотропия" definition="Существование одного и того же химического элемента в виде нескольких простых веществ, различающихся строением кристаллической решетки или молекул." /> простых веществ углерода и кремния
               </h2>
               <p className="text-xs sm:text-sm text-slate-500">Алмаз, графит, фуллерены, карбин, аморфный и кристаллический кремний</p>
             </div>
           </div>
 
-          <button
-            onClick={scrollToNav}
-            title="К содержанию"
-            className="p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 border border-slate-200 transition shrink-0"
-          >
-            <ArrowUp className="w-4 h-4" />
-          </button>
+          <ScrollToNavButton onClick={scrollToNav} />
         </div>
 
         <AllotropesDiagram />
@@ -223,7 +211,7 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
               <button 
                 onClick={() => setModalImage({ 
                   src: fullereneImg, 
-                  title: 'Фуллерен C₆₀ — 2D-структура замкнутого икосаэдра (Buckyball)' 
+                  title: 'Фуллерен C₆₀ — 2D-структура замкнутого икосаэдра (бакибол)' 
                 })}
                 className="relative rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-2xs group h-32 sm:h-36 w-full sm:w-36 shrink-0 flex items-center justify-center p-1.5 cursor-pointer hover:border-amber-500 transition-colors"
                 title="Нажмите для увеличения"
@@ -250,7 +238,7 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
           {/* CRYSTALLINE SILICON */}
           <div className="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-3 hover:shadow-sm transition-shadow">
             <div className="font-bold text-slate-900 text-sm sm:text-base flex items-center justify-between border-b border-slate-200/80 pb-2">
-              <span>Кристаллический Кремний (Si)</span>
+              <span>Кристаллический кремний (Si)</span>
               <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-900 font-mono text-xs font-semibold">Полупроводник</span>
             </div>
 
@@ -258,14 +246,14 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
               <button 
                 onClick={() => setModalImage({ 
                   src: siliconImg, 
-                  title: 'Кристаллический Кремний Si — 2D-структура кубической решетки (длина связи Si-Si 2.35 Å)' 
+                  title: 'Кристаллический кремний Si — 2D-структура кубической решетки (длина связи Si-Si 2.35 Å)' 
                 })}
                 className="relative rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-2xs group h-32 sm:h-36 w-full sm:w-36 shrink-0 flex items-center justify-center p-1.5 cursor-pointer hover:border-amber-500 transition-colors"
                 title="Нажмите для увеличения"
               >
                 <img 
                   src={siliconImg} 
-                  alt="2D структура Кремния" 
+                  alt="2D структура кремния" 
                   className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300 rounded" 
                 />
                 <div className="absolute inset-0 bg-slate-950/0 group-hover:bg-slate-950/40 transition-colors flex items-center justify-center">
@@ -298,39 +286,31 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
       <section id="carbon-chem" className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6 scroll-mt-6">
         <div className="border-b border-slate-100 pb-3 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-900 flex items-center justify-center font-bold text-sm font-mono">
-              03
-            </div>
+            <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                3. Химические свойства Углерода (C)
+                3. Химические свойства углерода (C)
               </h2>
               <p className="text-xs sm:text-sm text-slate-500">Восстановительные свойства угля, реакция с кислотами и карбидный гидролиз</p>
             </div>
           </div>
 
-          <button
-            onClick={scrollToNav}
-            title="К содержанию"
-            className="p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 border border-slate-200 transition shrink-0"
-          >
-            <ArrowUp className="w-4 h-4" />
-          </button>
+          <ScrollToNavButton onClick={scrollToNav} />
         </div>
 
         <p className="text-slate-700 leading-relaxed font-normal">
           Углерод при обычных температурах химически инертен. При нагревании проявляет сильные восстановительные свойства с неметаллами, оксидами металлов, водяным паром и кислотами-окислителями.
         </p>
 
-        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3 font-mono text-xs text-slate-900">
-          <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 block font-sans">
-            Уравнения реакций Углерода (ЕГЭ / ФИПИ):
+        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3 text-xs text-slate-900">
+          <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 block">
+            Уравнения реакций углерода (ЕГЭ / ФИПИ):
           </span>
 
           <div className="space-y-2">
-            <div className="text-xs font-bold text-slate-900 font-sans flex items-center gap-2">
+            <div className="text-xs font-bold text-slate-900 flex items-center gap-2">
               <span>1. Восстановительные свойства (окисление до CO₂ или CO):</span>
-              <span className="px-2 py-0.5 rounded bg-amber-500/20 text-amber-900 font-mono text-xs font-bold">Окисление C(0) → C(+4)</span>
+              <span className="px-2 py-0.5 rounded bg-amber-500/20 text-amber-900 text-xs font-bold">Окисление C(0) → C(+4)</span>
             </div>
             <div className="pl-3 space-y-1">
               <div><ChemFormula formula="C + O2 -t-> CO2^" className="font-semibold text-slate-900" /> (полное горение)</div>
@@ -347,9 +327,9 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
               <div><ChemFormula formula="SiO2 + 2C -t-> Si + 2CO^" className="font-semibold text-slate-900" /></div>
             </div>
 
-            <div className="text-xs font-bold text-slate-900 font-sans pt-2 flex items-center gap-2">
+            <div className="text-xs font-bold text-slate-900 pt-2 flex items-center gap-2">
               <span>3. Взаимодействие с кислотами-окислителями:</span>
-              <span className="px-2 py-0.5 rounded bg-rose-500/20 text-rose-900 font-mono text-xs font-bold">Пассивация не характерна!</span>
+              <span className="px-2 py-0.5 rounded bg-rose-500/20 text-rose-900 text-xs font-bold"><TermTooltip term="Пассивация" definition="Образование на поверхности элемента защитной оксидной пленки. Для углерода пассивация не характерна — он окисляется при нагревании." /> не характерна!</span>
             </div>
             <div className="pl-3 space-y-1">
               <div><ChemFormula formula="C + 2H2SO4(конц) -t-> CO2^ + 2SO2^ + 2H2O" className="font-semibold text-slate-900" /></div>
@@ -360,8 +340,8 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
             <div className="pl-3 space-y-1">
               <div><ChemFormula formula="Ca + 2C -t-> CaC2" className="font-semibold text-slate-900" /></div>
               <div><ChemFormula formula="4Al + 3C -t-> Al4C3" className="font-semibold text-slate-900" /></div>
-              <div><ChemFormula formula="Al4C3 + 12H2O -> 4Al(OH)3v + 3CH4^" className="font-semibold text-slate-900" /> <span className="font-sans text-indigo-700 font-medium">(метанидный гидролиз)</span></div>
-              <div><ChemFormula formula="CaC2 + 2H2O -> Ca(OH)2 + C2H2^" className="font-semibold text-slate-900" /> <span className="font-sans text-indigo-700 font-medium">(ацетиленидный гидролиз)</span></div>
+              <div><ChemFormula formula="Al4C3 + 12H2O -> 4Al(OH)3v + 3CH4^" className="font-semibold text-slate-900" /> <span className="font-sans text-indigo-700 font-medium font-normal"><TermTooltip term="(метанидный гидролиз)" definition="Необратимое разложение водой или кислотой карбидов с ионами C⁴⁻ (например, Al₄C₃) с образованием гидроксида и метана CH₄." /></span></div>
+              <div><ChemFormula formula="CaC2 + 2H2O -> Ca(OH)2 + C2H2^" className="font-semibold text-slate-900" /> <span className="font-sans text-indigo-700 font-medium font-normal"><TermTooltip term="(ацетиленидный гидролиз)" definition="Разложение карбидов с ацетиленид-ионами C₂²⁻ (например, CaC₂) водой с выделением ацетилена C₂H₂." /></span></div>
             </div>
           </div>
         </div>
@@ -371,39 +351,31 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
       <section id="silicon-chem" className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6 scroll-mt-6">
         <div className="border-b border-slate-100 pb-3 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-900 flex items-center justify-center font-bold text-sm font-mono">
-              04
-            </div>
+            <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                4. Химические свойства Кремния (Si)
+                4. Химические свойства кремния (Si)
               </h2>
               <p className="text-xs sm:text-sm text-slate-500">Реакции со щелочами, плавиковой кислотой и получение силана</p>
             </div>
           </div>
 
-          <button
-            onClick={scrollToNav}
-            title="К содержанию"
-            className="p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 border border-slate-200 transition shrink-0"
-          >
-            <ArrowUp className="w-4 h-4" />
-          </button>
+          <ScrollToNavButton onClick={scrollToNav} />
         </div>
 
         <p className="text-slate-700 leading-relaxed font-normal">
-          Кремний при комнатной температуре пассивирован прочной защитной пленкой <ChemFormula formula="SiO2" className="font-semibold text-slate-900" />. С галогенами (фтором при 20°C, хлором при 300°C) и кислородом реагирует при нагревании.
+          Кремний при комнатной температуре <TermTooltip term="пассивирован" definition="Покрыт прочной тончайшей поверхностной пленкой оксида SiO₂, предотвращающей его взаимодействие с воздухом и водой при 20°C." /> прочной защитной пленкой <ChemFormula formula="SiO2" className="font-semibold text-slate-900" />. С галогенами (фтором при 20°C, хлором при 300°C) и кислородом реагирует при нагревании.
         </p>
 
-        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3 font-mono text-xs text-slate-900">
-          <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 block font-sans">
-            Реакции Кремния (ЕГЭ / ФИПИ):
+        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3 text-xs text-slate-900">
+          <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 block">
+            Реакции кремния (ЕГЭ / ФИПИ):
           </span>
 
           <div className="space-y-2">
-            <div className="text-xs font-bold text-slate-900 font-sans flex items-center gap-2">
+            <div className="text-xs font-bold text-slate-900 flex items-center gap-2">
               <span>1. Взаимодействие со щелочами (КЛЮЧЕВАЯ РЕАКЦИЯ!):</span>
-              <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-900 font-mono text-xs font-bold">Выделение H₂↑</span>
+              <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-900 text-xs font-bold">Выделение H₂↑</span>
             </div>
             <div className="pl-3 font-bold text-slate-900">
               <ChemFormula formula="Si + 2NaOH + H2O -> Na2SiO3 + 2H2^" className="font-bold text-slate-900" />
@@ -419,7 +391,7 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
             <div className="pl-3 space-y-1">
               <div><ChemFormula formula="Si + O2 -t-> SiO2" className="font-semibold text-slate-900" /></div>
               <div><ChemFormula formula="2Mg + Si -t-> Mg2Si" className="font-semibold text-slate-900" /></div>
-              <div><ChemFormula formula="Mg2Si + 4HCl -> 2MgCl2 + SiH4^" className="font-semibold text-slate-900" /> <span className="font-sans text-indigo-700 font-medium">(получение силана SiH₄)</span></div>
+              <div><ChemFormula formula="Mg2Si + 4HCl -> 2MgCl2 + SiH4^" className="font-semibold text-slate-900" /> <span className="font-sans text-indigo-700 font-medium font-normal font-normal">(<TermTooltip term="силицидный гидролиз" definition="Разложение силицидов (Mg₂Si) разбавленными кислотами с выделением ядовитого и самовоспламеняющегося моносилана SiH₄." />: получение SiH₄)</span></div>
             </div>
           </div>
         </div>
@@ -442,24 +414,16 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
       <section id="oxides" className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6 scroll-mt-6">
         <div className="border-b border-slate-100 pb-3 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-900 flex items-center justify-center font-bold text-sm font-mono">
-              05
-            </div>
+            <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                5. Оксиды Углерода: CO (угарный газ) и CO₂ (углекислый газ)
+                5. Оксиды углерода: CO (угарный газ) и CO₂ (углекислый газ)
               </h2>
               <p className="text-xs sm:text-sm text-slate-500">Несолеобразующий CO vs кислотный CO₂, реакции со щелочами и известковой водой</p>
             </div>
           </div>
 
-          <button
-            onClick={scrollToNav}
-            title="К содержанию"
-            className="p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 border border-slate-200 transition shrink-0"
-          >
-            <ArrowUp className="w-4 h-4" />
-          </button>
+          <ScrollToNavButton onClick={scrollToNav} />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -470,12 +434,23 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
             </h3>
             <ul className="text-xs sm:text-sm text-slate-700 space-y-2">
               <li>• <strong>Класс:</strong> Несолеобразующий (безразличный) оксид.</li>
-              <li>• <strong>Строение:</strong> Содержит тройную связь <ChemFormula formula=":C#O:" className="font-semibold text-slate-900" />, одна из которых образована по донорно-акцепторному механизму за счет неподеленной пары кислорода.</li>
+              <li>• <strong>Степень окисления и валентность:</strong> С.О. = <span className="font-mono font-bold text-slate-900">+2</span>, но <strong>Валентность = III (3)</strong>!</li>
+              <li>• <strong>Строение:</strong> Содержит тройную связь <ChemFormula formula=":C#O:" className="font-semibold text-slate-900" />, две из которых образованы по обменному механизму, а третья — по донорно-акцепторному механизму (донором пары является атом кислорода).</li>
               <li>• <strong>Лабораторное получение:</strong> <ChemFormula formula="HCOOH -(H2SO4, t)-> CO^ + H2O" className="font-semibold text-slate-900 font-mono" /></li>
               <li>• <strong>Восстановление металлов:</strong><br />
                 <ChemFormula formula="Fe2O3 + 3CO -t-> 2Fe + 3CO2^" className="font-semibold text-slate-900 font-mono" />
               </li>
             </ul>
+
+            <div className="p-3.5 rounded-lg bg-amber-50 border border-amber-200 text-xs sm:text-sm space-y-1.5 font-sans">
+              <div className="font-bold text-amber-900 flex items-center gap-1.5">
+                <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
+                <span>Экзаменационная ловушка (ФИПИ / ДВИ МГУ / ВсОШ):</span>
+              </div>
+              <p className="text-amber-950 leading-relaxed font-normal">
+                В молекуле угарного газа <ChemFormula formula=":C#O:" className="font-semibold text-amber-950" /> степень окисления углерода равна <strong>+2</strong>, однако его <strong>валентность равна III (3)</strong>, а не II! Из-за присутствия тройной связи между атомами C и O число химических связей равно трем.
+              </p>
+            </div>
           </div>
 
           <div className="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
@@ -513,9 +488,7 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
       <section id="carbonates" className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6 scroll-mt-6">
         <div className="border-b border-slate-100 pb-3 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-900 flex items-center justify-center font-bold text-sm font-mono">
-              06
-            </div>
+            <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
                 6. Угольная кислота и свойства солей (Карбонаты и Гидрокарбонаты)
@@ -524,21 +497,15 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
             </div>
           </div>
 
-          <button
-            onClick={scrollToNav}
-            title="К содержанию"
-            className="p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 border border-slate-200 transition shrink-0"
-          >
-            <ArrowUp className="w-4 h-4" />
-          </button>
+          <ScrollToNavButton onClick={scrollToNav} />
         </div>
 
         <p className="text-slate-700 leading-relaxed font-normal">
           Угольная кислота <ChemFormula formula="H2CO3" className="font-semibold text-slate-900" /> — слабая двухосновная кислота (<ChemFormula math="\mathrm{p}K_{a1} = 6.35,\; \mathrm{p}K_{a2} = 10.33" className="font-mono text-slate-900 font-semibold" />), существующая только в водном растворе в равновесии с растворенным газом <ChemFormula formula="CO2*H2O <-> H+ + HCO3-" className="font-mono text-slate-900 font-semibold" />.
         </p>
 
-        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3 font-mono text-xs text-slate-900">
-          <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 block font-sans">
+        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3 text-xs text-slate-900">
+          <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 block">
             Реакции Карбонатов (ЕГЭ / ФИПИ):
           </span>
 
@@ -570,32 +537,24 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
       <section id="silica" className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6 scroll-mt-6">
         <div className="border-b border-slate-100 pb-3 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-900 flex items-center justify-center font-bold text-sm font-mono">
-              07
-            </div>
+            <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                7. Оксид Кремния (SiO₂), Кремниевая кислота (H₂SiO₃) и Силикаты
+                7. Оксид кремния (SiO₂), кремниевая кислота (H₂SiO₃) и силикаты
               </h2>
               <p className="text-xs sm:text-sm text-slate-500">Атомная кристаллическая решетка, сплавление и качественные реакции</p>
             </div>
           </div>
 
-          <button
-            onClick={scrollToNav}
-            title="К содержанию"
-            className="p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 border border-slate-200 transition shrink-0"
-          >
-            <ArrowUp className="w-4 h-4" />
-          </button>
+          <ScrollToNavButton onClick={scrollToNav} />
         </div>
 
         <p className="text-slate-700 leading-relaxed font-normal">
           Оксид кремния(IV) <ChemFormula formula="SiO2" className="font-semibold text-slate-900" /> — кислотный оксид с атомной кристаллической решеткой из тетраэдров <ChemFormula formula="SiO4" className="font-semibold text-slate-900" />. Не растворяется в воде и не реагирует со стандартными минеральными кислотами.
         </p>
 
-        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3 font-mono text-xs text-slate-900">
-          <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 block font-sans">
+        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3 text-xs text-slate-900">
+          <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 block">
             Реакции соединений кремния (ЕГЭ / ФИПИ):
           </span>
 
@@ -620,9 +579,7 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
       <section id="industry" className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6 scroll-mt-6">
         <div className="border-b border-slate-100 pb-3 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-900 flex items-center justify-center font-bold text-sm font-mono">
-              08
-            </div>
+            <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
                 8. Силикатная промышленность (Производство стекла и цемента)
@@ -631,13 +588,7 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
             </div>
           </div>
 
-          <button
-            onClick={scrollToNav}
-            title="К содержанию"
-            className="p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 border border-slate-200 transition shrink-0"
-          >
-            <ArrowUp className="w-4 h-4" />
-          </button>
+          <ScrollToNavButton onClick={scrollToNav} />
         </div>
 
         <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
@@ -657,9 +608,7 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
       <section id="molecules-3d" className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6 scroll-mt-6">
         <div className="border-b border-slate-100 pb-3 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-900 flex items-center justify-center font-bold text-sm font-mono">
-              09
-            </div>
+            <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
                 9. Интерактивные 3D-модели веществ углерода и кремния
@@ -670,13 +619,7 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
             </div>
           </div>
 
-          <button
-            onClick={scrollToNav}
-            title="К содержанию"
-            className="p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 border border-slate-200 transition shrink-0"
-          >
-            <ArrowUp className="w-4 h-4" />
-          </button>
+          <ScrollToNavButton onClick={scrollToNav} />
         </div>
 
         <MoleculeViewer3D 
@@ -687,24 +630,7 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
       </section>
 
       {/* Bottom Action Banner */}
-      <div className="bg-slate-900 text-white rounded-2xl p-6 sm:p-8 shadow-md flex flex-col sm:flex-row items-center justify-between gap-6 border border-slate-800">
-        <div className="space-y-1.5 text-center sm:text-left">
-          <h3 className="text-xl font-bold text-white">
-            Закрепите материал темы на практике
-          </h3>
-          <p className="text-xs sm:text-sm text-slate-300 max-w-lg">
-            Перейдите к интерактивному практикуму и решебнику заданий с автопроверкой по критериям ФИПИ.
-          </p>
-        </div>
-
-        <button
-          onClick={handleGoToPractice}
-          className="px-6 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs sm:text-sm shadow-sm transition shrink-0 flex items-center gap-2 group"
-        >
-          <span>Перейти к практикуму (ХЭ-08)</span>
-          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-        </button>
-      </div>
+      <PracticeBanner onGoToPractice={handleGoToPractice} topicCode="ХЭ-08" />
 
       {/* FULLSCREEN MODAL FOR 2D RENDERS */}
       {modalImage && (

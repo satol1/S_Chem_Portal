@@ -12,7 +12,7 @@ export const Inorganic31Trainer: React.FC<Props> = ({ onBackToCatalog }) => {
     <GenericTrainerContainer
       storageKey="inorg31_trainer_progress"
       badgeText="Тренажер №31 • ЕГЭ"
-      moduleCategoryText="Тема: Азот и Фосфор"
+      moduleCategoryText="Тема: Азот и фосфор"
       title="Решебник №31: 4 уравнения реакций"
       tasks={INORGANIC_31_TASKS}
       subtopics={INORGANIC_31_SUBTOPICS}

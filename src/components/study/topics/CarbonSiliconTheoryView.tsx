@@ -10,13 +10,13 @@ export const CarbonSiliconTheoryView: React.FC = () => {
   const navItems = [
     { id: 'general', label: '1. Свойства элементов IV-A' },
     { id: 'allotropes', label: '2. Аллотропия C и Si' },
-    { id: 'carbon-chem', label: '3. Химия Углерода (C)' },
-    { id: 'silicon-chem', label: '4. Химия Кремния (Si)' },
+    { id: 'carbon-chem', label: '3. Химия углерода (C)' },
+    { id: 'silicon-chem', label: '4. Химия кремния (Si)' },
     { id: 'oxides', label: '5. Оксиды CO и CO₂' },
     { id: 'carbonates', label: '6. Угольная кислота и соли' },
     { id: 'silica', label: '7. Оксид SiO₂ и Силикаты' },
     { id: 'industry', label: '8. Силикатная промышленность' },
-    { id: 'molecules-3d', label: '9. 3D-Модели веществ' },
+    { id: 'molecules-3d', label: '9. 3D-модели веществ' },
   ];
 
   const scrollToNav = () => {

@@ -50,7 +50,7 @@ export const Header: React.FC<Props> = ({ onOpenModal }) => {
         <nav className="hidden lg:flex items-center gap-5 text-xs font-bold text-slate-700 whitespace-nowrap">
           <button onClick={() => handleSectionClick('#teachers')} className="hover:text-amber-600 transition">Преподаватели</button>
           <button onClick={() => handleSectionClick('#why-us')} className="hover:text-amber-600 transition">Почему мы</button>
-          <button onClick={() => handleSectionClick('#3d-lab')} className="hover:text-amber-600 transition">3D-Молекулы</button>
+          <button onClick={() => handleSectionClick('#future')} className="hover:text-amber-600 transition">Интерактивные материалы</button>
           <button onClick={() => handleSectionClick('#courses')} className="hover:text-amber-600 transition">Курсы и цены</button>
           <button onClick={() => handleSectionClick('#location')} className="hover:text-amber-600 transition">Контакты</button>
         </nav>
@@ -100,7 +100,7 @@ export const Header: React.FC<Props> = ({ onOpenModal }) => {
         <div className="lg:hidden bg-white border-b border-slate-200 px-4 py-4 space-y-3 animate-fade-in">
           <button onClick={() => handleSectionClick('#teachers')} className="block text-xs font-bold text-slate-800 py-1 w-full text-left">Преподаватели</button>
           <button onClick={() => handleSectionClick('#why-us')} className="block text-xs font-bold text-slate-800 py-1 w-full text-left">Почему мы</button>
-          <button onClick={() => handleSectionClick('#3d-lab')} className="block text-xs font-bold text-slate-800 py-1 w-full text-left">3D-Молекулы</button>
+          <button onClick={() => handleSectionClick('#future')} className="block text-xs font-bold text-slate-800 py-1 w-full text-left">Интерактивные материалы</button>
           <button onClick={() => handleSectionClick('#courses')} className="block text-xs font-bold text-slate-800 py-1 w-full text-left">Курсы и цены</button>
           <button onClick={() => handleSectionClick('#location')} className="block text-xs font-bold text-slate-800 py-1 w-full text-left">Контакты и проезд</button>
           

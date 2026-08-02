@@ -1,9 +1,12 @@
 import React from 'react';
 import { 
   Zap, ArrowRight, Lightbulb, AlertTriangle, 
-  FlaskConical, Atom, TestTube, Orbit, BookOpen 
+  FlaskConical, Atom, TestTube, Orbit 
 } from 'lucide-react';
 import { ChemFormula } from '../../../scientific/ChemFormula';
+import { TermTooltip } from '../../../scientific/TermTooltip';
+import { TopicNavGrid } from '../../TopicNavGrid';
+import { TopicQuickNavTags, type QuickNavTag } from '../../TopicQuickNavTags';
 import { useRouter } from '../../../../routes/router';
 
 interface HeaderProps {
@@ -17,6 +20,11 @@ export const CarbonSiliconHeader: React.FC<HeaderProps> = ({
   activeSection,
   setActiveSection
 }) => {
+  const quickNavTags: QuickNavTag[] = [
+    { targetId: 'allotropes', label: 'Аллотропия C и Si', icon: Atom },
+    { targetId: 'carbon-chem', label: 'Восстановители C и CO', icon: TestTube },
+    { targetId: 'molecules-3d', label: '3D-Модели веществ', icon: Orbit },
+  ];
   const { openStudyBlock } = useRouter();
 
   const handleGoToPractice = () => {
@@ -40,7 +48,7 @@ export const CarbonSiliconHeader: React.FC<HeaderProps> = ({
 
         <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight flex items-center gap-3">
           <FlaskConical className="w-8 h-8 text-slate-800 shrink-0" />
-          <span>Химия Углерода (C) и Кремния (Si)</span>
+          <span>Химия углерода (C) и кремния (Si)</span>
         </h1>
 
         <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal max-w-4xl">
@@ -48,11 +56,7 @@ export const CarbonSiliconHeader: React.FC<HeaderProps> = ({
         </p>
 
         <div className="pt-4 flex flex-wrap items-center justify-between gap-4 border-t border-slate-100 text-xs sm:text-sm text-slate-600">
-          <div className="flex items-center gap-5">
-            <span className="flex items-center gap-1.5"><Atom className="w-4 h-4 text-slate-700" /> Аллотропия C и Si</span>
-            <span className="flex items-center gap-1.5"><TestTube className="w-4 h-4 text-slate-700" /> Восстановители C и CO</span>
-            <span className="flex items-center gap-1.5"><Orbit className="w-4 h-4 text-slate-700" /> 3D-Модели веществ</span>
-          </div>
+          <TopicQuickNavTags tags={quickNavTags} />
 
           <button
             onClick={handleGoToPractice}
@@ -103,7 +107,7 @@ export const CarbonSiliconHeader: React.FC<HeaderProps> = ({
           <li className="flex items-start gap-2">
             <span className="px-1.5 py-0.5 rounded bg-slate-200 text-slate-900 text-xs font-mono font-bold shrink-0">3</span>
             <div>
-              <strong>Совместный (взаимный) гидролиз солей</strong>: При смешивании растворов солей <ChemFormula formula="Al(3+)" />, <ChemFormula formula="Cr(3+)" />, <ChemFormula formula="Fe(3+)" /> с карбонатами или силикатами происходит ВЗАИМНЫЙ НЕОБРАТИМЫЙ ГИДРОЛИЗ с выпадением гидратированного оксида/гидроксида и выделением <ChemFormula formula="CO2^" /> или <ChemFormula formula="H2SiO3v" />: <ChemFormula formula="2AlCl3 + 3Na2CO3 + 3H2O -> 2Al(OH)3v + 3CO2^ + 6NaCl" className="font-bold text-slate-900" />.
+              <strong><TermTooltip term="Совместный (взаимный) гидролиз солей" definition="Взаимно усиливающийся необратимый гидролиз солей слабых многоосновных кислот и слабых оснований (напр. Al³⁺ и CO₃²⁻) с выпадением осадка гидроксида и выделением газа CO₂." /></strong>: При смешивании растворов солей <ChemFormula formula="Al(3+)" />, <ChemFormula formula="Cr(3+)" />, <ChemFormula formula="Fe(3+)" /> с карбонатами или силикатами происходит ВЗАИМНЫЙ НЕОБРАТИМЫЙ ГИДРОЛИЗ с выпадением гидратированного оксида/гидроксида и выделением <ChemFormula formula="CO2^" /> или <ChemFormula formula="H2SiO3v" />: <ChemFormula formula="2AlCl3 + 3Na2CO3 + 3H2O -> 2Al(OH)3v + 3CO2^ + 6NaCl" className="font-bold text-slate-900" />.
             </div>
           </li>
           <li className="flex items-start gap-2">
@@ -116,35 +120,11 @@ export const CarbonSiliconHeader: React.FC<HeaderProps> = ({
       </div>
 
       {/* 4. Table of Contents Navigation Grid */}
-      <div id="nav-toc" className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3.5 scroll-mt-6">
-        <div className="flex items-center justify-between text-slate-900 border-b border-slate-100 pb-2">
-          <span className="flex items-center gap-2 font-bold text-sm sm:text-base">
-            <BookOpen className="w-4 h-4 text-slate-700" />
-            <span>Содержание раздела</span>
-          </span>
-          <span className="text-xs text-slate-500 font-normal">9 разделов</span>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => {
-                setActiveSection(item.id);
-                const el = document.getElementById(item.id);
-                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }}
-              className={`px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium text-left transition border ${
-                activeSection === item.id
-                  ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
-                  : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200'
-              }`}
-            >
-              {item.label}
-            </button>
-          ))}
-        </div>
-      </div>
+      <TopicNavGrid
+        navItems={navItems}
+        activeSection={activeSection}
+        onSelectSection={setActiveSection}
+      />
 
     </div>
   );

@@ -256,34 +256,6 @@ graph TD
 
 ---
 
-### Фаза 4: Расширение интерактива и Three.js 3D визуализатора
-
-#### 🎯 Цель
-Развить модуль 3D-визуализации молекул (`MoleculeViewer3D.tsx`) и интерактивной лаборатории (`InteractiveLab.tsx` / `ReactionSimulator.tsx`).
-
-#### 📋 Прекондшины
-Успешное выполнение Фазы 3.
-
-#### 🏗️ Архитектурный проект (BDUF)
-1. Расширить утилиту `threeMoleculeRenderer.ts`:
-   - Поддержка отображения типа гибридизации атомов (sp, sp2, sp3) с подсвечивающимися облаками.
-   - Анимация вращения молекулы с возможностью переключения между шарнирно-стержневой (ball-and-stick) и пространственной (space-filling / CPK) моделями.
-2. Интегрировать 3D-просмотрщик прямо в карточки разбора задач тренажера для визуализации участвующих веществ.
-
-#### 📁 Изменения файлов
-- `[MODIFY]` [threeMoleculeRenderer.ts](file:///f:/S_Chem_Portal/src/utils/threeMoleculeRenderer.ts)
-- `[MODIFY]` [MoleculeViewer3D.tsx](file:///f:/S_Chem_Portal/src/components/interactive/MoleculeViewer3D.tsx)
-- `[NEW]` [MoleculeModal.tsx](file:///f:/S_Chem_Portal/src/components/interactive/MoleculeModal.tsx)
-- `[MODIFY]` [TaskSolutionFeedback.tsx](file:///f:/S_Chem_Portal/src/core/trainer/components/TaskSolutionFeedback.tsx)
-
-#### ✅ Критерии приемки
-1. Переключение режимов отображения 3D-молекул (Ball-and-stick / Space-filling) без утечек памяти Three.js (`dispose()`).
-2. Возможность открыть 3D модель вещества при клике на химическую формулу в разборе решения.
-3. `npm run build` проходит без ошибок.
-
-#### 🤖 AI Agent Directive (Директива для агента)
-> Выполни Фазу 4 роадмапа: Улучши Three.js рендерер молекул в `threeMoleculeRenderer.ts`, добавив выбор стилей визуализации (Ball-and-stick и CPK Space-filling) и оптимизировав очистку ресурсов Three.js. Добавь возможность вызова 3D-просмотрщика молекулы из модального окна разбора задач.
-
 ---
 
 ### Фаза 5: Система автоматизированного тестирования Vitest
