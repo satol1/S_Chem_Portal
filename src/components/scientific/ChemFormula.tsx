@@ -102,10 +102,10 @@ export function convertFormulaToKaTeX(raw: string): string {
 
   let text = normalizeChemicalString(raw);
 
-  // Pre-process parenthesized Russian condition notes e.g. (конц), (разб), (очень разб), (гипофосфит калия)
+  // Pre-process parenthesized condition notes, concentrations or percentage labels e.g. (конц), (разб), (98.3%), (олеум), (98%)
   const notePlaceholders: string[] = [];
-  text = text.replace(/\((конц|разб|очень\s*разб|очень\s*разбавленный|раствор|газ|твердый|[а-яА-ЯёЁ]+(?:\s+[а-яА-ЯёЁ]+)*)\)/gi, (_, noteContent) => {
-    const cleanNote = noteContent.trim().replace(/\s+/g, '\\,');
+  text = text.replace(/\(([^)]*(?:[а-яА-ЯёЁ%]|конц|разб|олеум|газ|тверд|раствор|водн)[^)]*)\)/gi, (_, noteContent) => {
+    const cleanNote = noteContent.trim().replace(/%/g, '\\%').replace(/\s+/g, '\\,');
     const idx = notePlaceholders.length;
     notePlaceholders.push(`\\text{\\,\\scriptsize{(${cleanNote})}}`);
     return `__NOTE_PLACEHOLDER_${idx}__`;
