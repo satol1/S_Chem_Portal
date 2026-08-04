@@ -90,13 +90,56 @@ export function formatHalfReaction(
 }
 
 /**
+ * Formats reaction arrow condition string (temperature, catalysts, reagents) for KaTeX LaTeX.
+ */
+export function formatConditionLatex(cond: string): string {
+  if (!cond) return '';
+  let res = cond.trim();
+
+  // Normalize Unicode chemical subscripts
+  res = normalizeChemicalString(res);
+
+  // Replace temperature expressions e.g. t=450°C, t=800-900°C, t=450°
+  res = res.replace(/t\s*=\s*(\d+)(?:[–-](\d+))?\s*°?C?/gi, (_, t1, t2) => {
+    return t2 ? `t=${t1}\\text{--}${t2}^{\\circ}\\text{C}` : `t=${t1}^{\\circ}\\text{C}`;
+  });
+  res = res.replace(/(\d+)(?:[–-](\d+))?\s*°C/gi, (_, t1, t2) => {
+    return t2 ? `${t1}\\text{--}${t2}^{\\circ}\\text{C}` : `${t1}^{\\circ}\\text{C}`;
+  });
+  res = res.replace(/\bt\b(?!^{\\circ})/g, 't^{\\circ}');
+
+  // Replace light / hv
+  res = res.replace(/\bhv\b|\bhν\b/gi, 'h\\nu');
+
+  // Replace common chemical formulas and catalysts in conditions
+  res = res.replace(/\bV2O5\b/g, '\\mathrm{V_2O_5}');
+  res = res.replace(/\bMnO2\b/g, '\\mathrm{MnO_2}');
+  res = res.replace(/\bAl2O3\b/g, '\\mathrm{Al_2O_3}');
+  res = res.replace(/\bTiO2\b/g, '\\mathrm{TiO_2}');
+  res = res.replace(/\bH2SO4\b/g, '\\mathrm{H_2SO_4}');
+  res = res.replace(/\bFe2O3\b/g, '\\mathrm{Fe_2O_3}');
+  res = res.replace(/\bFeBr3\b/g, '\\mathrm{FeBr_3}');
+  res = res.replace(/\bAlBr3\b/g, '\\mathrm{AlBr_3}');
+  res = res.replace(/\bPt\/Rh\b/gi, '\\text{Pt/Rh}');
+  res = res.replace(/\bPt\b/g, '\\text{Pt}');
+  res = res.replace(/\bFe\b/g, '\\text{Fe}');
+  res = res.replace(/\b(cat|кат|к)\.?\b/gi, '\\text{кат.}');
+
+  // Clean up commas and spaces for KaTeX
+  res = res.replace(/\s*,\s*/g, ',\\,');
+  res = res.replace(/\s+/g, '\\,');
+
+  return res;
+}
+
+/**
  * Converts standard chemical formulas or reactions into KaTeX LaTeX math string.
  */
 export function convertFormulaToKaTeX(raw: string): string {
   if (!raw) return '';
 
   // If already contains ready KaTeX formatting with \mathrm, \ce, \xrightarrow, \rightleftharpoons
-  if (raw.includes('\\mathrm') || raw.includes('\\ce{') || raw.includes('\\xrightarrow') || raw.includes('\\rightleftharpoons')) {
+  if (raw.includes('\\mathrm') || raw.includes('\\ce{') || raw.includes('\\xrightarrow') || raw.includes('\\xrightleftharpoons') || raw.includes('\\rightleftharpoons')) {
     return raw;
   }
 
@@ -111,35 +154,39 @@ export function convertFormulaToKaTeX(raw: string): string {
     return `__NOTE_PLACEHOLDER_${idx}__`;
   });
 
-  // Convert reaction arrows with conditions (temperature, catalyst, reagents)
-  text = text
-    // Temperature + Catalyst combinations: -t,cat->, -(t,cat)->, -t,k->, -(t,k)->, -t,кат->, -(t,кат)->, -t, cat->, -(t, cat)->
-    .replace(/-(?:\(?t\s*,\s*(?:cat|кат|к)\.?\)?|t,cat|t,кат|t,к)->/gi, ' \\xrightarrow{t^{\\circ},\\,\\text{кат.}} ')
-    // H2SO4 with temperature: -(H2SO4, t)->, -(H2SO4,t)->
-    .replace(/-\((?:H2SO4|H₂SO₄)\s*,\s*t\)->/gi, ' \\xrightarrow{\\mathrm{H_2SO_4},\\,t^{\\circ}} ')
-    // Pt/Rh with temperature: -(Pt/Rh, t)->, -(Pt/Rh,t)->
-    .replace(/-\(Pt\/Rh\s*,\s*t\)->/gi, ' \\xrightarrow{\\text{Pt/Rh},\\,t^{\\circ}} ')
-    // Pt/Rh catalyst only: -(Pt/Rh)->
-    .replace(/-(Pt\/Rh)->/gi, ' \\xrightarrow{\\text{Pt/Rh}} ')
-    // Catalyst only: -cat->, -(cat)->, -кат->, -(кат)->, -к->, -(к)->
-    .replace(/-(?:\(?cat\.?\)?|\(?кат\.?\)?|к)->/gi, ' \\xrightarrow{\\text{кат.}} ')
-    // Temperature only: --t--> or -t-> or -(t)->
-    .replace(/--t-->|-t->|-(t)->/gi, ' \\xrightarrow{t^{\\circ}} ')
-    // General parenthesized condition over arrow: -(cond)->
-    .replace(/-\(([^)]+)\)->/g, (_, cond) => {
-      const cleanCond = cond.trim().replace(/\s+/g, '\\,');
-      return ` \\xrightarrow{\\text{${cleanCond}}} `;
-    })
-    // Standard arrows
-    .replace(/<->|⇄/gi, ' \\rightleftharpoons ')
-    .replace(/->|➔|→/gi, ' \\rightarrow ');
+  // Convert reversible reaction arrows with conditions: <=(cond)=> or <-(cond)->
+  text = text.replace(/<=(?:\(([^)]+)\)|([^=>]+))=>/g, (_, c1, c2) => {
+    const c = (c1 || c2 || '').trim();
+    return ` \\xrightleftharpoons{${formatConditionLatex(c)}} `;
+  });
+  text = text.replace(/<-(?:\(([^)]+)\)|([^-]+))->/g, (_, c1, c2) => {
+    const c = (c1 || c2 || '').trim();
+    return ` \\xrightleftharpoons{${formatConditionLatex(c)}} `;
+  });
 
-  // Protect all \xrightarrow{...} blocks from being split by whitespace
-  const xrightarrowPlaceholders: string[] = [];
-  text = text.replace(/\\xrightarrow\{[\s\S]*?\}(?=\s|$)/g, (match) => {
-    const idx = xrightarrowPlaceholders.length;
-    xrightarrowPlaceholders.push(match);
-    return ` __XRIGHTARROW_${idx}__ `;
+  // Convert direct reaction arrows with conditions: -(cond)-> or -cond->
+  text = text.replace(/-(?:\(([^)]+)\)|t\s*,\s*(?:cat|кат|к)\.?|t,cat|t,кат|t,к|cat|кат|к|t)->/gi, (match, c1) => {
+    let cond = '';
+    if (c1) {
+      cond = c1.trim();
+    } else {
+      cond = match.slice(1, -2).trim();
+    }
+    return ` \\xrightarrow{${formatConditionLatex(cond)}} `;
+  });
+
+  // Standard reversible arrows without conditions: <=> or <-> or ⇄
+  text = text.replace(/<=>|<->|⇄/gi, ' \\rightleftharpoons ');
+
+  // Standard direct arrows without conditions: -> or ➔ or →
+  text = text.replace(/->|➔|→/gi, ' \\rightarrow ');
+
+  // Protect all \xrightarrow{...} and \xrightleftharpoons{...} blocks from being split by whitespace
+  const arrowPlaceholders: string[] = [];
+  text = text.replace(/\\x(?:right|left)?(?:arrow|leftharpoons)\{[\s\S]*?\}(?=\s|$)/g, (match) => {
+    const idx = arrowPlaceholders.length;
+    arrowPlaceholders.push(match);
+    return ` __ARROW_PLACEHOLDER_${idx}__ `;
   });
 
   const tokens = text.split(/\s+/);
@@ -156,17 +203,17 @@ export function convertFormulaToKaTeX(raw: string): string {
       }
     }
 
-    // If token is a protected xrightarrow placeholder
-    if (token.startsWith('__XRIGHTARROW_')) {
-      const idxMatch = token.match(/__XRIGHTARROW_(\d+)__/);
+    // If token is a protected arrow placeholder
+    if (token.startsWith('__ARROW_PLACEHOLDER_')) {
+      const idxMatch = token.match(/__ARROW_PLACEHOLDER_(\d+)__/);
       if (idxMatch) {
         const idx = parseInt(idxMatch[1], 10);
-        return xrightarrowPlaceholders[idx] || '';
+        return arrowPlaceholders[idx] || '';
       }
     }
 
     // Standard reaction operators
-    if (token === '+' || token === '=' || token === '\\rightarrow' || token === '\\rightleftharpoons' || token.startsWith('\\xrightarrow')) {
+    if (token === '+' || token === '-' || token === '=' || token === '/' || token === '\\rightarrow' || token === '\\rightleftharpoons' || token.startsWith('\\x')) {
       return token;
     }
 
@@ -204,6 +251,14 @@ export function convertFormulaToKaTeX(raw: string): string {
       word = word.slice(0, -1);
     }
 
+    // Handle orbital electron configurations e.g. 1s^2, 2s2, 2p^3, ns^2, np^2, 3d10.
+    // Checked before coefficient extraction so the principal quantum number is kept,
+    // and lowercase-only so element symbols (P4, S8, F2) are not misread as orbitals.
+    const orbitalMatch = word.match(/^([1-7n]?[spdf][xyz]?)\^?(\d+)$/);
+    if (orbitalMatch) {
+      return `\\mathrm{${orbitalMatch[1]}}^{${orbitalMatch[2]}}${phase}${trailingNote}`;
+    }
+
     // Extract leading coefficient (e.g., "3Cu", "2NH3", "4HNO3")
     const coefMatch = word.match(/^(\d+)(.+)$/);
     let coef = '';
@@ -215,20 +270,27 @@ export function convertFormulaToKaTeX(raw: string): string {
     // Extract charge / oxidation state (e.g. NH4+, OH-, Cu2+, PO4(3-), PO43-, Fe+3, P0, N+5)
     let charge = '';
 
-    // Match charges in brackets e.g. PO4(3-), N(+5), P(0)
-    const bracketChargeMatch = word.match(/^(.+?)\(([+-]?\d+[+-]?)\)$/);
+    // Match charges in brackets e.g. PO4(3-), N(+5), P(0), MnO4(-), H(+)
+    const bracketChargeMatch = word.match(/^(.+?)\(([+-]\d*|\d+[+-]?)\)$/);
     if (bracketChargeMatch) {
       word = bracketChargeMatch[1];
       charge = `^{${bracketChargeMatch[2]}}`;
     } else {
-      // Match trailing ion charges e.g. NH4+, OH-, Cu2+, Fe3+, N+5, P0, N+4
-      const ionMatch = word.match(/^([A-Za-z0-9()\[\]]+?)([+-]\d+|\d+[+-]|\+|\-)$/);
-      if (ionMatch && ionMatch[1]) {
-        word = ionMatch[1];
-        let ch = ionMatch[2];
-        if (ch === '+') ch = '+';
-        else if (ch === '-') ch = '-';
-        charge = `^{${ch}}`;
+      // Sign-first charge/oxidation state is unambiguous e.g. N+5, Fe+3, P-3
+      const signFirstMatch = word.match(/^([A-Za-z0-9()[\]]+?)([+-]\d+)$/);
+      // Trailing digit+sign is a charge only for a monoatomic ion e.g. Cu2+, Fe3+;
+      // for polyatomic species the digit stays a subscript and the sign is a ±1 charge e.g. NH4+, NO3-
+      const digitSignMatch = word.match(/^([A-Za-z0-9()[\]]+?)(\d+[+-])$/);
+      const bareSignMatch = word.match(/^([A-Za-z0-9()[\]]+?)([+-])$/);
+      if (signFirstMatch && signFirstMatch[1]) {
+        word = signFirstMatch[1];
+        charge = `^{${signFirstMatch[2]}}`;
+      } else if (digitSignMatch && digitSignMatch[1] && /^[A-Z][a-z]?$/.test(digitSignMatch[1])) {
+        word = digitSignMatch[1];
+        charge = `^{${digitSignMatch[2]}}`;
+      } else if (bareSignMatch && bareSignMatch[1]) {
+        word = bareSignMatch[1];
+        charge = `^{${bareSignMatch[2]}}`;
       }
     }
 
@@ -273,12 +335,6 @@ export function convertFormulaToKaTeX(raw: string): string {
       if (prefixDots) res = `:\\!${res}`;
       if (suffixDots) res = `${res}\\!:`;
       return `${coef}${res}${charge}${phase}${trailingNote}`;
-    }
-
-    // Handle orbital electron configurations e.g. 1s^2, 2s2, 2p^3, ns^2, np^2, 3d10
-    const orbitalMatch = word.match(/^([1-7n]?[spdf][xyz]?)\^?(\d+)$/i);
-    if (orbitalMatch) {
-      return `\\mathrm{${orbitalMatch[1]}}^{${orbitalMatch[2]}}${phase}${trailingNote}`;
     }
 
     // Handle general superscripts with ^

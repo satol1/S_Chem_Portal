@@ -10,12 +10,19 @@ export default defineConfig({
     tailwindcss(),
   ],
   build: {
+    target: 'es2022',
+    modulePreload: {
+      polyfill: true,
+    },
     rollupOptions: {
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
             if (id.includes('three')) {
               return 'vendor-three';
+            }
+            if (id.includes('katex')) {
+              return 'vendor-katex';
             }
             if (id.includes('framer-motion')) {
               return 'vendor-motion';
@@ -37,7 +44,7 @@ export default defineConfig({
         },
       },
     },
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 600,
   },
 })
 

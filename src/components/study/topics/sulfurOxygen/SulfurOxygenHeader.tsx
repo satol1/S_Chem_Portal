@@ -79,7 +79,7 @@ export const SulfurOxygenHeader: React.FC<HeaderProps> = ({
             Ключевая идея темы:
           </h3>
           <p className="text-slate-600 leading-relaxed font-normal">
-            Кислород — второй по электроотрицательности элемент (после фтора), ограничен валентностью II из-за отсутствия d-орбиталей на 2-м периоде. Сера за счет доступных 3d-орбиталей расширяет валентную оболочку до VI и образует степени окисления -2, 0, +2, +4, +6. Концентрированная <ChemFormula formula="H2SO4" className="font-semibold text-slate-900" /> — мощнейший ОВР-окислитель и дегидрататор, пассивирующий Fe, Cr, Al на холоду.
+            Кислород — второй по электроотрицательности элемент (после фтора), ограничен валентностью II из-за отсутствия d-орбиталей на 2-м периоде. Сера за счет доступных 3d-орбиталей расширяет валентную оболочку до VI и образует степени окисления -2, 0, +2, +4, +6. Концентрированная <ChemFormula formula="H2SO4" className="font-semibold text-slate-900" /> — мощнейший ОВР-окислитель и дегидрататор, <TermTooltip term="пассивирующий" definition="Образующий тонкий защитный оксидный слой на поверхности металлов (Fe, Cr, Al) при 20°C, прекращающий дальнейшую реакцию." /> Fe, Cr, Al без нагревания (при комнатной температуре).
           </p>
         </div>
       </div>
@@ -88,7 +88,7 @@ export const SulfurOxygenHeader: React.FC<HeaderProps> = ({
       <div className="p-5 rounded-xl bg-slate-50 border-l-4 border-l-amber-500 border-y border-r border-slate-200 text-slate-800 space-y-3 shadow-xs">
         <div className="flex items-center gap-2 font-bold text-slate-900 text-sm sm:text-base border-b border-slate-200/60 pb-2">
           <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0" />
-          <span>Важные экзаменационные «подводные камни» ФИПИ:</span>
+          <span>Важные экзаменационные «подводные камни» и тонкости:</span>
         </div>
 
         <ul className="space-y-2.5 text-xs sm:text-sm text-slate-700 font-normal leading-relaxed">
@@ -101,7 +101,7 @@ export const SulfurOxygenHeader: React.FC<HeaderProps> = ({
           <li className="flex items-start gap-2">
             <span className="px-1.5 py-0.5 rounded bg-slate-200 text-slate-900 text-xs font-mono font-bold shrink-0">2</span>
             <div>
-              <strong>Пассивация на холоду</strong>: Железо (<ChemFormula formula="Fe" />), хром (<ChemFormula formula="Cr" />) и алюминий (<ChemFormula formula="Al" />) НЕ РЕАГИРУЮТ с концентрированной <ChemFormula formula="H2SO4" /> при 20°C! Для снятия пассивирующей пленки необходим нагрев.
+              <strong><TermTooltip term="Пассивация" definition="Образование на поверхности металлов (Fe, Cr, Al) защитной оксидной пленки, предотвращающей дальнейшую реакцию с концентрированной H₂SO₄ при 20°C." /> без нагревания (при 20 °C)</strong>: Железо (<ChemFormula formula="Fe" />), хром (<ChemFormula formula="Cr" />) и алюминий (<ChemFormula formula="Al" />) НЕ РЕАГИРУЮТ с концентрированной <ChemFormula formula="H2SO4" /> при 20°C! Для снятия <TermTooltip term="пассивирующей пленки" definition="Тонкий прочный оксидный слой (Fe₂O₃, Al₂O₃, Cr₂O₃), физически изолирующий металл от взаимодействия с кислотой." /> необходим нагрев.
             </div>
           </li>
           <li className="flex items-start gap-2">

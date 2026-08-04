@@ -461,7 +461,7 @@ export const CarbonSiliconInteractive2DViewer: React.FC<Interactive2DViewerProps
         </div>
 
         <div className="pt-2 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-          <span>Спецификация ФИПИ</span>
+          <span>Справочные данные</span>
           <button
             onClick={handleReset}
             className="text-sky-400 hover:text-sky-300 hover:underline transition cursor-pointer"

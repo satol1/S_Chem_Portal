@@ -14,7 +14,7 @@ export const CarbonSiliconTheoryView: React.FC = () => {
     { id: 'silicon-chem', label: '4. Химия кремния (Si)' },
     { id: 'oxides', label: '5. Оксиды CO и CO₂' },
     { id: 'carbonates', label: '6. Угольная кислота и соли' },
-    { id: 'silica', label: '7. Оксид SiO₂ и Силикаты' },
+    { id: 'silica', label: '7. Оксид SiO₂ и силикаты' },
     { id: 'industry', label: '8. Силикатная промышленность' },
     { id: 'molecules-3d', label: '9. 3D-модели веществ' },
   ];
@@ -27,7 +27,7 @@ export const CarbonSiliconTheoryView: React.FC = () => {
   };
 
   const handleGoToPractice = () => {
-    openStudyBlock('inorganic-chemistry', 'elem-nonme-csi', 'practice');
+    openStudyBlock('elements-chemistry', 'elem-nonme-csi', 'practice');
   };
 
   return (

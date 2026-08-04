@@ -15,6 +15,7 @@ import { TopicNavGrid } from '../TopicNavGrid';
 import { DarkBlockCard } from '../DarkBlockCard';
 import { TopicQuickNavTags, type QuickNavTag } from '../TopicQuickNavTags';
 import { useRouter } from '../../../routes/router';
+import { PhosphorusAcids2DRenders } from './nitrogenPhosphorus/PhosphorusAcids2DRenders';
 
 /**
  * Authentic Academic Tree Diagram for Ammonium Salt Thermal Decomposition (Схема 11)
@@ -189,7 +190,7 @@ const Hno3MatrixTable: React.FC = () => {
             {/* Row 2 */}
             <tr className="hover:bg-slate-50/80 transition bg-slate-50/30">
               <td className="p-3.5 sm:p-4 border-r border-slate-200">
-                <div className="font-bold text-slate-900">Пассивирующиеся на холоду</div>
+                <div className="font-bold text-slate-900">Пассивация без нагревания (20 °C)</div>
                 <div className="text-xs text-slate-500 font-mono">Fe, Cr, Al</div>
               </td>
               <td className="p-3.5 sm:p-4 border-r border-slate-200 space-y-1">
@@ -248,18 +249,21 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
 
   const quickNavTags: QuickNavTag[] = [
     { targetId: 'comparison', label: 'Строение атомов', icon: Atom },
-    { targetId: 'hydrides', label: 'Свойства солей аммония', icon: TestTube },
-    { targetId: 'molecules-3d', label: '3D-Модели соединений', icon: Orbit },
+    { targetId: 'hydrides', label: 'Соли аммония', icon: TestTube },
+    { targetId: 'acids', label: 'Кислоты N и P', icon: FlaskConical },
+    { targetId: 'fertilizers', label: 'Удобрения', icon: Factory },
+    { targetId: 'molecules-3d', label: '3D-модели', icon: Orbit },
   ];
 
   const navItems = [
     { id: 'comparison', label: '1. Сравнение N и P' },
-    { id: 'allotropes', label: '2. Простые вещества и Аллотропия' },
-    { id: 'hydrides', label: '3. Водородные соединения и Соли аммония' },
+    { id: 'allotropes', label: '2. Простые вещества и аллотропия' },
+    { id: 'hydrides', label: '3. Водородные соединения и соли аммония' },
     { id: 'oxides', label: '4. Оксиды азота и фосфора' },
-    { id: 'acids', label: '5. Азотная кислота, нитриты и удобрения' },
-    { id: 'qualitative', label: '6. Качественные реакции' },
-    { id: 'molecules-3d', label: '7. 3D-модели веществ' },
+    { id: 'acids', label: '5. Кислоты азота и фосфора' },
+    { id: 'fertilizers', label: '6. Нитриты и минеральные удобрения' },
+    { id: 'qualitative', label: '7. Качественные реакции' },
+    { id: 'molecules-3d', label: '8. 3D-модели веществ' },
   ];
 
   const scrollToNav = () => {
@@ -321,9 +325,9 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
             <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                1. Сравнительный анализ: азот и фосфор
+                1. Сравнительный анализ
               </h2>
-              <p className="text-xs sm:text-sm text-slate-500">Электронные конфигурации, квантовые ограничения и степени окисления</p>
+              <p className="text-xs sm:text-sm text-slate-500">Азот и фосфор. Электронные конфигурации, квантовые ограничения и степени окисления</p>
             </div>
           </div>
 
@@ -408,9 +412,9 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
             <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                2. Простые вещества: тройная связь N₂ и аллотропы фосфора
+                2. Простые вещества
               </h2>
-              <p className="text-xs sm:text-sm text-slate-500">Свойства N2, промышленное получение P из фосфорита и разновидности фосфора</p>
+              <p className="text-xs sm:text-sm text-slate-500">Тройная связь N₂ и аллотропы фосфора. Свойства N2, промышленное получение P из фосфорита и разновидности фосфора</p>
             </div>
           </div>
 
@@ -530,9 +534,9 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
             <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                3. Водородные соединения и Соли Аммония
+                3. Водородные соединения и соли аммония
               </h2>
-              <p className="text-xs sm:text-sm text-slate-500">Свойства аммиака, фосфина, свойства солей аммония и Схема 11 термического разложения</p>
+              <p className="text-xs sm:text-sm text-slate-500">Свойства аммиака, фосфина, свойства солей аммония и схема 11 термического разложения</p>
             </div>
           </div>
 
@@ -783,16 +787,16 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 5: NITRIC ACID, NITRITES & MINERAL FERTILIZERS */}
+      {/* SECTION 5: NITROGEN & PHOSPHORUS ACIDS */}
       <section id="acids" className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6 scroll-mt-6">
         <div className="border-b border-slate-100 pb-3 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                5. Азотная кислота, нитриты и минеральные удобрения
+                5. Кислоты азота и фосфора
               </h2>
-              <p className="text-xs sm:text-sm text-slate-500">3-стадийный промышленный синтез HNO3, двойственные ОВР-свойства нитритов и классификация удобрений</p>
+              <p className="text-xs sm:text-sm text-slate-500">Строение, основность и химические свойства кислот. Промышленный синтез HNO₃, ОВР-матрица, гидратация P₂O₅ и 2D-структуры кислот</p>
             </div>
           </div>
 
@@ -833,6 +837,61 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
         {/* CLEAN ACADEMIC REFERENCE MATRIX TABLE */}
         <Hno3MatrixTable />
 
+        {/* PHOSPHORUS OXYACIDS BASICITY & DISPASSION RULES */}
+        <div className="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-4 text-xs sm:text-sm">
+          <div className="flex items-center gap-2 text-slate-900 font-semibold text-sm sm:text-base">
+            <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0" />
+            <span>Причина «аномальной» основности кислородсодержащих кислот фосфора</span>
+          </div>
+
+          <p className="text-slate-700 leading-relaxed font-normal">
+            В кислотах фосфора диссоциации с образованием гидратированных катионов <ChemFormula formula="H+" className="font-semibold text-slate-900" /> подвергаются <strong>только атомы водорода гидроксильных групп (P-OH)</strong>. Прямые связи <strong>P-H</strong> являются ковалентными малополярными и в водном растворе не диссоциируют! По этой причине кислотность определяет не общее число атомов водорода в формуле, а количество гидроксильных групп.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="p-4 rounded-xl bg-white border border-slate-200 space-y-1.5">
+              <div className="font-semibold text-slate-900 text-sm">H₃PO₂ (H[PH₂O₂]) — Одноосновная (+1)</div>
+              <p className="text-slate-600 font-normal">
+                Содержит 1 гидроксогруппу P-OH и 2 связи P-H. Соль <ChemFormula formula="NaH2PO2" className="text-slate-900 font-semibold" /> (гипофосфит натрия) — <strong>средняя соль</strong>.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl bg-white border border-slate-200 space-y-1.5">
+              <div className="font-semibold text-slate-900 text-sm">H₃PO₃ (H₂[PHO₃]) — Двухосновная (+3)</div>
+              <p className="text-slate-600 font-normal">
+                Содержит 2 гидроксогруппы P-OH и 1 связь P-H. Соль <ChemFormula formula="Na2HPO3" className="text-slate-900 font-semibold" /> (фосфит натрия) — <strong>средняя соль</strong>.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl bg-white border border-slate-200 space-y-1.5">
+              <div className="font-semibold text-slate-900 text-sm">H₃PO₄ — Трехосновная (+5)</div>
+              <p className="text-slate-600 font-normal">
+                Содержит 3 гидроксогруппы P-OH. Образует 3 ряда солей: <ChemFormula formula="NaH2PO4" className="text-slate-900 font-semibold" />, <ChemFormula formula="Na2HPO4" className="text-slate-900 font-semibold" />, <ChemFormula formula="Na3PO4" className="text-slate-900 font-semibold" />.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* 2D MOLECULAR SVG RENDERER FOR PHOSPHORUS ACIDS */}
+        <PhosphorusAcids2DRenders showSelector={true} />
+      </section>
+
+      {/* SECTION 6: NITRITES & MINERAL FERTILIZERS */}
+      <section id="fertilizers" className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6 scroll-mt-6">
+        <div className="border-b border-slate-100 pb-3 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <SectionBadge />
+            <div>
+              <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
+                6. Нитриты и минеральные удобрения
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-500">Двойственные ОВР-свойства нитритов, термолиз нитратов и классификация минеральных удобрений</p>
+            </div>
+          </div>
+
+          <ScrollToNavButton onClick={scrollToNav} />
+        </div>
+
         {/* DUAL REDOX BEHAVIOR OF NITRITES */}
         <div className="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-3 text-xs sm:text-sm">
           <div className="font-semibold text-slate-900 text-sm sm:text-base">
@@ -858,41 +917,6 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
           </div>
         </div>
 
-        {/* PHOSPHORUS OXYACIDS BASICITY */}
-        <div className="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-3 text-xs sm:text-sm">
-          <div className="flex items-center gap-2 text-slate-900 font-semibold text-sm sm:text-base">
-            <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0" />
-            <span>Основность кислородсодержащих кислот фосфора</span>
-          </div>
-
-          <p className="text-slate-700 leading-relaxed font-normal">
-            Связи <strong>P-H</strong> не&nbsp;диссоциируют в&nbsp;воде. Диссоциации подвергаются только атомы водорода гидроксильных групп <strong>O-H</strong>.
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-4 rounded-xl bg-white border border-slate-200 space-y-1.5">
-              <div className="font-semibold text-slate-900 text-sm">H₃PO₂ (H[PH₂O₂]) — Одноосновная</div>
-              <p className="text-slate-600 font-normal">
-                Соль <ChemFormula formula="NaH2PO2" className="text-slate-900 font-semibold" /> (гипофосфит натрия) — <strong>средняя соль</strong>.
-              </p>
-            </div>
-
-            <div className="p-4 rounded-xl bg-white border border-slate-200 space-y-1.5">
-              <div className="font-semibold text-slate-900 text-sm">H₃PO₃ (H₂[PHO₃]) — Двухосновная</div>
-              <p className="text-slate-600 font-normal">
-                Соль <ChemFormula formula="Na2HPO3" className="text-slate-900 font-semibold" /> (фосфит натрия) — <strong>средняя соль</strong>.
-              </p>
-            </div>
-
-            <div className="p-4 rounded-xl bg-white border border-slate-200 space-y-1.5">
-              <div className="font-semibold text-slate-900 text-sm">H₃PO₄ — Трехосновная</div>
-              <p className="text-slate-600 font-normal">
-                Образует соли: <ChemFormula formula="NaH2PO4" className="text-slate-900 font-semibold" />, <ChemFormula formula="Na2HPO4" className="text-slate-900 font-semibold" />, <ChemFormula formula="Na3PO4" className="text-slate-900 font-semibold" />.
-              </p>
-            </div>
-          </div>
-        </div>
-
         {/* MINERAL FERTILIZERS (DARK BLOCK) */}
         <div className="p-5 sm:p-6 rounded-xl bg-slate-900 text-white space-y-3.5 text-xs sm:text-sm border border-slate-800">
           <div className="font-semibold text-white text-sm sm:text-base flex items-center justify-between border-b border-slate-800 pb-2">
@@ -903,35 +927,35 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             <div className="p-3.5 rounded-xl bg-slate-800 border border-slate-700 space-y-1">
               <div className="font-semibold text-white">Простой суперфосфат</div>
-              <p className="text-slate-300 text-xs font-normal">Смесь <ChemFormula formula="Ca(H2PO4)2" className="text-amber-300 font-semibold" /> и&nbsp;<ChemFormula formula="2CaSO4" className="text-amber-300 font-semibold" />.</p>
+              <p className="text-slate-300 text-xs font-normal">Смесь дигидрофосфата кальция <ChemFormula formula="Ca(H2PO4)2" className="text-amber-300 font-semibold" /> и&nbsp;гипса <ChemFormula formula="CaSO4" className="text-slate-400 font-normal" />, получаемая обработкой апатита серной кислотой.</p>
             </div>
 
             <div className="p-3.5 rounded-xl bg-slate-800 border border-slate-700 space-y-1">
               <div className="font-semibold text-white">Двойной суперфосфат</div>
-              <p className="text-slate-300 text-xs font-normal">Чистый <ChemFormula formula="Ca(H2PO4)2" className="text-amber-300 font-semibold" /> (без балласта <ChemFormula formula="CaSO4" className="text-slate-400 font-normal" />).</p>
+              <p className="text-slate-300 text-xs font-normal">Концентрированный <ChemFormula formula="Ca(H2PO4)2*H2O" className="text-amber-300 font-semibold" />, получаемый обработкой фосфорита ортофосфорной кислотой (без образования <ChemFormula formula="CaSO4" className="text-slate-400 font-normal" />).</p>
             </div>
 
             <div className="p-3.5 rounded-xl bg-slate-800 border border-slate-700 space-y-1">
               <div className="font-semibold text-white">Аммофос</div>
-              <p className="text-slate-300 text-xs font-normal">Смесь <ChemFormula formula="NH4H2PO4" className="text-amber-300 font-semibold" /> и&nbsp;<ChemFormula formula="(NH4)2HPO4" className="text-amber-300 font-semibold" />.</p>
+              <p className="text-slate-300 text-xs font-normal">Смесь гидрофосфатов аммония <ChemFormula formula="NH4H2PO4" className="text-amber-300 font-semibold" /> и&nbsp;<ChemFormula formula="(NH4)2HPO4" className="text-amber-300 font-semibold" />.</p>
             </div>
 
             <div className="p-3.5 rounded-xl bg-slate-800 border border-slate-700 space-y-1">
               <div className="font-semibold text-white">Нитрофоска</div>
-              <p className="text-slate-300 text-xs font-normal">Комплексное удобрение из&nbsp;<ChemFormula formula="NH4NO3" className="text-amber-300 font-semibold" />, <ChemFormula formula="(NH4)2HPO4" className="text-amber-300 font-semibold" /> и&nbsp;<ChemFormula formula="KCl" className="text-amber-300 font-semibold" />.</p>
+              <p className="text-slate-300 text-xs font-normal">Комплексное удобрение (NPK) из&nbsp;<ChemFormula formula="NH4NO3" className="text-amber-300 font-semibold" />, <ChemFormula formula="(NH4)2HPO4" className="text-amber-300 font-semibold" /> и&nbsp;<ChemFormula formula="KCl" className="text-amber-300 font-semibold" />.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 6: QUALITATIVE REACTIONS OF NITROGEN & PHOSPHORUS */}
+      {/* SECTION 7: QUALITATIVE REACTIONS OF NITROGEN & PHOSPHORUS */}
       <section id="qualitative" className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6 scroll-mt-6">
         <div className="border-b border-slate-100 pb-3 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                6. Качественные реакции азота и фосфора
+                7. Качественные реакции азота и фосфора
               </h2>
               <p className="text-xs sm:text-sm text-slate-500">Аналитические методы обнаружения ионов NH₄⁺, NO₃⁻ и PO₄³⁻ в растворах</p>
             </div>
@@ -1007,16 +1031,16 @@ export const NitrogenPhosphorusTheoryView: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 7: 3D MOLECULE VIEWER */}
+      {/* SECTION 8: 3D MOLECULE VIEWER */}
       <section id="molecules-3d" className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6 scroll-mt-6">
         <div className="border-b border-slate-100 pb-3 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                7. 3D-модели соединений темы: азот и фосфор
+                8. 3D-модели
               </h2>
-              <p className="text-xs sm:text-sm text-slate-500">Пространственное строение молекул NH₃, PH₃, HNO₃, H₃PO₄, P₄</p>
+              <p className="text-xs sm:text-sm text-slate-500">Соединения темы: азот и фосфор. Пространственное строение молекул NH₃, PH₃, HNO₃, H₃PO₄, P₄</p>
             </div>
           </div>
 

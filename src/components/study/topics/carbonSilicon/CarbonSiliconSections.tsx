@@ -34,10 +34,10 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
             <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                1. Сравнительный анализ элементов IV-A группы (C и Si)
+                1. Сравнительный анализ
               </h2>
               <p className="text-xs sm:text-sm text-slate-500">
-                Электронные конфигурации, валентные состояния и особенности связей C-C и Si-O
+                Элементы IV-A группы (C и Si). Электронные конфигурации, валентные состояния и особенности связей C-C и Si-O
               </p>
             </div>
           </div>
@@ -117,9 +117,9 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
             <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                2. <TermTooltip term="Аллотропия" definition="Существование одного и того же химического элемента в виде нескольких простых веществ, различающихся строением кристаллической решетки или молекул." /> простых веществ углерода и кремния
+                2. <TermTooltip term="Аллотропия" definition="Существование одного и того же химического элемента в виде нескольких простых веществ, различающихся строением кристаллической решетки или молекул." />
               </h2>
-              <p className="text-xs sm:text-sm text-slate-500">Алмаз, графит, фуллерены, карбин, аморфный и кристаллический кремний</p>
+              <p className="text-xs sm:text-sm text-slate-500">Простые вещества углерода и кремния. Алмаз, графит, фуллерены, карбин, аморфный и кристаллический кремний</p>
             </div>
           </div>
 
@@ -289,9 +289,9 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
             <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                3. Химические свойства углерода (C)
+                3. Химические свойства углерода
               </h2>
-              <p className="text-xs sm:text-sm text-slate-500">Восстановительные свойства угля, реакция с кислотами и карбидный гидролиз</p>
+              <p className="text-xs sm:text-sm text-slate-500">Элемент C. Восстановительные свойства угля, реакция с кислотами и карбидный гидролиз</p>
             </div>
           </div>
 
@@ -304,7 +304,7 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
 
         <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3 text-xs text-slate-900">
           <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 block">
-            Уравнения реакций углерода (ЕГЭ / ФИПИ):
+            Уравнения реакций углерода (ЕГЭ):
           </span>
 
           <div className="space-y-2">
@@ -354,9 +354,9 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
             <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                4. Химические свойства кремния (Si)
+                4. Химические свойства кремния
               </h2>
-              <p className="text-xs sm:text-sm text-slate-500">Реакции со щелочами, плавиковой кислотой и получение силана</p>
+              <p className="text-xs sm:text-sm text-slate-500">Элемент Si. Реакции со щелочами, плавиковой кислотой и получение силана</p>
             </div>
           </div>
 
@@ -369,7 +369,7 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
 
         <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3 text-xs text-slate-900">
           <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 block">
-            Реакции кремния (ЕГЭ / ФИПИ):
+            Реакции кремния (ЕГЭ):
           </span>
 
           <div className="space-y-2">
@@ -417,9 +417,9 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
             <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                5. Оксиды углерода: CO (угарный газ) и CO₂ (углекислый газ)
+                5. Оксиды углерода
               </h2>
-              <p className="text-xs sm:text-sm text-slate-500">Несолеобразующий CO vs кислотный CO₂, реакции со щелочами и известковой водой</p>
+              <p className="text-xs sm:text-sm text-slate-500">CO (угарный газ) и CO₂ (углекислый газ). Несолеобразующий CO vs кислотный CO₂, реакции со щелочами и известковой водой</p>
             </div>
           </div>
 
@@ -445,7 +445,7 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
             <div className="p-3.5 rounded-lg bg-amber-50 border border-amber-200 text-xs sm:text-sm space-y-1.5 font-sans">
               <div className="font-bold text-amber-900 flex items-center gap-1.5">
                 <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
-                <span>Экзаменационная ловушка (ФИПИ / ДВИ МГУ / ВсОШ):</span>
+                <span>Экзаменационная ловушка:</span>
               </div>
               <p className="text-amber-950 leading-relaxed font-normal">
                 В молекуле угарного газа <ChemFormula formula=":C#O:" className="font-semibold text-amber-950" /> степень окисления углерода равна <strong>+2</strong>, однако его <strong>валентность равна III (3)</strong>, а не II! Из-за присутствия тройной связи между атомами C и O число химических связей равно трем.
@@ -491,9 +491,9 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
             <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                6. Угольная кислота и свойства солей (Карбонаты и Гидрокарбонаты)
+                6. Угольная кислота и соли
               </h2>
-              <p className="text-xs sm:text-sm text-slate-500">Взаимопревращения солей, жесткость воды и совместный гидролиз</p>
+              <p className="text-xs sm:text-sm text-slate-500">Карбонаты и гидрокарбонаты. Взаимопревращения солей, жесткость воды и совместный гидролиз</p>
             </div>
           </div>
 
@@ -506,7 +506,7 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
 
         <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3 text-xs text-slate-900">
           <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 block">
-            Реакции Карбонатов (ЕГЭ / ФИПИ):
+            Реакции Карбонатов (ЕГЭ):
           </span>
 
           <div className="space-y-2">
@@ -540,9 +540,9 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
             <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                7. Оксид кремния (SiO₂), кремниевая кислота (H₂SiO₃) и силикаты
+                7. Оксид кремния, кремниевая кислота и силикаты
               </h2>
-              <p className="text-xs sm:text-sm text-slate-500">Атомная кристаллическая решетка, сплавление и качественные реакции</p>
+              <p className="text-xs sm:text-sm text-slate-500">SiO₂, H₂SiO₃. Атомная кристаллическая решетка, сплавление и качественные реакции</p>
             </div>
           </div>
 
@@ -555,7 +555,7 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
 
         <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3 text-xs text-slate-900">
           <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 block">
-            Реакции соединений кремния (ЕГЭ / ФИПИ):
+            Реакции соединений кремния (ЕГЭ):
           </span>
 
           <div className="space-y-2">
@@ -582,9 +582,9 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
             <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                8. Силикатная промышленность (Производство стекла и цемента)
+                8. Силикатная промышленность
               </h2>
-              <p className="text-xs sm:text-sm text-slate-500">Производство оконного стекла, цемента и керамики</p>
+              <p className="text-xs sm:text-sm text-slate-500">Производство стекла и цемента. Производство оконного стекла, цемента и керамики</p>
             </div>
           </div>
 
@@ -611,11 +611,9 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
             <SectionBadge />
             <div>
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                9. Интерактивные 3D-модели веществ углерода и кремния
+                9. 3D-модели
               </h2>
-              <p className="text-xs sm:text-sm text-slate-500">
-                Объемное 3D-моделирование молекул и кристаллов CO, CO₂, SiO₂, SiH₄, H₂CO₃, H₂SiO₃, SiC
-              </p>
+              <p className="text-xs sm:text-sm text-slate-500">Интерактивные 3D-модели веществ углерода и кремния. Объемное 3D-моделирование молекул и кристаллов CO, CO₂, SiO₂, SiH₄, H₂CO₃, H₂SiO₃, SiC</p>
             </div>
           </div>
 

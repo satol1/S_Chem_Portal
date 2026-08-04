@@ -28,7 +28,7 @@ export const CarbonSiliconHeader: React.FC<HeaderProps> = ({
   const { openStudyBlock } = useRouter();
 
   const handleGoToPractice = () => {
-    openStudyBlock('inorganic-chemistry', 'elem-nonme-csi', 'practice');
+    openStudyBlock('elements-chemistry', 'elem-nonme-csi', 'practice');
   };
 
   return (
@@ -88,7 +88,7 @@ export const CarbonSiliconHeader: React.FC<HeaderProps> = ({
       <div className="p-5 rounded-xl bg-slate-50 border-l-4 border-l-amber-500 border-y border-r border-slate-200 text-slate-800 space-y-3 shadow-xs">
         <div className="flex items-center gap-2 font-bold text-slate-900 text-sm sm:text-base border-b border-slate-200/60 pb-2">
           <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0" />
-          <span>Важные экзаменационные «подводные камни» ФИПИ:</span>
+          <span>Важные экзаменационные «подводные камни»:</span>
         </div>
 
         <ul className="space-y-2.5 text-xs sm:text-sm text-slate-700 font-normal leading-relaxed">

@@ -1,5 +1,6 @@
 import React from 'react';
 import { TheoryCallout } from '../../TheoryCallout';
+import { ChemFormula } from '../../../scientific/ChemFormula';
 
 export const SulfurOxygenFunFacts: React.FC = () => {
   return (
@@ -9,7 +10,7 @@ export const SulfurOxygenFunFacts: React.FC = () => {
       </TheoryCallout>
 
       <TheoryCallout title="Интересный факт: Парамагнетизм жидкого кислорода">
-        При охлаждении до -183°C кислород конденсируется в жидкость светло-голубого цвета. Из-за наличия 2 неспаренных электронов на разрыхляющих $\pi^*$-орбиталях молекула $O_2$ парамагнитна: струйка жидкого кислорода притягивается к полюсам сильного магнита и удерживается в магнитном поле.
+        При охлаждении до -183 °C кислород конденсируется в жидкость светло-голубого цвета. Из-за наличия двух неспаренных электронов на разрыхляющих π*-орбиталях молекула <ChemFormula formula="O2" className="font-semibold text-slate-900" /> парамагнитна: струйка жидкого кислорода притягивается к полюсам сильного магнита и удерживается в магнитном поле.
       </TheoryCallout>
     </div>
   );

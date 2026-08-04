@@ -27,3 +27,6 @@ dist-ssr
 scratch/
 *.pdf
 
+# AI agent session data
+.qwen/
+

@@ -11,10 +11,10 @@ export const SulfurOxygenTheoryView: React.FC = () => {
     { id: 'section-general', label: '1. Свойства элементов VI-A' },
     { id: 'section-allotropes', label: '2. Аллотропия S₈ и O₃' },
     { id: 'section-peroxide', label: '3. Пероксид H₂O₂' },
-    { id: 'section-sulfides', label: '4. H₂S и Сульфиды' },
+    { id: 'section-sulfides', label: '4. H₂S и сульфиды' },
     { id: 'section-oxides', label: '5. Оксиды SO₂ и SO₃' },
     { id: 'section-h2so4', label: '6. Серная кислота' },
-    { id: 'section-salts', label: '7. Сульфаты и Олеум' },
+    { id: 'section-salts', label: '7. Сульфаты и олеум' },
     { id: 'section-industry', label: '8. Контактный способ' },
     { id: 'section-molecules-3d', label: '9. 3D-модели веществ' },
   ];

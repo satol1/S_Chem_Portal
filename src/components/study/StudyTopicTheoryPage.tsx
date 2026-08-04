@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { 
   BookOpen, Zap, ArrowRight, Lightbulb
 } from 'lucide-react';
@@ -6,9 +6,19 @@ import { STUDY_BLOCKS } from '../../data/studyBlocksData';
 import { useRouter } from '../../routes/router';
 import { StudyBreadcrumbs } from './StudyBreadcrumbs';
 import { ChemFormula } from '../scientific/ChemFormula';
-import { NitrogenPhosphorusTheoryView } from './topics/NitrogenPhosphorusTheoryView';
-import { CarbonSiliconTheoryView } from './topics/CarbonSiliconTheoryView';
-import { SulfurOxygenTheoryView } from './topics/SulfurOxygenTheoryView';
+
+const NitrogenPhosphorusTheoryView = React.lazy(() => import('./topics/NitrogenPhosphorusTheoryView').then(m => ({ default: m.NitrogenPhosphorusTheoryView })));
+const CarbonSiliconTheoryView = React.lazy(() => import('./topics/CarbonSiliconTheoryView').then(m => ({ default: m.CarbonSiliconTheoryView })));
+const SulfurOxygenTheoryView = React.lazy(() => import('./topics/SulfurOxygenTheoryView').then(m => ({ default: m.SulfurOxygenTheoryView })));
+const HalogensTheoryView = React.lazy(() => import('./topics/HalogensTheoryView').then(m => ({ default: m.HalogensTheoryView })));
+const GeneralBasicsTheoryView = React.lazy(() => import('./topics/GeneralBasicsTheoryView').then(m => ({ default: m.GeneralBasicsTheoryView })));
+const AtomStructureTheoryView = React.lazy(() => import('./topics/AtomStructureTheoryView').then(m => ({ default: m.AtomStructureTheoryView })));
+const ChemicalBondTheoryView = React.lazy(() => import('./topics/ChemicalBondTheoryView').then(m => ({ default: m.ChemicalBondTheoryView })));
+const InorganicClassesTheoryView = React.lazy(() => import('./topics/InorganicClassesTheoryView').then(m => ({ default: m.InorganicClassesTheoryView })));
+const ReactionClassificationTheoryView = React.lazy(() => import('./topics/ReactionClassificationTheoryView').then(m => ({ default: m.ReactionClassificationTheoryView })));
+const RedoxReactionsTheoryView = React.lazy(() => import('./topics/RedoxReactionsTheoryView').then(m => ({ default: m.RedoxReactionsTheoryView })));
+const ReactionRegularitiesTheoryView = React.lazy(() => import('./topics/ReactionRegularitiesTheoryView').then(m => ({ default: m.ReactionRegularitiesTheoryView })));
+const SolutionsDissociationTheoryView = React.lazy(() => import('./topics/SolutionsDissociationTheoryView').then(m => ({ default: m.SolutionsDissociationTheoryView })));
 
 interface Props {
   blockId: string;
@@ -51,14 +61,38 @@ export const StudyTopicTheoryPage: React.FC<Props> = ({ blockId, topicId }) => {
           ]}
         />
 
-        {topic.id === 'elem-nonme-np' ? (
-          <NitrogenPhosphorusTheoryView />
-        ) : topic.id === 'elem-nonme-csi' ? (
-          <CarbonSiliconTheoryView />
-        ) : topic.id === 'elem-nonme-so' ? (
-          <SulfurOxygenTheoryView />
-        ) : (
-          <>
+        <Suspense fallback={
+          <div className="py-16 text-center">
+            <div className="w-8 h-8 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mx-auto mb-2" />
+            <span className="text-xs font-bold text-slate-400">Загрузка теории...</span>
+          </div>
+        }>
+          {topic.id === 'elem-nonme-np' ? (
+            <NitrogenPhosphorusTheoryView />
+          ) : topic.id === 'elem-nonme-csi' ? (
+            <CarbonSiliconTheoryView />
+          ) : topic.id === 'elem-nonme-so' ? (
+            <SulfurOxygenTheoryView />
+          ) : topic.id === 'elem-nonme-halogens' ? (
+            <HalogensTheoryView />
+          ) : topic.id === 'gen-basics-laws' ? (
+            <GeneralBasicsTheoryView />
+          ) : topic.id === 'gen-atom-structure' ? (
+            <AtomStructureTheoryView />
+          ) : topic.id === 'gen-chem-bond' ? (
+            <ChemicalBondTheoryView />
+          ) : topic.id === 'gen-inorg-classes' ? (
+            <InorganicClassesTheoryView />
+          ) : topic.id === 'gen-reaction-classification' ? (
+            <ReactionClassificationTheoryView />
+          ) : topic.id === 'gen-ovr-basics' ? (
+            <RedoxReactionsTheoryView />
+          ) : topic.id === 'gen-kinetics-equilibrium' ? (
+            <ReactionRegularitiesTheoryView />
+          ) : topic.id === 'gen-solutions-rio' ? (
+            <SolutionsDissociationTheoryView />
+          ) : (
+            <>
             {/* Academic Topic Header Card */}
             <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200 shadow-sm mb-8 space-y-4">
               <div className="flex items-center gap-2">
@@ -210,6 +244,7 @@ export const StudyTopicTheoryPage: React.FC<Props> = ({ blockId, topicId }) => {
             )}
           </>
         )}
+        </Suspense>
 
       </div>
     </div>

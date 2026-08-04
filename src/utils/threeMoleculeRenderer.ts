@@ -10,7 +10,10 @@ export const ELEMENT_INFO: Record<
   O: { name: 'Кислород (O)', colorClass: 'bg-red-500 border-white', hexColor: 0xef4444, radius: 0.42, vdwRadius: 0.95 },
   N: { name: 'Азот (N)', colorClass: 'bg-blue-500 border-white', hexColor: 0x3b82f6, radius: 0.43, vdwRadius: 0.98 },
   P: { name: 'Фосфор (P)', colorClass: 'bg-orange-500 border-white', hexColor: 0xf97316, radius: 0.52, vdwRadius: 1.15 },
+  F: { name: 'Фтор (F)', colorClass: 'bg-emerald-400 border-white', hexColor: 0x10b981, radius: 0.40, vdwRadius: 0.90 },
   Cl: { name: 'Хлор (Cl)', colorClass: 'bg-emerald-500 border-white', hexColor: 0x22c55e, radius: 0.50, vdwRadius: 1.10 },
+  Br: { name: 'Бром (Br)', colorClass: 'bg-rose-800 border-white', hexColor: 0x991b1b, radius: 0.55, vdwRadius: 1.18 },
+  I: { name: 'Иод (I)', colorClass: 'bg-purple-700 border-white', hexColor: 0x6b21a8, radius: 0.60, vdwRadius: 1.28 },
 };
 
 export const HYBRIDIZATION_INFO: Record<
