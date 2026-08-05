@@ -13,10 +13,10 @@
 | `<Topic>TheoryView.tsx` | Корневой компонент: массив `navItems` (id + label с номером), `useState` активной секции, `scrollToNav()` к `#nav-toc`, переход в практику через `useRouter().openStudyBlock(...)`, обёртка `div className="space-y-8 font-body text-slate-800 leading-relaxed text-sm sm:text-base"` | ~50 строк |
 | `<Topic>Header.tsx` | Шапка из 4 блоков ([`30-DESIGN.md`](30-DESIGN.md) §4): карточка темы, ключевая идея, подводные камни ФИПИ, `TopicNavGrid` | ~130 строк |
 | `<Topic>Sections.tsx` | Все разделы теории `#section-*`, таблицы, 2D-превью с модалкой, ОВР-карты, `MoleculeViewer3D` в финальном разделе, `PracticeBanner` | до ~900 строк |
-| `<Topic>DarkBlocks.tsx` | Тёмные карточки промышленного химизма на `DarkBlockCard` (2–3 шт., распределённые по профильным секциям) | ~150 строк |
-| `<Topic>FunFacts.tsx` | Интересные факты через централизованный `TheoryCallout` (≥ 2 шт.) | ~20 строк |
+| `<Topic>DarkBlocks.tsx` | Тёмные акцентные блоки на `DarkBlockCard` (2–5 шт.: 2–3 больших + 1–2 малых; содержание не ограничено промышленным химизмом — [`30-DESIGN.md`](30-DESIGN.md) §6) | ~150–250 строк |
+| `<Topic>FunFacts.tsx` | Интересные факты через централизованный `TheoryCallout` (≥ 2 шт., равномерно распределяются по секциям — [`30-DESIGN.md`](30-DESIGN.md) §5) | ~20 строк |
 | `<Topic>2DRenders.tsx` | Векторные SVG-схемы темы на примитивах `scientific/svg/*` ([`20-RENDERING.md`](20-RENDERING.md) §2.2) | ~270 строк |
-| *Опционально:* `<Topic>Diagrams.tsx`, `<Topic>ReactionMatrix.tsx` | Изолированные tree-диаграммы (аллотропия, цепочки превращений) и сравнительные матрицы реакций | по необходимости |
+| *Опционально:* `<Topic>Diagrams.tsx`, `<Topic>ReactionMatrix.tsx` | Tree-диаграммы плотной сводной информации ([`20-RENDERING.md`](20-RENDERING.md) §2.6, без номеров схем) и сравнительные матрицы реакций | по необходимости |
 
 Плюс обязательный **ре-экспорт** на уровень выше — `src/components/study/topics/<Topic>TheoryView.tsx`:
 
