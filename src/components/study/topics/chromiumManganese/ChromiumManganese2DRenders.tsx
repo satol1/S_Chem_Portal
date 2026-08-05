@@ -1,6 +1,8 @@
 import React from 'react';
+import { Layers } from 'lucide-react';
 import { SvgDiagramWrapper, type SvgSpecItem } from '../../../scientific/svg/SvgDiagramWrapper';
 import {
+  MolecularDiagram2D,
   MolecularDiagramBody,
   type DiagramAngleSpec,
   type DiagramAtomSpec,
@@ -8,6 +10,8 @@ import {
   type DiagramLengthSpec,
   type DiagramNoteSpec,
 } from '../../../scientific/svg/MolecularDiagram2D';
+import { ChemFormula } from '../../../scientific/ChemFormula';
+import { ChemText } from '../../../scientific/ChemText';
 import { getThemePalette } from '../../../../utils/molecule2DTheme';
 
 export interface ChromiumManganese2DProps {
@@ -252,3 +256,159 @@ export const ChromiumManganese2DRender: React.FC<ChromiumManganese2DProps> = ({
     </SvgDiagramWrapper>
   );
 };
+
+// ═══════════════════════════════════════
+// Светлая академическая панель структурных формул хрома(+6)
+// (несколько структурных формул в одном блоке — белый фон,
+// формат как у блока «аномальной» основности в теме «Азот и фосфор»;
+// 20-RENDERING §2.4). Данные схем переиспользуют тёмные спецификации
+// темы; тёмные плитки-превью с модалками сохранены — панель дополняет раздел.
+// ═══════════════════════════════════════
+
+/** Светлая палитра + приглушённые локальные цвета хрома на светлом фоне */
+const L = getThemePalette('light');
+const LCOL = {
+  cr: '#54718e', // десатурированный стальной синий — хром
+  o: L.atomO.fill,
+  cl: L.atomCl.fill,
+  muted: L.textMuted,
+};
+
+interface LightStructureItem {
+  id: 'cro4' | 'cr2o7' | 'cro2cl2';
+  name: string;
+  formula: string;
+  colorNote: string;
+  colorClass: string;
+  chips: string[];
+  atoms: DiagramAtomSpec[];
+  bonds: DiagramBondSpec[];
+}
+
+/** Светлые версии схем cro4 / cr2o7 / cro2cl2 (координаты — как в тёмных спецификациях) */
+const CR_LIGHT_STRUCTURES: LightStructureItem[] = [
+  {
+    id: 'cro4',
+    name: 'Хромат-ион',
+    formula: 'CrO4(2-)',
+    colorNote: 'жёлтый',
+    colorClass: 'bg-amber-50 border-amber-200 text-amber-900',
+    chips: ['d(Cr–O) ≈ 1.65 Å', '∠O–Cr–O ≈ 109.5°', 'sp³'],
+    atoms: [
+      { id: 'Cr', label: 'Cr', x: 0, y: 0, color: LCOL.cr, fontSize: 15, fontWeight: 'extrabold' },
+      { id: 'Ou', label: 'O', x: 0, y: -62, color: LCOL.o, fontSize: 13 },
+      { id: 'Od', label: 'O', x: 0, y: 62, color: LCOL.o, fontSize: 13 },
+      { id: 'Ol', label: 'O', x: -68, y: 0, color: LCOL.o, fontSize: 13 },
+      { id: 'Or', label: 'O', x: 68, y: 0, color: LCOL.o, fontSize: 13 },
+      { id: 'm1', label: '−', x: -84, y: -18, color: LCOL.muted, fontSize: 10 },
+      { id: 'm2', label: '−', x: 84, y: -18, color: LCOL.muted, fontSize: 10 },
+    ],
+    bonds: [
+      { from: 'Cr', to: 'Ou', type: 'double' },
+      { from: 'Cr', to: 'Od', type: 'double' },
+      { from: 'Cr', to: 'Ol' },
+      { from: 'Cr', to: 'Or' },
+    ],
+  },
+  {
+    id: 'cr2o7',
+    name: 'Дихромат-ион',
+    formula: 'Cr2O7(2-)',
+    colorNote: 'оранжевый',
+    colorClass: 'bg-amber-50 border-amber-200 text-amber-900',
+    chips: ['мостик Cr–O–Cr ≈ 126°', 'd(Cr–O–Cr) ≈ 1.79 Å', 'd(Cr=O) ≈ 1.60 Å'],
+    atoms: [
+      { id: 'Cr1', label: 'Cr', x: -78, y: 0, color: LCOL.cr, fontSize: 14, fontWeight: 'extrabold' },
+      { id: 'Cr2', label: 'Cr', x: 78, y: 0, color: LCOL.cr, fontSize: 14, fontWeight: 'extrabold' },
+      { id: 'Ob', label: 'O', x: 0, y: 0, color: LCOL.o, fontSize: 12 },
+      { id: 'O1u', label: 'O', x: -78, y: -62, color: LCOL.o, fontSize: 12 },
+      { id: 'O1d', label: 'O', x: -78, y: 62, color: LCOL.o, fontSize: 12 },
+      { id: 'O1l', label: 'O', x: -150, y: 0, color: LCOL.o, fontSize: 12 },
+      { id: 'O2u', label: 'O', x: 78, y: -62, color: LCOL.o, fontSize: 12 },
+      { id: 'O2d', label: 'O', x: 78, y: 62, color: LCOL.o, fontSize: 12 },
+      { id: 'O2r', label: 'O', x: 150, y: 0, color: LCOL.o, fontSize: 12 },
+      { id: 'm1', label: '−', x: -166, y: -18, color: LCOL.muted, fontSize: 10 },
+      { id: 'm2', label: '−', x: 166, y: -18, color: LCOL.muted, fontSize: 10 },
+    ],
+    bonds: [
+      { from: 'Cr1', to: 'Ob' },
+      { from: 'Cr2', to: 'Ob' },
+      { from: 'Cr1', to: 'O1u', type: 'double' },
+      { from: 'Cr1', to: 'O1d', type: 'double' },
+      { from: 'Cr1', to: 'O1l' },
+      { from: 'Cr2', to: 'O2u', type: 'double' },
+      { from: 'Cr2', to: 'O2d', type: 'double' },
+      { from: 'Cr2', to: 'O2r' },
+    ],
+  },
+  {
+    id: 'cro2cl2',
+    name: 'Хлорид хромоила',
+    formula: 'CrO2Cl2',
+    colorNote: 'тёмно-красный',
+    colorClass: 'bg-rose-50 border-rose-200 text-rose-900',
+    chips: ['d(Cr=O) ≈ 1.57 Å', 'd(Cr–Cl) ≈ 2.12 Å', 'тетраэдр sp³'],
+    atoms: [
+      { id: 'Cr', label: 'Cr', x: 0, y: 0, color: LCOL.cr, fontSize: 15, fontWeight: 'extrabold' },
+      { id: 'Ou', label: 'O', x: 0, y: -62, color: LCOL.o, fontSize: 13 },
+      { id: 'Od', label: 'O', x: 0, y: 62, color: LCOL.o, fontSize: 13 },
+      { id: 'Cl1', label: 'Cl', x: -74, y: 0, color: LCOL.cl, fontSize: 13 },
+      { id: 'Cl2', label: 'Cl', x: 74, y: 0, color: LCOL.cl, fontSize: 13 },
+    ],
+    bonds: [
+      { from: 'Cr', to: 'Ou', type: 'double' },
+      { from: 'Cr', to: 'Od', type: 'double' },
+      { from: 'Cr', to: 'Cl1' },
+      { from: 'Cr', to: 'Cl2' },
+    ],
+  },
+];
+
+/**
+ * Светлая панель «Строение соединений хрома(+6)»: три структурные формулы на белом
+ * фоне с читаемыми подписями и чипами параметров. Самодостаточна без модалки;
+ * дополняет тёмные плитки-превью раздела «Хром(+6)».
+ */
+export const ChromiumOxyFormsLightPanel: React.FC = () => (
+  <div className="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-4 text-xs sm:text-sm">
+    <div className="flex items-center gap-2 text-slate-900 font-semibold text-sm sm:text-base">
+      <Layers className="w-5 h-5 text-slate-700 shrink-0" />
+      <span>Строение соединений хрома(+6): тетраэдры CrO₄</span>
+    </div>
+
+    <p className="text-slate-700 leading-relaxed font-normal">
+      <ChemText text="В соединениях хрома(+6) четыре связи Cr–O направлены к вершинам тетраэдра (sp³-гибридизация). Жёлтый хромат-ион CrO4(2-) устойчив в щелочной среде, оранжевый дихромат-ион Cr2O7(2-) — это два тетраэдра с общей вершиной, устойчивые в кислой среде. Тетраэдрическое строение сохраняет и летучий хлорид хромоила CrO2Cl2 — соединение, образующее красные дымящиеся пары в качественной пробе на хлорид-ионы." />
+    </p>
+
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {CR_LIGHT_STRUCTURES.map((s) => (
+        <div key={s.id} className="p-4 rounded-xl bg-white border border-slate-200 space-y-2.5">
+          <div className="h-28 sm:h-32">
+            <MolecularDiagram2D theme="light" atoms={s.atoms} bonds={s.bonds} />
+          </div>
+          <div className="font-semibold text-slate-900 text-sm flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
+            <span>{s.name}</span>
+            <ChemFormula formula={s.formula} className="font-semibold text-slate-900" />
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            <span className={`px-2 py-0.5 rounded border font-mono text-[11px] font-semibold ${s.colorClass}`}>
+              {s.colorNote}
+            </span>
+            {s.chips.map((chip) => (
+              <span
+                key={chip}
+                className="px-2 py-0.5 rounded border border-slate-200 bg-slate-50 font-mono text-[11px] font-semibold text-slate-700"
+              >
+                {chip}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div className="p-3 rounded-lg bg-white border border-slate-200 text-xs sm:text-sm text-slate-600 leading-relaxed">
+      <ChemText text="Все три структуры — тетраэдры хрома(+6): окраска иона определяется средой (жёлтый хромат в щёлочи, оранжевый дихромат в кислоте), а хлорид хромоила — тёмно-красная дымящая жидкость." />
+    </div>
+  </div>
+);

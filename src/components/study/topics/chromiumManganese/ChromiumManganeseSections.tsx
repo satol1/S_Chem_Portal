@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ZoomIn, X, ShieldAlert } from 'lucide-react';
+import { ZoomIn, X, ShieldAlert, Factory } from 'lucide-react';
 import { SectionBadge } from '../../SectionBadge';
 import { ScrollToNavButton } from '../../ScrollToNavButton';
 import { PracticeBanner } from '../../PracticeBanner';
@@ -7,13 +7,19 @@ import { ChemFormula } from '../../../scientific/ChemFormula';
 import { ChemText } from '../../../scientific/ChemText';
 import { TermTooltip } from '../../../scientific/TermTooltip';
 import { MoleculeViewer3D } from '../../../interactive/MoleculeViewer3D';
-import { ChromiumManganese2DRender } from './ChromiumManganese2DRenders';
+import { ChromiumManganese2DRender, ChromiumOxyFormsLightPanel } from './ChromiumManganese2DRenders';
 import {
   ChromiumManganeseDarkBlock1,
   ChromiumManganeseDarkBlock2,
   ChromiumManganeseDarkBlock3,
+  ChromiumManganeseDarkBlock4,
 } from './ChromiumManganeseDarkBlocks';
-import { ChromiumManganeseFunFacts } from './ChromiumManganeseFunFacts';
+import {
+  ChromiumColorFunFact,
+  ChemicalVolcanoFunFact,
+  ManganeseBatteryFunFact,
+  AlloyFunFact,
+} from './ChromiumManganeseFunFacts';
 
 interface SectionsProps {
   scrollToNav: () => void;
@@ -21,6 +27,98 @@ interface SectionsProps {
 }
 
 type ModalDiagramType = 'cro4' | 'cr2o7' | 'cro2cl2' | 'mno4' | 'mn2o7';
+
+/**
+ * Сводная tree-диаграмма: продукты восстановления перманганат-иона
+ * в зависимости от среды раствора (20-RENDERING §2.6).
+ * Все реакции взяты из материала темы (раздел 6).
+ */
+const PermanganateMediumDiagram: React.FC = () => (
+  <div className="p-6 bg-slate-50/70 rounded-2xl border border-slate-200 shadow-sm space-y-4 font-body">
+    <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3">
+      <h4 className="font-bold text-slate-900 text-sm sm:text-base">
+        Перманганат калия как окислитель
+      </h4>
+      <span className="text-xs text-slate-500">Продукты восстановления в зависимости от среды раствора</span>
+    </div>
+
+    <div className="overflow-x-auto py-2">
+      <div className="min-w-[720px] flex items-center gap-3 text-slate-900">
+
+        {/* Корневой объект */}
+        <div className="w-28 text-right pr-1 shrink-0 font-medium text-base leading-snug">
+          <div>Перманганат</div>
+          <div>калия KMnO₄</div>
+        </div>
+
+        {/* Векторные ветвления со стрелками */}
+        <div className="relative w-48 shrink-0 h-[400px] flex flex-col justify-between py-6">
+          <svg className="absolute inset-0 w-full h-full text-slate-400 stroke-[1.75]" preserveAspectRatio="none" viewBox="0 0 192 400">
+            <path d="M 12 200 L 36 200 L 36 48 L 176 48" fill="none" stroke="currentColor" markerEnd="url(#crmn-tree-arrow)" />
+            <path d="M 36 200 L 176 200" fill="none" stroke="currentColor" markerEnd="url(#crmn-tree-arrow)" />
+            <path d="M 36 200 L 36 352 L 176 352" fill="none" stroke="currentColor" markerEnd="url(#crmn-tree-arrow)" />
+            <defs>
+              <marker id="crmn-tree-arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="currentColor" />
+              </marker>
+            </defs>
+          </svg>
+
+          <div className="relative z-10 text-center text-xs font-medium text-slate-700 bg-slate-50 px-2 py-0.5 self-center -mt-3 border border-slate-200/80 rounded-md shadow-2xs">
+            кислая среда (H⁺)
+          </div>
+          <div className="relative z-10 text-center text-xs font-medium text-slate-700 bg-slate-50 px-2 py-0.5 self-center border border-slate-200/80 rounded-md shadow-2xs">
+            нейтральная среда
+          </div>
+          <div className="relative z-10 text-center text-xs font-medium text-slate-700 bg-slate-50 px-2 py-0.5 self-center -mb-3 border border-slate-200/80 rounded-md shadow-2xs">
+            сильнощелочная среда (OH⁻)
+          </div>
+        </div>
+
+        {/* Сгруппированные реакции по ветвям */}
+        <div className="flex-1 space-y-7 text-sm pl-2">
+
+          <div className="space-y-1.5">
+            <div className="font-semibold text-slate-900 flex flex-wrap items-center gap-1.5 text-sm sm:text-base">
+              <ChemFormula formula="Mn2+" className="font-semibold text-slate-900" /> — раствор обесцвечивается (бледно-розовый)
+            </div>
+            <div className="pl-3 space-y-1 text-xs sm:text-sm text-slate-900">
+              <div className="flex items-center gap-2">
+                <ChemFormula formula="2KMnO4 + 5H2O2 + 3H2SO4 -> 2MnSO4 + 5O2^ + K2SO4 + 8H2O" className="font-semibold" />
+              </div>
+              <div className="flex items-center gap-2">
+                <ChemFormula formula="2KMnO4 + 10FeSO4 + 8H2SO4 -> 2MnSO4 + 5Fe2(SO4)3 + K2SO4 + 8H2O" className="font-semibold" />
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-1.5 pt-1">
+            <div className="font-semibold text-slate-900 flex flex-wrap items-center gap-1.5 text-sm sm:text-base">
+              <ChemFormula formula="MnO2" className="font-semibold text-slate-900" /> — бурый осадок
+            </div>
+            <div className="pl-3 space-y-1 text-xs sm:text-sm text-slate-900">
+              <div className="flex items-center gap-2">
+                <ChemFormula formula="2KMnO4 + 3Na2SO3 + H2O -> 2MnO2v + 3Na2SO4 + 2NaOH" className="font-semibold" />
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-1.5 pt-1">
+            <div className="font-semibold text-slate-900 flex flex-wrap items-center gap-1.5 text-sm sm:text-base">
+              <ChemFormula formula="MnO4(2-)" className="font-semibold text-slate-900" /> — зелёный раствор
+            </div>
+            <div className="pl-3 space-y-1 text-xs sm:text-sm text-slate-900">
+              <div className="flex items-center gap-2">
+                <ChemFormula formula="2KMnO4 + Na2SO3 + 2KOH -> 2K2MnO4 + Na2SO4 + H2O" className="font-semibold" />
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+);
 
 export const ChromiumManganeseSections: React.FC<SectionsProps> = ({ scrollToNav, handleGoToPractice }) => {
   const [modalDiagram, setModalDiagram] = useState<{ type: ModalDiagramType; title: string } | null>(null);
@@ -166,6 +264,10 @@ export const ChromiumManganeseSections: React.FC<SectionsProps> = ({ scrollToNav
           <ScrollToNavButton onClick={scrollToNav} />
         </div>
 
+        <p>
+          <ChemText text="Хром и марганец — твёрдые тугоплавкие металлы: в ряду активности хром расположен между Zn и Fe, а марганец активнее цинка. Хром — самый твёрдый металл (8.5 по Моосу), его поверхность защищена оксидной плёнкой, поэтому с водой он практически не реагирует. Марганец твёрдый, но хрупкий, и без нагревания взаимодействует с водой очень медленно. Оба металла при нагревании соединяются с неметаллами, а поведение их в кислотах различается из-за пассивации хрома." />
+        </p>
+
         <div className="overflow-x-auto border border-slate-200 rounded-xl">
           <table className="w-full text-left text-xs sm:text-sm">
             <thead className="bg-slate-800 text-white text-xs font-semibold tracking-wider">
@@ -235,15 +337,30 @@ export const ChromiumManganeseSections: React.FC<SectionsProps> = ({ scrollToNav
           </p>
         </div>
 
-        <p>
-          <TermTooltip
-            term="Пассивация"
-            definition="Образование на поверхности металла плотной защитной оксидной плёнки, препятствующей дальнейшему протеканию реакции при комнатной температуре."
-            className="font-semibold text-slate-900"
-          />{' '}
-          хрома (как и железа и алюминия) в концентрированных кислотах — причина, по которой холодную
-          концентрированную серную и азотную кислоты перевозят в стальных резервуарах без разрушения.
-        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <ChromiumManganeseDarkBlock4 />
+
+          <div className="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-3 flex flex-col justify-between">
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 text-slate-900 font-semibold text-xs sm:text-sm">
+                <Factory className="w-4 h-4 text-slate-700" />
+                <span>Практическое значение пассивации</span>
+              </div>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                <TermTooltip
+                  term="Пассивация"
+                  definition="Образование на поверхности металла плотной защитной оксидной плёнки, препятствующей дальнейшему протеканию реакции при комнатной температуре."
+                  className="font-semibold text-slate-900"
+                />{' '}
+                защищает хром от концентрированных кислот — именно поэтому холодную концентрированную
+                серную и азотную кислоты перевозят в стальных резервуарах без разрушения.
+              </p>
+            </div>
+            <div className="p-3 rounded-lg bg-white border border-slate-200 text-xs sm:text-sm text-slate-600">
+              <ChemText text="Марганец ведёт себя иначе: он не пассивируется и бурно реагирует с концентрированной HNO3 с выделением бурого газа NO2 даже без нагревания." />
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* ══════════ Раздел 3. Соединения Cr(+2) и Cr(+3) ══════════ */}
@@ -258,6 +375,10 @@ export const ChromiumManganeseSections: React.FC<SectionsProps> = ({ scrollToNav
           </div>
           <ScrollToNavButton onClick={scrollToNav} />
         </div>
+
+        <p>
+          <ChemText text="Наиболее устойчивая степень окисления хрома — +3: Cr2O3 и Cr(OH)3 амфотерны и реагируют как с кислотами, так и со щелочами. Соединения хрома(+2) — сильные восстановители: они легко окисляются даже кислородом воздуха. Окисление же хрома(+3) до хроматов возможно только в щелочной среде." />
+        </p>
 
         <div className="p-4 sm:p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
           <h4 className="font-bold text-slate-900 text-sm">Хром(+2): сильный восстановитель</h4>
@@ -302,6 +423,8 @@ export const ChromiumManganeseSections: React.FC<SectionsProps> = ({ scrollToNav
           </div>
         </div>
 
+        <ChemicalVolcanoFunFact />
+
         <div className="p-4 sm:p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
           <h4 className="font-bold text-slate-900 text-sm">Окисление Cr(+3) до Cr(+6) — только в щелочной среде</h4>
           <div className="space-y-1.5 text-xs sm:text-sm">
@@ -325,6 +448,10 @@ export const ChromiumManganeseSections: React.FC<SectionsProps> = ({ scrollToNav
           </div>
           <ScrollToNavButton onClick={scrollToNav} />
         </div>
+
+        <p>
+          <ChemText text="Высшую степень окисления +6 хром проявляет в кислотном оксиде CrO3 и солях хромовой кислоты H2CrO4. Жёлтые хроматы и оранжевые дихроматы — сильные окислители: в кислой среде дихромат-ион окисляет многие восстановители, восстанавливаясь до солей хрома(+3). Равновесие между хромат- и дихромат-ионами легко смещается изменением pH, что делает его одной из самых наглядных демонстраций химического равновесия." />
+        </p>
 
         <div className="p-4 sm:p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
           <h4 className="font-bold text-slate-900 text-sm">Оксид хрома(VI) — кислотный оксид и сильный окислитель</h4>
@@ -369,7 +496,7 @@ export const ChromiumManganeseSections: React.FC<SectionsProps> = ({ scrollToNav
                 <ZoomIn className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
               <div className="absolute bottom-1 left-1 bg-slate-900/90 text-white text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-700">
-                структурная формула
+                Хромат-ион CrO₄²⁻
               </div>
             </button>
 
@@ -386,11 +513,13 @@ export const ChromiumManganeseSections: React.FC<SectionsProps> = ({ scrollToNav
                 <ZoomIn className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
               <div className="absolute bottom-1 left-1 bg-slate-900/90 text-white text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-700">
-                структурная формула
+                Дихромат-ион Cr₂O₇²⁻
               </div>
             </button>
           </div>
         </div>
+
+        <ChromiumColorFunFact />
 
         <div className="p-4 sm:p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
           <h4 className="font-bold text-slate-900 text-sm">Окислительные свойства дихроматов (кислая среда)</h4>
@@ -467,10 +596,12 @@ export const ChromiumManganeseSections: React.FC<SectionsProps> = ({ scrollToNav
               <ZoomIn className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
             <div className="absolute bottom-1 left-1 bg-slate-900/90 text-white text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-700">
-              структурная формула
+              Хлорид хромоила
             </div>
           </button>
         </div>
+
+        <ChromiumOxyFormsLightPanel />
       </section>
 
       {/* ══════════ Раздел 5. Соединения Mn(+2) и Mn(+4) ══════════ */}
@@ -485,6 +616,10 @@ export const ChromiumManganeseSections: React.FC<SectionsProps> = ({ scrollToNav
           </div>
           <ScrollToNavButton onClick={scrollToNav} />
         </div>
+
+        <p>
+          <ChemText text="В отличие от хрома, у марганца наиболее устойчива степень окисления +2 (в кислой среде): MnO и Mn(OH)2 — соединения основного характера, а гидроксид марганца(+2) легко окисляется кислородом воздуха. Марганец(+4) представлен диоксидом MnO2 — амфотерным соединением, которое работает и как окислитель, и как катализатор; именно из него сплавлением со щёлочью получают зелёные манганаты." />
+        </p>
 
         <div className="p-4 sm:p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
           <h4 className="font-bold text-slate-900 text-sm">Марганец(+2): самое устойчивое состояние в кислой среде</h4>
@@ -512,6 +647,8 @@ export const ChromiumManganeseSections: React.FC<SectionsProps> = ({ scrollToNav
             <div>• Получение MnO₂: термическое разложение нитрата: <ChemFormula formula="Mn(NO3)2 -t-> MnO2 + 2NO2^" className="font-bold text-slate-900" /></div>
           </div>
         </div>
+
+        <ManganeseBatteryFunFact />
 
         {/* Сводная таблица цветов соединений марганца */}
         <div className="overflow-x-auto border border-slate-200 rounded-xl">
@@ -567,6 +704,10 @@ export const ChromiumManganeseSections: React.FC<SectionsProps> = ({ scrollToNav
           <ScrollToNavButton onClick={scrollToNav} />
         </div>
 
+        <p>
+          <ChemText text="Высшие степени окисления марганца образуют манганаты (MnO4(2-), зелёные) и перманганаты (MnO4(-), фиолетовые) — сильнейшие окислители. Манганат-ион устойчив только в сильнощелочной среде и в воде диспропорционирует. А продукт восстановления фиолетового перманганат-иона целиком определяется средой раствора — это главное «правило среды» темы." />
+        </p>
+
         <div className="p-4 sm:p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
           <h4 className="font-bold text-slate-900 text-sm">Манганаты — зелёные, неустойчивы в воде</h4>
           <p className="text-xs sm:text-sm text-slate-600">
@@ -617,7 +758,7 @@ export const ChromiumManganeseSections: React.FC<SectionsProps> = ({ scrollToNav
               <ZoomIn className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
             <div className="absolute bottom-1 left-1 bg-slate-900/90 text-white text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-700">
-              структурная формула
+              Перманганат-ион MnO₄⁻
             </div>
           </button>
         </div>
@@ -652,15 +793,8 @@ export const ChromiumManganeseSections: React.FC<SectionsProps> = ({ scrollToNav
           </table>
         </div>
 
-        <div className="p-4 sm:p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
-          <h4 className="font-bold text-slate-900 text-sm">Примеры полного баланса по «правилу среды»</h4>
-          <div className="space-y-1.5 text-xs sm:text-sm">
-            <div>• Кислая: <ChemFormula formula="2KMnO4 + 5H2O2 + 3H2SO4 -> 2MnSO4 + 5O2^ + K2SO4 + 8H2O" className="font-bold text-slate-900" /></div>
-            <div>• Кислая: <ChemFormula formula="2KMnO4 + 10FeSO4 + 8H2SO4 -> 2MnSO4 + 5Fe2(SO4)3 + K2SO4 + 8H2O" className="font-bold text-slate-900" /></div>
-            <div>• Нейтральная: <ChemFormula formula="2KMnO4 + 3Na2SO3 + H2O -> 2MnO2v + 3Na2SO4 + 2NaOH" className="font-bold text-slate-900" /></div>
-            <div>• Щелочная: <ChemFormula formula="2KMnO4 + Na2SO3 + 2KOH -> 2K2MnO4 + Na2SO4 + H2O" className="font-bold text-slate-900" /></div>
-          </div>
-        </div>
+        {/* Примеры полных уравнений по «правилу среды» сгруппированы по ветвям tree-диаграммы */}
+        <PermanganateMediumDiagram />
 
         <div className="flex flex-col sm:flex-row gap-4 items-start">
           <div className="flex-1 space-y-3">
@@ -685,7 +819,7 @@ export const ChromiumManganeseSections: React.FC<SectionsProps> = ({ scrollToNav
               <ZoomIn className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
             <div className="absolute bottom-1 left-1 bg-slate-900/90 text-white text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-700">
-              структурная формула
+              Оксид марганца(VII)
             </div>
           </button>
         </div>
@@ -706,6 +840,10 @@ export const ChromiumManganeseSections: React.FC<SectionsProps> = ({ scrollToNav
           <ScrollToNavButton onClick={scrollToNav} />
         </div>
 
+        <p>
+          <ChemText text="Главные минералы хрома — хромит FeCr2O4 и крокоит PbCrO4, марганца — пиролюзит MnO2. Оба металла получают восстановлением из оксидов: алюминотермия даёт чистые металлы, а восстановление углеродом в электропечах — ферросплавы, главные легирующие и раскисляющие компоненты сталей." />
+        </p>
+
         <div className="grid md:grid-cols-2 gap-4">
           <div className="p-4 sm:p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
             <h4 className="font-bold text-slate-900 text-sm">Минералы хрома</h4>
@@ -723,20 +861,26 @@ export const ChromiumManganeseSections: React.FC<SectionsProps> = ({ scrollToNav
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-4">
-          <ChromiumManganeseDarkBlock1 />
-          <ChromiumManganeseDarkBlock2 />
-        </div>
+        {/* Большой тёмный блок — полная ширина (многостадийная цепочка) */}
+        <ChromiumManganeseDarkBlock1 />
 
-        <div className="p-4 sm:p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
-          <h4 className="font-bold text-slate-900 text-sm">Применение</h4>
-          <div className="space-y-1.5 text-xs sm:text-sm text-slate-600">
-            <div>• Хром — нержавеющие стали (12–20 % Cr), нихром, хромирование деталей, дубление кожи.</div>
-            <div>• Марганец — ферромарганец для раскисления стали, износостойкая сталь Гадфильда (~13 % Mn), батарейки на основе MnO₂.</div>
+        {/* Малый тёмный блок + светлая карточка-партнёр */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <ChromiumManganeseDarkBlock2 />
+
+          <div className="p-4 sm:p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+            <h4 className="font-bold text-slate-900 text-sm flex items-center gap-2">
+              <Factory className="w-4 h-4 text-slate-700" />
+              <span>Применение хрома и марганца</span>
+            </h4>
+            <div className="space-y-1.5 text-xs sm:text-sm text-slate-600">
+              <div>• Хром — нержавеющие стали (12–20 % Cr), нихром, хромирование деталей, дубление кожи.</div>
+              <div>• Марганец — ферромарганец для раскисления стали, износостойкая сталь Гадфильда (~13 % Mn), батарейки на основе MnO₂.</div>
+            </div>
           </div>
         </div>
 
-        <ChromiumManganeseFunFacts />
+        <AlloyFunFact />
       </section>
 
       {/* ══════════ Раздел 8. 3D-модели ══════════ */}

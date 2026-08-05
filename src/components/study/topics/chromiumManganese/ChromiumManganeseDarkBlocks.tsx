@@ -1,5 +1,5 @@
 import React from 'react';
-import { Factory } from 'lucide-react';
+import { Factory, ShieldAlert } from 'lucide-react';
 import { DarkBlockCard } from '../../DarkBlockCard';
 import { ChemFormula } from '../../../scientific/ChemFormula';
 
@@ -119,6 +119,46 @@ export const ChromiumManganeseDarkBlock3: React.FC = () => (
         <div className="text-teal-300 font-bold p-2 bg-slate-900/80 rounded-lg border border-slate-700 text-xs sm:text-sm">
           <ChemFormula math="2K_2MnO_4 + 2H_2O \xrightarrow{\text{электролиз}} 2KMnO_4 + 2KOH + H_2\uparrow" />
         </div>
+      </div>
+    </div>
+  </DarkBlockCard>
+);
+
+/**
+ * Малый тёмный блок (30-DESIGN §6): исключение/акцент из уже имеющегося текста темы —
+ * пассивация хрома в концентрированных кислотах. Размещается в сетке md:grid-cols-2
+ * рядом со светлой карточкой-партнёром в разделе 2.
+ */
+export const ChromiumManganeseDarkBlock4: React.FC = () => (
+  <DarkBlockCard
+    title="Пассивация хрома в концентрированных кислотах"
+    subtitle="Исключение • Комнатная температура"
+    icon={ShieldAlert}
+  >
+    <div className="space-y-3">
+      <div className="p-3.5 rounded-xl bg-slate-800 border border-slate-700 space-y-2">
+        <span className="font-bold text-amber-400 block text-xs sm:text-sm">
+          1. При 20 °C реакция останавливается
+        </span>
+        <p className="text-slate-300 text-xs leading-relaxed">
+          Концентрированные <ChemFormula formula="H2SO4" className="text-amber-300 font-semibold" /> и{' '}
+          <ChemFormula formula="HNO3" className="text-amber-300 font-semibold" /> покрывают хром
+          плотной оксидной плёнкой <ChemFormula formula="Cr2O3" className="text-amber-300 font-semibold" /> —
+          металл пассивируется, как железо и алюминий.
+        </p>
+      </div>
+
+      <div className="p-3.5 rounded-xl bg-slate-800 border border-slate-700 space-y-2">
+        <span className="font-bold text-amber-400 block text-xs sm:text-sm">
+          2. При нагревании — окисление без выделения водорода
+        </span>
+        <div className="text-amber-300 font-bold p-2 bg-slate-900/80 rounded-lg border border-slate-700 text-xs sm:text-sm">
+          <ChemFormula formula="2Cr + 6H2SO4(конц) -t-> Cr2(SO4)3 + 3SO2^ + 6H2O" />
+        </div>
+        <p className="text-slate-400 text-xs leading-relaxed">
+          Марганец, в отличие от хрома, не пассивируется: с концентрированной азотной кислотой
+          бурно реагирует даже без нагревания.
+        </p>
       </div>
     </div>
   </DarkBlockCard>
