@@ -7,13 +7,138 @@ import { ChemFormula } from '../../../scientific/ChemFormula';
 import { ChemText } from '../../../scientific/ChemText';
 import { TermTooltip } from '../../../scientific/TermTooltip';
 import { MoleculeViewer3D } from '../../../interactive/MoleculeViewer3D';
-import { Halogens2DRender } from './Halogens2DRenders';
+import { Halogens2DRender, HalogensX2LightPanel, HalogensOxyacidsLightPanel } from './Halogens2DRenders';
 import {
   HalogensDarkBlock1,
   HalogensDarkBlock2,
   HalogensDarkBlock3
 } from './HalogensDarkBlocks';
-import { HalogensFunFacts } from './HalogensFunFacts';
+import {
+  HalogensFactBromineLiquid,
+  HalogensFactIodineStarch,
+  HalogensFactTeflon
+} from './HalogensFunFacts';
+
+/**
+ * Сводная tree-диаграмма: ряд кислородсодержащих кислот хлора HClO → HClO₄
+ * (паттерн 20-RENDERING §2.6). Все уравнения уже присутствуют в тексте темы.
+ */
+const ChlorineOxyacidsTree: React.FC = () => {
+  return (
+    <div className="p-6 bg-slate-50/70 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3">
+        <h4 className="font-bold text-slate-900 text-sm sm:text-base">
+          Кислородсодержащие кислоты хлора
+        </h4>
+        <span className="text-xs text-slate-500 flex items-center gap-1.5">
+          Изменение свойств в ряду
+          <ChemFormula formula="HClO" className="font-semibold text-slate-600" /> →
+          <ChemFormula formula="HClO4" className="font-semibold text-slate-600" />
+        </span>
+      </div>
+
+      {/* Векторное дерево: корень слева, ветвление по степеням окисления, реакции справа */}
+      <div className="overflow-x-auto py-2">
+        <div className="min-w-[720px] flex items-center gap-3 text-slate-900">
+
+          {/* Корневой объект */}
+          <div className="w-28 text-right pr-1 shrink-0 font-medium text-base leading-snug">
+            <div>Кислоты</div>
+            <div>хлора</div>
+          </div>
+
+          {/* SVG-ветвления со стрелками */}
+          <div className="relative w-48 shrink-0 h-[440px] flex flex-col justify-between py-6">
+            <svg className="absolute inset-0 w-full h-full text-slate-400 stroke-[1.75]" preserveAspectRatio="none" viewBox="0 0 192 440">
+              <path d="M 12 220 L 36 220 L 36 37 L 176 37" fill="none" stroke="currentColor" markerEnd="url(#hal-oxy-tree-arrow)" />
+              <path d="M 36 220 L 36 154 L 176 154" fill="none" stroke="currentColor" markerEnd="url(#hal-oxy-tree-arrow)" />
+              <path d="M 36 220 L 36 271 L 176 271" fill="none" stroke="currentColor" markerEnd="url(#hal-oxy-tree-arrow)" />
+              <path d="M 36 220 L 36 388 L 176 388" fill="none" stroke="currentColor" markerEnd="url(#hal-oxy-tree-arrow)" />
+              <defs>
+                <marker id="hal-oxy-tree-arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="currentColor" />
+                </marker>
+              </defs>
+            </svg>
+
+            {/* Подписи ветвей — степень окисления хлора */}
+            <div className="relative z-10 text-center text-xs font-medium text-slate-700 bg-slate-50 px-2 py-0.5 self-center -mt-2 border border-slate-200/80 rounded-md shadow-2xs">
+              <ChemFormula formula="Cl(+1)" className="font-semibold text-slate-800" />
+            </div>
+            <div className="relative z-10 text-center text-xs font-medium text-slate-700 bg-slate-50 px-2 py-0.5 self-center border border-slate-200/80 rounded-md shadow-2xs">
+              <ChemFormula formula="Cl(+3)" className="font-semibold text-slate-800" />
+            </div>
+            <div className="relative z-10 text-center text-xs font-medium text-slate-700 bg-slate-50 px-2 py-0.5 self-center border border-slate-200/80 rounded-md shadow-2xs">
+              <ChemFormula formula="Cl(+5)" className="font-semibold text-slate-800" />
+            </div>
+            <div className="relative z-10 text-center text-xs font-medium text-slate-700 bg-slate-50 px-2 py-0.5 self-center -mb-2 border border-slate-200/80 rounded-md shadow-2xs">
+              <ChemFormula formula="Cl(+7)" className="font-semibold text-slate-800" />
+            </div>
+          </div>
+
+          {/* Сгруппированные по ветвям реакции и свойства */}
+          <div className="flex-1 space-y-6 text-sm pl-2">
+
+            {/* Ветвь +1: HClO */}
+            <div className="space-y-1.5">
+              <div className="font-semibold text-slate-900 flex flex-wrap items-center gap-1.5 text-sm sm:text-base">
+                <ChemFormula formula="HClO" className="font-semibold text-slate-900" /> — хлорноватистая: очень слабая, сильнейший окислитель
+              </div>
+              <div className="pl-3 space-y-1 text-xs sm:text-sm text-slate-900">
+                <div className="flex items-center gap-2">
+                  <ChemFormula formula="Cl2 + H2O <=> HCl + HClO" className="font-semibold" />
+                </div>
+                <div className="flex items-center gap-2">
+                  <ChemFormula formula="2HClO -(hv)-> 2HCl + O2^" className="font-semibold" />
+                </div>
+              </div>
+            </div>
+
+            {/* Ветвь +3: HClO2 */}
+            <div className="space-y-1.5">
+              <div className="font-semibold text-slate-900 flex flex-wrap items-center gap-1.5 text-sm sm:text-base">
+                <ChemFormula formula="HClO2" className="font-semibold text-slate-900" /> — хлористая: слабая
+              </div>
+              <div className="pl-3 text-xs sm:text-sm text-slate-600">
+                Существует только в растворе; в свободном виде не выделена.
+              </div>
+            </div>
+
+            {/* Ветвь +5: HClO3 */}
+            <div className="space-y-1.5">
+              <div className="font-semibold text-slate-900 flex flex-wrap items-center gap-1.5 text-sm sm:text-base">
+                <ChemFormula formula="HClO3" className="font-semibold text-slate-900" /> — хлорноватая: сильная; её соль <ChemFormula formula="KClO3" className="font-semibold text-slate-900" /> — бертолетова
+              </div>
+              <div className="pl-3 space-y-1 text-xs sm:text-sm text-slate-900">
+                <div className="flex items-center gap-2">
+                  <ChemFormula formula="2KClO3 -(MnO2, t)-> 2KCl + 3O2^" className="font-semibold" />
+                </div>
+                <div className="flex items-center gap-2">
+                  <ChemFormula formula="4KClO3 -t-> 3KClO4 + KCl" className="font-semibold" />
+                </div>
+              </div>
+            </div>
+
+            {/* Ветвь +7: HClO4 */}
+            <div className="space-y-1.5">
+              <div className="font-semibold text-slate-900 flex flex-wrap items-center gap-1.5 text-sm sm:text-base">
+                <ChemFormula formula="HClO4" className="font-semibold text-slate-900" /> — хлорная: одна из сильнейших, устойчива
+              </div>
+              <div className="pl-3 text-xs sm:text-sm text-slate-600">
+                Соли — перхлораты; <ChemFormula formula="NH4ClO4" className="font-semibold text-slate-800" /> — компонент твёрдого ракетного топлива.
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <p className="text-xs text-slate-500 italic border-t border-slate-200 pt-3 leading-relaxed">
+        Закономерность ряда: с ростом степени окисления хлора сила и термическая устойчивость кислот растут, а окислительная способность падает.
+      </p>
+    </div>
+  );
+};
 
 interface SectionsProps {
   scrollToNav: () => void;
@@ -24,7 +149,7 @@ export const HalogensSections: React.FC<SectionsProps> = ({
   scrollToNav,
   handleGoToPractice
 }) => {
-  const [modalDiagram, setModalDiagram] = useState<{ type: 'x2-molecules' | 'hcl' | 'hclo4' | 'hclo'; title: string } | null>(null);
+  const [modalDiagram, setModalDiagram] = useState<{ type: 'hcl'; title: string } | null>(null);
 
   return (
     <div className="space-y-8 font-body text-slate-800 leading-relaxed text-sm sm:text-base">
@@ -158,27 +283,12 @@ export const HalogensSections: React.FC<SectionsProps> = ({
             <Layers className="w-4 h-4 text-slate-700" />
             <span>Аномалия связи F–F и простое вещество X₂</span>
           </h4>
-          <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start">
-            <button
-              onClick={() => setModalDiagram({
-                type: 'x2-molecules',
-                title: 'Молекулы галогенов X₂ — рост длины связи и аномально слабая связь F–F (158 кДж/моль)'
-              })}
-              className="relative rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-2xs group h-32 sm:h-36 w-full sm:w-36 shrink-0 flex items-center justify-center p-1.5 cursor-pointer hover:border-amber-500 transition-colors"
-              title="Нажмите для открытия справочной 2D-схемы"
-            >
-              <Halogens2DRender type="x2-molecules" />
-              <div className="absolute inset-0 bg-slate-950/0 group-hover:bg-slate-950/40 transition-colors flex items-center justify-center">
-                <ZoomIn className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
-              </div>
-              <div className="absolute bottom-1 left-1 bg-slate-900/90 text-white text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-700">
-                2D-схема
-              </div>
-            </button>
-            <p className="text-slate-600 leading-relaxed font-normal text-xs sm:text-sm flex-1">
-              В ряду F₂ → Cl₂ → Br₂ → I₂ длина связи X–X растёт (1.412 → 2.666 Å), а энергия падает. Связь <ChemFormula formula="F-F" className="font-semibold text-slate-900" /> <TermTooltip term="аномально слабая" definition="Энергия связи F–F (158 кДж/моль) ниже, чем у Cl–Cl (243 кДж/моль), из-за сильного отталкивания неподелённых электронных пар компактных атомов фтора. Именно поэтому F₂ исключительно реакционноспособен." /> (158 кДж/моль против 243 у Cl₂) — из-за отталкивания неподелённых пар компактных атомов. Поэтому фтор — самый реакционноспособный галоген.
-            </p>
-          </div>
+          <p className="text-slate-600 leading-relaxed font-normal text-xs sm:text-sm">
+            В ряду F₂ → Cl₂ → Br₂ → I₂ длина связи X–X растёт (1.412 → 2.666 Å), а энергия падает. Связь <ChemFormula formula="F-F" className="font-semibold text-slate-900" /> <TermTooltip term="аномально слабая" definition="Энергия связи F–F (158 кДж/моль) ниже, чем у Cl–Cl (243 кДж/моль), из-за сильного отталкивания неподелённых электронных пар компактных атомов фтора. Именно поэтому F₂ исключительно реакционноспособен." /> (158 кДж/моль против 243 у Cl₂) — из-за отталкивания неподелённых пар компактных атомов. Поэтому фтор — самый реакционноспособный галоген.
+          </p>
+
+          {/* Несколько структурных формул в одном блоке — светлая академическая панель на белом фоне */}
+          <HalogensX2LightPanel />
         </div>
 
         {/* Physical properties of simple substances */}
@@ -229,6 +339,9 @@ export const HalogensSections: React.FC<SectionsProps> = ({
             * В природе хлор встречается в виде галита NaCl, сильвина KCl, карналлита KCl·MgCl₂·6H₂O; фтор — флюорита CaF₂, криолита Na₃[AlF₆], фторапатита Ca₅(PO₄)₃F; бром и иод — в рассолах и морской воде.
           </p>
         </div>
+
+        {/* Интересный факт: к строке «Красно-бурая жидкость» таблицы физических свойств */}
+        <HalogensFactBromineLiquid />
       </section>
 
       {/* SECTION 2 */}
@@ -286,11 +399,11 @@ export const HalogensSections: React.FC<SectionsProps> = ({
             </div>
             <div className="p-3 bg-white rounded-lg border border-slate-200">
               Бром — обратимо при нагревании:<br />
-              <ChemFormula formula="H2 + Br2 <==> 2HBr" className="font-bold text-slate-900" />
+              <ChemFormula formula="H2 + Br2 <=> 2HBr" className="font-bold text-slate-900" />
             </div>
             <div className="p-3 bg-white rounded-lg border border-slate-200">
               Иод — обратимо, степень превращения мала:<br />
-              <ChemFormula formula="H2 + I2 <==> 2HI" className="font-bold text-slate-900" />
+              <ChemFormula formula="H2 + I2 <=> 2HI" className="font-bold text-slate-900" />
             </div>
           </div>
           <p className="text-xs text-slate-500 italic pt-0.5">
@@ -368,6 +481,10 @@ export const HalogensSections: React.FC<SectionsProps> = ({
           <ScrollToNavButton onClick={scrollToNav} />
         </div>
 
+        <p className="text-slate-700 leading-relaxed font-normal">
+          Галогеноводороды <ChemFormula formula="HX" className="font-semibold text-slate-900" /> — бесцветные полярные газы с резким запахом, хорошо растворимые в воде; их водные растворы называют галогеноводородными кислотами. Общие для ряда свойства задаёт полярная связь H–X, а различия — её прочность, которая закономерно падает от <ChemFormula formula="HF" className="font-semibold text-slate-900" /> к <ChemFormula formula="HI" className="font-semibold text-slate-900" />: именно поэтому в ряду меняются сила кислот и восстановительная активность.
+        </p>
+
         <div className="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-4">
           <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start">
             <button
@@ -376,14 +493,14 @@ export const HalogensSections: React.FC<SectionsProps> = ({
                 title: 'Хлороводород HCl — полярная молекула (d = 127.5 пм, μ = 1.08 D)'
               })}
               className="relative rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-2xs group h-32 sm:h-36 w-full sm:w-36 shrink-0 flex items-center justify-center p-1.5 cursor-pointer hover:border-amber-500 transition-colors"
-              title="Нажмите для открытия справочной 2D-схемы"
+              title="Нажмите для открытия справочной структурной формулы"
             >
               <Halogens2DRender type="hcl" />
               <div className="absolute inset-0 bg-slate-950/0 group-hover:bg-slate-950/40 transition-colors flex items-center justify-center">
                 <ZoomIn className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
               <div className="absolute bottom-1 left-1 bg-slate-900/90 text-white text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-700">
-                2D-схема
+                Хлороводород HCl
               </div>
             </button>
             <div className="space-y-2 text-xs sm:text-sm flex-1">
@@ -404,11 +521,11 @@ export const HalogensSections: React.FC<SectionsProps> = ({
           <div className="space-y-2.5 text-xs sm:text-sm text-slate-700 font-normal">
             <div className="p-3 bg-white rounded-lg border border-slate-200">
               <strong className="text-rose-800 block mb-1">1. HF — единственная слабая галогеноводородная кислота:</strong>
-              <ChemText text="Из-за высокой прочности связи H–F (565 кДж/моль) и ассоциации молекул по водородным связям HF диссоциирует неполностью (Ka ≈ 6.6·10⁻⁴). HCl, HBr, HI — сильные кислоты." />
+              <ChemText text="Из-за высокой прочности связи H–F (565 кДж/моль) и ассоциации молекул по водородным связям HF диссоциирует неполностью ($K_a \approx 6{,}6\cdot10^{-4}$). HCl, HBr, HI — сильные кислоты." />
             </div>
             <div className="p-3 bg-white rounded-lg border border-slate-200">
               <strong className="text-amber-800 block mb-1">2. Сила кислот растёт от HF к HI:</strong>
-              <ChemText text="HF (слабая) ≪ HCl < HBr < HI. Связь H–X ослабевает (565 → 299 кДж/моль), поэтому отщепление протона облегчается. HI — самая сильная из бескилородных кислот." />
+              <ChemText text="HF (слабая) ≪ HCl < HBr < HI. Связь H–X ослабевает (565 → 299 кДж/моль), поэтому отщепление протона облегчается. HI — самая сильная из бескислородных кислот." />
             </div>
             <div className="p-3 bg-white rounded-lg border border-slate-200">
               <strong className="text-emerald-800 block mb-1">3. Восстановительная активность растёт от HF к HI:</strong>
@@ -547,6 +664,9 @@ export const HalogensSections: React.FC<SectionsProps> = ({
           </div>
         </div>
 
+        {/* Интересный факт: к реакции иода с крахмалом и биологической роли иода */}
+        <HalogensFactIodineStarch />
+
         {/* Important halides */}
         <div className="p-4 sm:p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-2.5 text-xs sm:text-sm">
           <h4 className="font-bold text-slate-900 text-sm flex items-center gap-2">
@@ -573,6 +693,10 @@ export const HalogensSections: React.FC<SectionsProps> = ({
           </div>
           <ScrollToNavButton onClick={scrollToNav} />
         </div>
+
+        <p className="text-slate-700 leading-relaxed font-normal">
+          Окислительно-восстановительные свойства галогенов следуют из их электронного строения: до завершения октета не хватает одного электрона, поэтому простые вещества <ChemFormula formula="X2" className="font-semibold text-slate-900" /> принимают электроны и выступают окислителями, а галогенид-ионы <ChemFormula formula="X(-)" className="font-semibold text-slate-900" />, напротив, способны их отдавать. От фтора к иоду окислительная способность простых веществ падает, поэтому более активный галоген вытесняет менее активный из растворов его солей; хлор, бром и иод со степенью окисления 0 способны также к <TermTooltip term="диспропорционированию" definition="Реакция, в которой атомы одного элемента в промежуточной степени окисления одновременно окисляются и восстанавливаются." /> в воде и щелочах.
+        </p>
 
         {/* Displacement summary card */}
         <div className="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-4">
@@ -696,32 +820,12 @@ export const HalogensSections: React.FC<SectionsProps> = ({
           <ScrollToNavButton onClick={scrollToNav} />
         </div>
 
-        <div className="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-4">
-          <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start">
-            <button
-              onClick={() => setModalDiagram({
-                type: 'hclo4',
-                title: 'Хлорная кислота HClO₄ — тетраэдр Cl(+7): 3 связи Cl=O и Cl–OH'
-              })}
-              className="relative rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-2xs group h-32 sm:h-36 w-full sm:w-36 shrink-0 flex items-center justify-center p-1.5 cursor-pointer hover:border-amber-500 transition-colors"
-              title="Нажмите для открытия справочной 2D-схемы"
-            >
-              <Halogens2DRender type="hclo4" />
-              <div className="absolute inset-0 bg-slate-950/0 group-hover:bg-slate-950/40 transition-colors flex items-center justify-center">
-                <ZoomIn className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
-              </div>
-              <div className="absolute bottom-1 left-1 bg-slate-900/90 text-white text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-700">
-                2D-схема
-              </div>
-            </button>
-            <div className="space-y-2 text-xs sm:text-sm flex-1">
-              <span className="font-bold text-slate-900 text-base block">Хлор образует четыре кислородные кислоты</span>
-              <p className="text-slate-600 font-normal">
-                Степени окисления хлора в них +1, +3, +5, +7. На схеме — хлорная кислота <ChemFormula formula="HClO4" className="font-semibold" /> с хлором в высшей степени окисления +7.
-              </p>
-            </div>
-          </div>
-        </div>
+        <p className="text-slate-700 leading-relaxed font-normal">
+          В отличие от фтора, хлор образует соединения с положительными степенями окисления от +1 до +7: вакантные d-орбитали атомов третьего периода позволяют распаривать электронные пары и проявлять валентности III, V и VII. Четыре кислородсодержащие кислоты хлора — хлорноватистая <ChemFormula formula="HClO" className="font-semibold text-slate-900" />, хлористая <ChemFormula formula="HClO2" className="font-semibold text-slate-900" />, хлорноватая <ChemFormula formula="HClO3" className="font-semibold text-slate-900" /> и хлорная <ChemFormula formula="HClO4" className="font-semibold text-slate-900" /> — образуют ряд, в котором закономерно меняются сила, устойчивость и окислительная способность.
+        </p>
+
+        {/* Несколько структурных формул в одном разделе — светлая панель (20-RENDERING §2.4) */}
+        <HalogensOxyacidsLightPanel />
 
         {/* Acids table */}
         <div className="overflow-x-auto border border-amber-200/80 rounded-xl bg-amber-50/40 shadow-xs">
@@ -783,6 +887,9 @@ export const HalogensSections: React.FC<SectionsProps> = ({
           </p>
         </div>
 
+        {/* Сводная tree-диаграмма ряда кислот (20-RENDERING §2.6) */}
+        <ChlorineOxyacidsTree />
+
         {/* Salts and decomposition */}
         <div className="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
           <h4 className="font-bold text-slate-900 text-sm flex items-center gap-2">
@@ -825,6 +932,10 @@ export const HalogensSections: React.FC<SectionsProps> = ({
           </div>
           <ScrollToNavButton onClick={scrollToNav} />
         </div>
+
+        <p className="text-slate-700 leading-relaxed font-normal">
+          Фтор, бром и иод заметно выделяются на фоне хлора особыми свойствами: фтор — исключение по электронному строению и самый сильный окислитель среди простых веществ, бром — единственный неметалл, жидкий при обычных условиях, а иод отличается возгонкой и биологической ролью.
+        </p>
 
         {/* Fluorine */}
         <div className="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
@@ -885,8 +996,6 @@ export const HalogensSections: React.FC<SectionsProps> = ({
           </p>
         </div>
 
-        {/* Fun facts */}
-        <HalogensFunFacts />
       </section>
 
       {/* SECTION 8 */}
@@ -908,11 +1017,29 @@ export const HalogensSections: React.FC<SectionsProps> = ({
           Хлор и его соединения — крупнотоннажные продукты химической промышленности. Хлор получают электролизом, а фтор — исключительно электролизом расплавов.
         </p>
 
-        {/* Chlor-alkali */}
+        {/* Хлорщелочной электролиз — большой тёмный блок на полную ширину (30-DESIGN §6) */}
         <HalogensDarkBlock1 />
 
-        {/* Fluorine production */}
-        <HalogensDarkBlock3 />
+        {/* Получение фтора — малый тёмный блок в паре со светлой карточкой-партнёром */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <HalogensDarkBlock3 />
+
+          <div className="p-6 rounded-xl bg-slate-50 border border-slate-200 space-y-3 flex flex-col justify-between">
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 text-slate-900 font-semibold text-xs sm:text-sm">
+                <FlaskConical className="w-4 h-4 text-slate-700" />
+                <span>Историческая справка: выделение фтора (1886 г.)</span>
+              </div>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                Впервые фтор выделил Анри Муассан (1886 г., Нобелевская премия 1906 г.). Фтор — сильнейший окислитель, поэтому получить его химическим путём из фторидов невозможно: только электролиз расплава.
+              </p>
+            </div>
+
+            <div className="p-3 rounded-lg bg-white border border-slate-200 text-xs sm:text-sm text-slate-600 font-normal">
+              Аппаратуру изготавливают из стали и никеля — на их поверхности образуется защитная плёнка фторидов (<TermTooltip term="пассивация" definition="Образование плотной защитной плёнки фторида NiF₂/FeF₂, предохраняющей металл от дальнейшего разрушения фтором." />), поэтому фтор хранят и перевозят в стальных баллонах.
+            </div>
+          </div>
+        </div>
 
         {/* Applications */}
         <div className="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-3 text-xs sm:text-sm text-slate-700">
@@ -929,6 +1056,9 @@ export const HalogensSections: React.FC<SectionsProps> = ({
             </div>
           </div>
         </div>
+
+        {/* Интересный факт: к пункту «Полимеры — тефлон» */}
+        <HalogensFactTeflon />
       </section>
 
       {/* SECTION 9 */}

@@ -23,7 +23,7 @@ export const HalogensHeader: React.FC<HeaderProps> = ({
   const quickNavTags: QuickNavTag[] = [
     { targetId: 'section-general', label: 'Строение атомов и тенденции', icon: Atom },
     { targetId: 'section-oxyacids', label: 'Кислородные кислоты хлора', icon: TestTube },
-    { targetId: 'section-molecules-3d', label: '3D-Модели веществ', icon: Orbit },
+    { targetId: 'section-molecules-3d', label: '3D-модели веществ', icon: Orbit },
   ];
   const { openStudyBlock } = useRouter();
 
@@ -79,7 +79,7 @@ export const HalogensHeader: React.FC<HeaderProps> = ({
             Ключевая идея темы:
           </h3>
           <p className="text-slate-600 leading-relaxed font-normal">
-            Галогены — элементы VII-A группы с конфигурацией внешнего слоя <ChemFormula formula="ns^2 np^5" className="font-semibold text-slate-900" />: одного электрона до октета не хватает, поэтому это самые активные неметаллы-окислители. В подгруппе F → Cl → Br → I окислительная способность простых веществ <TermTooltip term="закономерно убывает" definition="Стандартный электродный потенциал E°(X₂/2X⁻) падает от +2.87 В у F₂ до +0.54 В у I₂, а восстановительная способность галогенид-ионов X⁻, напротив, растёт." />, а восстановительная активность галогенид-ионов <ChemFormula formula="X(-)" className="font-semibold text-slate-900" /> растёт. Хлор — единственный галоген, чьи кислородные соединения (от <ChemFormula formula="HClO" /> до <ChemFormula formula="HClO4" />) широко представлены в заданиях ЕГЭ.
+            Галогены — элементы VII-A группы с конфигурацией внешнего слоя <ChemFormula formula="ns^2 np^5" className="font-semibold text-slate-900" />: одного электрона до октета не хватает, поэтому это самые активные неметаллы-окислители. В подгруппе F → Cl → Br → I окислительная способность простых веществ <TermTooltip term="закономерно убывает" definition="Стандартный электродный потенциал E°(X₂/2X⁻) падает от +2.87 В у F₂ до +0.54 В у I₂, а восстановительная способность галогенид-ионов X⁻, напротив, растёт." />, а восстановительная активность галогенид-ионов <ChemFormula formula="X(-)" className="font-semibold text-slate-900" /> растёт. Хлор образует полный ряд кислородсодержащих кислот — от <ChemFormula formula="HClO" /> до <ChemFormula formula="HClO4" />, в котором с ростом степени окисления сила и устойчивость кислот растут, а окислительная способность падает.
           </p>
         </div>
       </div>

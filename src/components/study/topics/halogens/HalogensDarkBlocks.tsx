@@ -1,4 +1,5 @@
 import React from 'react';
+import { Factory } from 'lucide-react';
 import { DarkBlockCard } from '../../DarkBlockCard';
 import { ChemFormula } from '../../../scientific/ChemFormula';
 import { TermTooltip } from '../../../scientific/TermTooltip';
@@ -12,6 +13,7 @@ export const HalogensDarkBlock1: React.FC = () => {
     <DarkBlockCard
       title="Хлорщелочной электролиз раствора NaCl (мембранный метод)"
       subtitle="Промышленный химизм • Крупнотоннажное производство Cl₂ и NaOH"
+      icon={Factory}
     >
       <p className="text-slate-300 leading-relaxed font-normal">
         Электролиз водного раствора хлорида натрия — главный промышленный способ получения хлора, гидроксида натрия и водорода. Современный стандарт — электролизёр с ионообменной мембраной, разделяющей катодное и анодное пространства:
@@ -58,31 +60,47 @@ export const HalogensDarkBlock1: React.FC = () => {
 
 /**
  * Dark Block 2: Bleaching Powder / Chlorinated Lime
- * Placed in Section 6 (Oxygen-containing chlorine compounds)
+ * БОЛЬШОЙ тёмный блок (30-DESIGN §6): полная ширина, внутренняя сетка карточек-стадий.
+ * Размещается в секции 6 (кислородсодержащие соединения хлора).
  */
 export const HalogensDarkBlock2: React.FC = () => {
   return (
     <DarkBlockCard
       title="Хлорная известь и гипохлориты — отбеливание и дезинфекция"
       subtitle="Прикладной химизм • Белильные материалы"
+      icon={Factory}
     >
       <p className="text-slate-300 leading-relaxed font-normal">
-        Пропускание хлора через известковое молоко даёт хлорную известь («хлорку») — смесь хлорида и гипохлорита кальция, многолетнее средство отбеливания целлюлозы и дезинфекции:
+        Пропускание хлора через известковое молоко даёт хлорную известь («хлорку») — смесь хлорида и гипохлорита кальция, многолетнее средство отбеливания целлюлозы и дезинфекции. Бактерицидное действие всех белильных материалов основано на одном и том же принципе — выделении хлорноватистой кислоты:
       </p>
 
-      <div className="p-3.5 rounded-xl bg-slate-800 border border-slate-700 space-y-2 text-xs sm:text-sm">
-        <div className="text-slate-400 font-medium text-xs">Получение и механизм действия:</div>
-        <div className="text-amber-300 font-semibold space-y-2">
-          <div>
-            <span className="text-slate-400 text-xs block font-sans font-normal">1) Хлорирование гашёной извести:</span>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div className="p-3.5 rounded-xl bg-slate-800 border border-slate-700 space-y-2">
+          <span className="font-bold text-amber-400 block text-xs sm:text-sm">Стадия 1. Хлорирование гашёной извести</span>
+          <p className="text-slate-300 text-xs leading-relaxed font-normal">
+            Хлор диспропорционирует в известковом молоке — образуется смесь хлорида и гипохлорита кальция:
+          </p>
+          <div className="text-amber-300 font-bold p-2 bg-slate-900/80 rounded-lg border border-slate-700 text-xs sm:text-sm">
             <ChemFormula formula="2Cl2 + 2Ca(OH)2 -> CaCl2 + Ca(ClO)2 + 2H2O" className="text-amber-300 font-bold" />
           </div>
-          <div>
-            <span className="text-slate-400 text-xs block font-sans font-normal">2) Выделение активной хлорноватистой кислоты под действием CO₂ воздуха:</span>
+        </div>
+
+        <div className="p-3.5 rounded-xl bg-slate-800 border border-slate-700 space-y-2">
+          <span className="font-bold text-amber-400 block text-xs sm:text-sm">Стадия 2. Активация углекислым газом воздуха</span>
+          <p className="text-slate-300 text-xs leading-relaxed font-normal">
+            Под действием <ChemFormula formula="CO2" className="text-slate-300" /> воздуха гипохлорит выделяет активную хлорноватистую кислоту:
+          </p>
+          <div className="text-amber-300 font-bold p-2 bg-slate-900/80 rounded-lg border border-slate-700 text-xs sm:text-sm">
             <ChemFormula formula="Ca(ClO)2 + CO2 + H2O -> CaCO3v + 2HClO" className="text-amber-300 font-bold" />
           </div>
-          <div>
-            <span className="text-slate-400 text-xs block font-sans font-normal">3) Фотолиз HClO — источник бактерицидного атомарного кислорода:</span>
+        </div>
+
+        <div className="p-3.5 rounded-xl bg-slate-800 border border-slate-700 space-y-2">
+          <span className="font-bold text-amber-400 block text-xs sm:text-sm">Стадия 3. Фотолиз — источник окислителя</span>
+          <p className="text-slate-300 text-xs leading-relaxed font-normal">
+            <ChemFormula formula="HClO" className="text-slate-300" /> разлагается на свету с выделением атомарного кислорода — сильного окислителя, обеспечивающего отбеливание и обеззараживание:
+          </p>
+          <div className="text-teal-300 font-bold p-2 bg-slate-900/80 rounded-lg border border-slate-700 text-xs sm:text-sm">
             <ChemFormula formula="2HClO -(hv)-> 2HCl + O2^" className="text-teal-300 font-bold" />
           </div>
         </div>
@@ -97,20 +115,22 @@ export const HalogensDarkBlock2: React.FC = () => {
 
 /**
  * Dark Block 3: Industrial Fluorine Production (Moissan electrolysis)
- * Placed in Section 8 (Industrial Chemistry)
+ * МАЛЫЙ тёмный блок (30-DESIGN §6): компактный, размещается в сетке
+ * grid-cols-2 рядом со светлой карточкой-партнёром (историческая справка
+ * и пассивация аппаратуры — в HalogensSections, секция 8).
  */
 export const HalogensDarkBlock3: React.FC = () => {
   return (
     <DarkBlockCard
-      title="Промышленный электролиз — единственный способ получения фтора"
-      subtitle="Промышленный химизм • Электролиз KF·2HF"
+      title="Электролиз — единственный способ получения фтора"
+      subtitle="Промышленный химизм • KF·2HF"
+      icon={Factory}
     >
       <p className="text-slate-300 leading-relaxed font-normal">
-        Фтор — сильнейший окислитель, поэтому получить его химическим путём из фторидов невозможно: только электролиз. Впервые фтор выделил Анри Муассан (1886 г., Нобелевская премия 1906 г.); современный процесс — электролиз расплава кислого фторида калия:
+        Фтор — сильнейший окислитель, поэтому получить его химическим путём из фторидов невозможно. Современный процесс — электролиз расплава кислого фторида калия <ChemFormula formula="KF*2HF" className="text-amber-300 font-medium" /> (~90–100 °C, никелевые электроды):
       </p>
 
       <div className="p-3.5 rounded-xl bg-slate-800 border border-slate-700 space-y-2 text-xs sm:text-sm">
-        <div className="text-slate-400 font-medium text-xs">Схема электролиза расплава KF·2HF (~90–100 °C, стальной аппарат, никелевые электроды):</div>
         <div className="text-amber-300 font-semibold space-y-2">
           <div>
             <span className="text-slate-400 text-xs block font-sans font-normal">Анод — выделение фтора:</span>
@@ -126,10 +146,6 @@ export const HalogensDarkBlock3: React.FC = () => {
           </div>
         </div>
       </div>
-
-      <p className="text-slate-300 leading-relaxed font-normal text-xs sm:text-sm">
-        Аппаратуру изготавливают из стали и никеля — на их поверхности образуется защитная плёнка фторидов (<TermTooltip term="пассивация" definition="Образование плотной защитной плёнки фторида NiF₂/FeF₂, предохраняющей металл от дальнейшего разрушения фтором." />), а фтор хранят и перевозят в стальных баллонах.
-      </p>
     </DarkBlockCard>
   );
 };
