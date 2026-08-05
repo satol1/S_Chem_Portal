@@ -135,6 +135,18 @@ src/
 - **Контроль сборки**: После каждого этапа модификации кода агент **обязан** выполнять `npm run build` для проверки отсутствия ошибок TypeScript.
 - **Изоляция изменений**: Изменения должны вноситься пошагово, строго в рамках текущей фазы роадмапа.
 
+### 2.5. Создание учебных тем (study/topics)
+
+Создание, рефакторинг и интеграция учебных тем регулируются отдельным модульным стандартом — [`docs/topic-standard/`](docs/topic-standard/):
+
+- [`00-PIPELINE.md`](docs/topic-standard/00-PIPELINE.md) — конвейер из трёх ролей, пошаговый чек-лист, реестр эталонов;
+- [`10-ARCHITECTURE.md`](docs/topic-standard/10-ARCHITECTURE.md) — модульная структура темы, точки регистрации, DRY-каталог компонентов;
+- [`20-RENDERING.md`](docs/topic-standard/20-RENDERING.md) — рендеринг формул (KaTeX/`ChemFormula`), 2D-схемы, 3D-модели;
+- [`30-DESIGN.md`](docs/topic-standard/30-DESIGN.md) — дизайн-система тем;
+- [`topic-types/`](docs/topic-standard/topic-types/) — семейные профили: «Химия элементов» (ХЭ-NN, блок `elements-chemistry`) и «Общая химия» (ОХ-NN, блок `general-chemistry`).
+
+Ролевые агенты конвейера (вердикты блокирующие): [`.qwen/agents/topic-verifier.md`](.qwen/agents/topic-verifier.md) — научная верификация; [`.qwen/agents/topic-proofreader.md`](.qwen/agents/topic-proofreader.md) — постпроверка. Уникальные детали и отклонения каждой темы фиксируются в её паспорте [`docs/topic-passports/<slug>.md`](docs/topic-passports/); паспорт читается до любых правок темы. Краткая сводка и маршрутизация — в [`QWEN.md`](QWEN.md).
+
 ---
 
 ## Часть 3. BDUF Роадмап проекта (Big Design Up Front Roadmap)
