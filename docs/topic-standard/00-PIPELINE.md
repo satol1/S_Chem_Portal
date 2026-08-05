@@ -2,12 +2,9 @@
 
 > **Назначение модуля**: данный документ является общеобязательным регламентом и пошаговым руководством для ИИ-агентов (AI Coding Assistants / Vibe Coders) и разработчиков при создании, рефакторинге и интеграции новых академических тем по химии на платформе **S_Chem_Portal**.
 >
-> Стандарт составлен на основе эталонного опыта реализации трёх тем:
-> 1. **«Кислород (O) и сера (S)»** (`elem-nonme-so`) — **ФИНАЛЬНЫЙ ЭТАЛОННЫЙ СТАНДАРТ**: самая поздняя тема, в которой закреплены все итоговые исправления дизайна, шапки, модалок, 2D-рендеров и централизованных компонентов.
-> 2. **«Углерод (C) и кремний (Si)»** (`elem-nonme-csi`) — эталон модульной файловой структуры темы.
-> 3. **«Азот (N) и фосфор (P)»** (`elem-nonme-np`) — эталон объёма теории и тематического практикума.
+> Стандарт составлен на основе опыта реализации **13 тем двух семейств**: «Химия элементов» (ХЭ-01…ХЭ-08, из них 5 с полным UI: Cr/Mn, галогены, S/O, N/P, C/Si) и «Общая химия» (ОХ-01…ОХ-08, каркасы), и развивается после каждой новой темы. Семейные особенности закреплены в профилях [`topic-types/`](topic-types/element-topic.md); уникальные детали отдельных тем — в [`../topic-passports/`](../topic-passports/).
 >
-> **Правило приоритета**: при любом расхождении между данным стандартом, старыми темами (N/P, C/Si) и темой «Кислород и Сера» — приоритет имеет **реализация темы «Кислород и Сера»** и данный стандарт.
+> **Правило приоритета**: при любом расхождении между данным стандартом и реализацией тем приоритет имеет **данный стандарт и эталонная тема соответствующего семейства по реестру ниже (§3)**. Известные дефекты старых тем (например, вызов практикума с несуществующим blockId в теме C/Si — исправлен) не повторять.
 
 ## Состав стандарта создания тем
 
@@ -47,9 +44,11 @@
 
 ```
 [Шаг 0] Паспорт темы
-   └─ slug, id, код, список веществ, план разделов (8–9),
+   └─ Создать docs/topic-passports/<slug>.md по шаблону _TEMPLATE.md:
+      slug, id, код, blockId семейства, список веществ, план разделов (8–9),
       quick-nav тройка, план 2D-схем (≥ 4) и 3D-молекул (8–9).
       Семейный профиль: topic-types/element-topic.md либо topic-types/general-topic.md.
+      Паспорт обновляется на шагах 7/9 и остаётся в репозитории навсегда.
 
 [Шаг 1] Черновик теории + АГЕНТ НАУЧНОЙ ВЕРИФИКАЦИИ (topic-verifier.md)
    └─ Изучение темы по Некрасову, Третьякову, ФИПИ, xumuk.ru, chem.msu.su,
@@ -106,23 +105,21 @@
 
 ---
 
-## 3. Эталонные реализации (Reference Implementations)
+## 3. Эталонные реализации и реестр эталонов
 
-**Первичный эталон (финальный стандарт дизайна и компонентов):**
+**Реестр эталонов по аспектам** (обновляется после каждой новой темы):
 
-1. Тема «Кислород и Сера»: [`src/components/study/topics/sulfurOxygen/`](../../src/components/study/topics/sulfurOxygen/) — `SulfurOxygenTheoryView.tsx`, `SulfurOxygenHeader.tsx`, `SulfurOxygenSections.tsx`, `SulfurOxygenDarkBlocks.tsx`, `SulfurOxygenFunFacts.tsx`, `SulfurOxygen2DRenders.tsx`; ре-экспорт [`SulfurOxygenTheoryView.tsx`](../../src/components/study/topics/SulfurOxygenTheoryView.tsx).
+| Аспект | Эталонная тема | Примечание |
+|---|---|---|
+| Дизайн, шапка, модалки, каркасы (семейство ХЭ) | «Сера и кислород» ХЭ-06 ([`sulfurOxygen/`](../../src/components/study/topics/sulfurOxygen/)) | финальный стандарт дизайна |
+| Светлые панели нескольких формул | «Азот и фосфор» ХЭ-07 (фосфорные кислоты) + «Галогены» ХЭ-05 (панель X₂) | паттерн закреплён после S/O |
+| Модульная файловая структура | «Углерод и кремний» ХЭ-08 ([`carbonSilicon/`](../../src/components/study/topics/carbonSilicon/)) | исторический дефект blockId исправлен |
+| Объём теории и тематический практикум | «Азот и фосфор» ХЭ-07 ([`nitrogenPhosphorus/`](../../src/components/study/topics/nitrogenPhosphorus/)) | |
+| Новейшие полные темы ХЭ | «Галогены» ХЭ-05, «d-Металлы: хром и марганец» ХЭ-04 | автозамены катализаторов FeBr₃/AlBr₃ в парсере, элементы F/Br/I в `ELEMENT_INFO` |
+| Семейство ОХ | каркасы ОХ-01…ОХ-08 | профиль: [`topic-types/general-topic.md`](topic-types/general-topic.md) |
 
-**Вторичные эталоны (структура, объём, практикум):**
+**Точки входа в код** (каталог компонентов с пропсами — [`10-ARCHITECTURE.md`](10-ARCHITECTURE.md) §3; точки регистрации — §2 того же модуля):
 
-2. Модульная тема «Углерод и Кремний»: [`CarbonSiliconTheoryView.tsx`](../../src/components/study/topics/CarbonSiliconTheoryView.tsx) и [`carbonSilicon/`](../../src/components/study/topics/carbonSilicon/).
-3. Тема «Азот и Фосфор» (объём теории, 2D-схемы кислот на светлой теме, практикум): [`NitrogenPhosphorusTheoryView.tsx`](../../src/components/study/topics/NitrogenPhosphorusTheoryView.tsx) и [`nitrogenPhosphorus/PhosphorusAcids2DRenders.tsx`](../../src/components/study/topics/nitrogenPhosphorus/PhosphorusAcids2DRenders.tsx).
-
-**Централизованные компоненты и данные** (полный каталог с пропсами — [`10-ARCHITECTURE.md`](10-ARCHITECTURE.md) §3):
-
-4. Научный рендеринг: [`ChemFormula.tsx`](../../src/components/scientific/ChemFormula.tsx), [`ChemText.tsx`](../../src/components/scientific/ChemText.tsx), [`TermTooltip.tsx`](../../src/components/scientific/TermTooltip.tsx).
-5. 2D-модуль: [`MoleculeViewer2D.tsx`](../../src/components/scientific/MoleculeViewer2D.tsx), [`StructuralFormula2D.tsx`](../../src/components/scientific/StructuralFormula2D.tsx), [`src/components/scientific/svg/`](../../src/components/scientific/svg/), [`utils/molecule2DRenderer.ts`](../../src/utils/molecule2DRenderer.ts), [`utils/molecule2DTheme.ts`](../../src/utils/molecule2DTheme.ts).
-6. Каркасные компоненты: [`SectionBadge`](../../src/components/study/SectionBadge.tsx), [`ScrollToNavButton`](../../src/components/study/ScrollToNavButton.tsx), [`TopicNavGrid`](../../src/components/study/TopicNavGrid.tsx), [`PracticeBanner`](../../src/components/study/PracticeBanner.tsx), [`TheoryCallout`](../../src/components/study/TheoryCallout.tsx), [`DarkBlockCard`](../../src/components/study/DarkBlockCard.tsx), [`TopicQuickNavTags`](../../src/components/study/TopicQuickNavTags.tsx).
-7. 3D-модели: [`src/data/molecules.ts`](../../src/data/molecules.ts).
-8. Регистрация темы: [`StudyTopicTheoryPage.tsx`](../../src/components/study/StudyTopicTheoryPage.tsx), [`StudyTopicPracticePage.tsx`](../../src/components/study/StudyTopicPracticePage.tsx), [`src/data/studyBlocksData.ts`](../../src/data/studyBlocksData.ts), [`src/data/trainersRegistry.ts`](../../src/data/trainersRegistry.ts), [`elementStudyService.ts`](../../src/services/periodicTable/elementStudyService.ts).
-9. Данные практикума: [`src/data/nitrogenPhosphorusTasks/`](../../src/data/nitrogenPhosphorusTasks/), [`reactionsNPTasks.ts`](../../src/data/reactionsNPTasks.ts), [`ovrTasks.ts`](../../src/data/ovrTasks.ts), [`inorganic31Tasks.ts`](../../src/data/inorganic31Tasks.ts).
-10. Архитектура и правила кода проекта: [`ARCHITECTURE_AND_ROADMAP.md`](../../ARCHITECTURE_AND_ROADMAP.md).
+- Научный рендеринг: [`ChemFormula.tsx`](../../src/components/scientific/ChemFormula.tsx), [`ChemText.tsx`](../../src/components/scientific/ChemText.tsx), 2D-модуль [`src/components/scientific/svg/`](../../src/components/scientific/svg/), 3D-модели [`src/data/molecules.ts`](../../src/data/molecules.ts).
+- Данные практикума: [`src/data/nitrogenPhosphorusTasks/`](../../src/data/nitrogenPhosphorusTasks/), [`reactionsNPTasks.ts`](../../src/data/reactionsNPTasks.ts), [`ovrTasks.ts`](../../src/data/ovrTasks.ts), [`inorganic31Tasks.ts`](../../src/data/inorganic31Tasks.ts).
+- Архитектура и правила кода проекта: [`ARCHITECTURE_AND_ROADMAP.md`](../../ARCHITECTURE_AND_ROADMAP.md).
