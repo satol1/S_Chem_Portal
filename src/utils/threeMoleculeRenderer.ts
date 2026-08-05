@@ -14,6 +14,8 @@ export const ELEMENT_INFO: Record<
   Cl: { name: 'Хлор (Cl)', colorClass: 'bg-emerald-500 border-white', hexColor: 0x22c55e, radius: 0.50, vdwRadius: 1.10 },
   Br: { name: 'Бром (Br)', colorClass: 'bg-rose-800 border-white', hexColor: 0x991b1b, radius: 0.55, vdwRadius: 1.18 },
   I: { name: 'Иод (I)', colorClass: 'bg-purple-700 border-white', hexColor: 0x6b21a8, radius: 0.60, vdwRadius: 1.28 },
+  Cr: { name: 'Хром (Cr)', colorClass: 'bg-indigo-400 border-white', hexColor: 0x8a99c7, radius: 0.52, vdwRadius: 1.20 },
+  Mn: { name: 'Марганец (Mn)', colorClass: 'bg-purple-400 border-white', hexColor: 0x9c7ac7, radius: 0.52, vdwRadius: 1.20 },
 };
 
 export const HYBRIDIZATION_INFO: Record<

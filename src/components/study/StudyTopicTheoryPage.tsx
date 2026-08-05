@@ -11,6 +11,7 @@ const NitrogenPhosphorusTheoryView = React.lazy(() => import('./topics/NitrogenP
 const CarbonSiliconTheoryView = React.lazy(() => import('./topics/CarbonSiliconTheoryView').then(m => ({ default: m.CarbonSiliconTheoryView })));
 const SulfurOxygenTheoryView = React.lazy(() => import('./topics/SulfurOxygenTheoryView').then(m => ({ default: m.SulfurOxygenTheoryView })));
 const HalogensTheoryView = React.lazy(() => import('./topics/HalogensTheoryView').then(m => ({ default: m.HalogensTheoryView })));
+const ChromiumManganeseTheoryView = React.lazy(() => import('./topics/ChromiumManganeseTheoryView').then(m => ({ default: m.ChromiumManganeseTheoryView })));
 const GeneralBasicsTheoryView = React.lazy(() => import('./topics/GeneralBasicsTheoryView').then(m => ({ default: m.GeneralBasicsTheoryView })));
 const AtomStructureTheoryView = React.lazy(() => import('./topics/AtomStructureTheoryView').then(m => ({ default: m.AtomStructureTheoryView })));
 const ChemicalBondTheoryView = React.lazy(() => import('./topics/ChemicalBondTheoryView').then(m => ({ default: m.ChemicalBondTheoryView })));
@@ -75,6 +76,8 @@ export const StudyTopicTheoryPage: React.FC<Props> = ({ blockId, topicId }) => {
             <SulfurOxygenTheoryView />
           ) : topic.id === 'elem-nonme-halogens' ? (
             <HalogensTheoryView />
+          ) : topic.id === 'elem-me-cr-mn' ? (
+            <ChromiumManganeseTheoryView />
           ) : topic.id === 'gen-basics-laws' ? (
             <GeneralBasicsTheoryView />
           ) : topic.id === 'gen-atom-structure' ? (

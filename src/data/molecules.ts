@@ -898,6 +898,198 @@ export const MOLECULES_DATA: Molecule[] = [
       { source: 0, target: 4, order: 1 },
       { source: 4, target: 5, order: 1 }
     ]
+  },
+  {
+    id: 'cro3',
+    name: 'Оксид хрома(VI) (CrO₃)',
+    formula: 'CrO₃',
+    iupacName: 'Оксид хрома(VI) / Хромовый ангидрид',
+    category: 'Неорганическая',
+    description: 'Мономер CrO₃ — плоская треугольная молекула O=Cr(=O)=O (аналог SO₃); в твёрдом состоянии CrO₃ образует полимерные цепочки из тетраэдров CrO₄. Тёмно-красные («вишнёвые») кристаллы, кислотный оксид, сильный окислитель, токсичен.',
+    funFact: 'CrO₃ воспламеняет этанол при контакте — зрелищная демонстрация «огонь без спички», основанная на окислении спирта до ацетальдегида и уксусной кислоты.',
+    atoms: [
+      { element: 'Cr', x: 0, y: 0, z: 0, hybridization: 'sp2' },
+      { element: 'O', x: 1.57, y: 0, z: 0, hybridization: 'sp2' },
+      { element: 'O', x: -0.785, y: 1.36, z: 0, hybridization: 'sp2' },
+      { element: 'O', x: -0.785, y: -1.36, z: 0, hybridization: 'sp2' }
+    ],
+    bonds: [
+      { source: 0, target: 1, order: 2 },
+      { source: 0, target: 2, order: 2 },
+      { source: 0, target: 3, order: 2 }
+    ]
+  },
+  {
+    id: 'cro4',
+    name: 'Хромат-ион (CrO₄²⁻)',
+    formula: 'CrO₄²⁻',
+    iupacName: 'Хромат-ион',
+    category: 'Неорганическая',
+    description: 'Правильный тетраэдр (углы O–Cr–O ≈ 109.5°) с эквивалентными связями Cr–O ≈ 1.65 Å. Хроматы жёлтого цвета, устойчивы в щелочной и нейтральной среде.',
+    funFact: 'Подкисление жёлтого раствора хромата мгновенно даёт оранжевый дихромат Cr₂O₇²⁻ — одно из самых наглядных равновесий неорганической химии.',
+    atoms: [
+      { element: 'Cr', x: 0, y: 0, z: 0, hybridization: 'sp3' },
+      { element: 'O', x: 0.953, y: 0.953, z: 0.953, hybridization: 'sp2' },
+      { element: 'O', x: 0.953, y: -0.953, z: -0.953, hybridization: 'sp2' },
+      { element: 'O', x: -0.953, y: 0.953, z: -0.953, hybridization: 'sp3' },
+      { element: 'O', x: -0.953, y: -0.953, z: 0.953, hybridization: 'sp3' }
+    ],
+    bonds: [
+      { source: 0, target: 1, order: 2 },
+      { source: 0, target: 2, order: 2 },
+      { source: 0, target: 3, order: 1 },
+      { source: 0, target: 4, order: 1 }
+    ]
+  },
+  {
+    id: 'cr2o7',
+    name: 'Дихромат-ион (Cr₂O₇²⁻)',
+    formula: 'Cr₂O₇²⁻',
+    iupacName: 'Дихромат-ион',
+    category: 'Неорганическая',
+    description: 'Два тетраэдра CrO₄ с общей вершиной: мостик Cr–O–Cr ≈ 126° (d ≈ 1.79 Å), терминальные связи Cr=O короче (≈1.60 Å). Ионы оранжевого цвета, сильные окислители в кислой среде.',
+    funFact: 'Окисление этанола дихроматом (оранжевый → зелёный Cr³⁺) лежало в основе первых алкометров для водителей.',
+    atoms: [
+      { element: 'O', x: 0, y: 0, z: 0, hybridization: 'sp3' },
+      { element: 'Cr', x: -1.595, y: -0.813, z: 0, hybridization: 'sp3' },
+      { element: 'Cr', x: 1.595, y: -0.813, z: 0, hybridization: 'sp3' },
+      { element: 'O', x: -2.07, y: -1.055, z: 1.509, hybridization: 'sp2' },
+      { element: 'O', x: -1.477, y: -2.219, z: -0.754, hybridization: 'sp2' },
+      { element: 'O', x: -2.663, y: 0.109, z: -0.754, hybridization: 'sp3' },
+      { element: 'O', x: 2.07, y: -1.055, z: 1.509, hybridization: 'sp2' },
+      { element: 'O', x: 1.477, y: -2.219, z: -0.754, hybridization: 'sp2' },
+      { element: 'O', x: 2.663, y: 0.109, z: -0.754, hybridization: 'sp3' }
+    ],
+    bonds: [
+      { source: 1, target: 0, order: 1 },
+      { source: 2, target: 0, order: 1 },
+      { source: 1, target: 3, order: 2 },
+      { source: 1, target: 4, order: 2 },
+      { source: 1, target: 5, order: 1 },
+      { source: 2, target: 6, order: 2 },
+      { source: 2, target: 7, order: 2 },
+      { source: 2, target: 8, order: 1 }
+    ]
+  },
+  {
+    id: 'cro2cl2',
+    name: 'Хлорид хромоила (CrO₂Cl₂)',
+    formula: 'CrO₂Cl₂',
+    iupacName: 'Дихлорид диоксида хрома / Хлористый хромоил',
+    category: 'Неорганическая',
+    description: 'Тетраэдрическая молекула хрома(+6): две короткие связи Cr=O (≈1.57 Å) и две связи Cr–Cl (≈2.12 Å). Тёмно-красная дымящая на воздухе жидкость.',
+    funFact: 'Проба «хлорид хромоила»: при нагревании хлорида с K₂Cr₂O₇ и конц. H₂SO₄ выделяются красные пары CrO₂Cl₂ — качественная реакция на хлорид-ионы.',
+    atoms: [
+      { element: 'Cr', x: 0, y: 0, z: 0, hybridization: 'sp3' },
+      { element: 'O', x: 0.906, y: 0.906, z: 0.906, hybridization: 'sp2' },
+      { element: 'O', x: 0.906, y: -0.906, z: -0.906, hybridization: 'sp2' },
+      { element: 'Cl', x: -1.224, y: 1.224, z: -1.224, hybridization: 'sp3' },
+      { element: 'Cl', x: -1.224, y: -1.224, z: 1.224, hybridization: 'sp3' }
+    ],
+    bonds: [
+      { source: 0, target: 1, order: 2 },
+      { source: 0, target: 2, order: 2 },
+      { source: 0, target: 3, order: 1 },
+      { source: 0, target: 4, order: 1 }
+    ]
+  },
+  {
+    id: 'mno4',
+    name: 'Перманганат-ион (MnO₄⁻)',
+    formula: 'MnO₄⁻',
+    iupacName: 'Перманганат-ион',
+    category: 'Неорганическая',
+    description: 'Правильный тетраэдр с d(Mn–O) ≈ 1.63 Å. Интенсивно фиолетовая окраска растворов KMnO₄ заметна даже при очень малых концентрациях.',
+    funFact: '«Марганцовка» — раствор KMnO₄ — применяется как антисептик с конца XIX века; твёрдый KMnO₄ при нагревании разлагается с выделением кислорода.',
+    atoms: [
+      { element: 'Mn', x: 0, y: 0, z: 0, hybridization: 'sp3' },
+      { element: 'O', x: 0.941, y: 0.941, z: 0.941, hybridization: 'sp2' },
+      { element: 'O', x: 0.941, y: -0.941, z: -0.941, hybridization: 'sp2' },
+      { element: 'O', x: -0.941, y: 0.941, z: -0.941, hybridization: 'sp2' },
+      { element: 'O', x: -0.941, y: -0.941, z: 0.941, hybridization: 'sp3' }
+    ],
+    bonds: [
+      { source: 0, target: 1, order: 2 },
+      { source: 0, target: 2, order: 2 },
+      { source: 0, target: 3, order: 2 },
+      { source: 0, target: 4, order: 1 }
+    ]
+  },
+  {
+    id: 'mno42',
+    name: 'Манганат-ион (MnO₄²⁻)',
+    formula: 'MnO₄²⁻',
+    iupacName: 'Манганат-ион',
+    category: 'Неорганическая',
+    description: 'Тетраэдрический ион марганца(+6) зелёного цвета. Устойчив только в сильнощелочных растворах; при разбавлении водой или подкислении диспропорционирует.',
+    funFact: 'Зелёный расплав K₂MnO₄ — первая стадия промышленного получения «марганцовки» KMnO₄ из пиролюзита MnO₂.',
+    atoms: [
+      { element: 'Mn', x: 0, y: 0, z: 0, hybridization: 'sp3' },
+      { element: 'O', x: 0.958, y: 0.958, z: 0.958, hybridization: 'sp2' },
+      { element: 'O', x: 0.958, y: -0.958, z: -0.958, hybridization: 'sp2' },
+      { element: 'O', x: -0.958, y: 0.958, z: -0.958, hybridization: 'sp3' },
+      { element: 'O', x: -0.958, y: -0.958, z: 0.958, hybridization: 'sp3' }
+    ],
+    bonds: [
+      { source: 0, target: 1, order: 2 },
+      { source: 0, target: 2, order: 2 },
+      { source: 0, target: 3, order: 1 },
+      { source: 0, target: 4, order: 1 }
+    ]
+  },
+  {
+    id: 'mn2o7',
+    name: 'Оксид марганца(VII) (Mn₂O₇)',
+    formula: 'Mn₂O₇',
+    iupacName: 'Оксид марганца(VII) / Марганцевый ангидрид',
+    category: 'Неорганическая',
+    description: 'Два тетраэдра MnO₄ с общей вершиной: угол Mn–O–Mn ≈ 120.7°, d(Mn=O) ≈ 1.585 Å, d(Mn–O мост.) ≈ 1.77 Å. Тёмно-зелёная маслянистая жидкость, кислотный оксид.',
+    funFact: 'Mn₂O₇ — один из самых опасных оксидов: взрывается при нагревании и воспламеняет органические вещества при контакте.',
+    atoms: [
+      { element: 'O', x: 0, y: 0, z: 0, hybridization: 'sp3' },
+      { element: 'Mn', x: -1.538, y: -0.876, z: 0, hybridization: 'sp3' },
+      { element: 'Mn', x: 1.538, y: -0.876, z: 0, hybridization: 'sp3' },
+      { element: 'O', x: -1.998, y: -1.137, z: 1.494, hybridization: 'sp2' },
+      { element: 'O', x: -1.357, y: -2.262, z: -0.747, hybridization: 'sp2' },
+      { element: 'O', x: -2.638, y: -0.012, z: -0.747, hybridization: 'sp2' },
+      { element: 'O', x: 1.998, y: -1.137, z: 1.494, hybridization: 'sp2' },
+      { element: 'O', x: 1.357, y: -2.262, z: -0.747, hybridization: 'sp2' },
+      { element: 'O', x: 2.638, y: -0.012, z: -0.747, hybridization: 'sp2' }
+    ],
+    bonds: [
+      { source: 1, target: 0, order: 1 },
+      { source: 2, target: 0, order: 1 },
+      { source: 1, target: 3, order: 2 },
+      { source: 1, target: 4, order: 2 },
+      { source: 1, target: 5, order: 2 },
+      { source: 2, target: 6, order: 2 },
+      { source: 2, target: 7, order: 2 },
+      { source: 2, target: 8, order: 2 }
+    ]
+  },
+  {
+    id: 'hmno4',
+    name: 'Пермангановая кислота (HMnO₄)',
+    formula: 'HMnO₄',
+    iupacName: 'Пермангановая кислота',
+    category: 'Неорганическая',
+    description: 'Тетраэдрическое окружение Mn(+7): три связи Mn=O и одна группа Mn–OH. Сильная кислота, существует только в разбавленных водных растворах.',
+    funFact: 'Пермангановая кислота — одна из немногих сильных кислот, соли которой окрашены: фиолетовый цвет её ионов узнаваем с первого взгляда.',
+    atoms: [
+      { element: 'Mn', x: 0, y: 0, z: 0, hybridization: 'sp3' },
+      { element: 'O', x: 0.915, y: 0.915, z: 0.915, hybridization: 'sp2' },
+      { element: 'O', x: 0.915, y: -0.915, z: -0.915, hybridization: 'sp2' },
+      { element: 'O', x: -0.915, y: 0.915, z: -0.915, hybridization: 'sp2' },
+      { element: 'O', x: -0.947, y: -0.947, z: 0.947, hybridization: 'sp3' },
+      { element: 'H', x: -1.507, y: -1.507, z: 1.507 }
+    ],
+    bonds: [
+      { source: 0, target: 1, order: 2 },
+      { source: 0, target: 2, order: 2 },
+      { source: 0, target: 3, order: 2 },
+      { source: 0, target: 4, order: 1 },
+      { source: 4, target: 5, order: 1 }
+    ]
   }
 ];
 
