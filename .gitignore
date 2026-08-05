@@ -27,6 +27,8 @@ dist-ssr
 scratch/
 *.pdf
 
-# AI agent session data
-.qwen/
+# AI agent session data (кроме версионируемых ролевых агентов и команд)
+.qwen/*
+!.qwen/agents/
+!.qwen/commands/
 
