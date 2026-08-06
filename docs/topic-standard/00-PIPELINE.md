@@ -77,6 +77,8 @@
       и/или MoleculeViewer2D / StructuralFormula2D (20-RENDERING.md §2.1).
    └─ specItems — только верифицированные параметры (topic-verifier.md).
    └─ Язык: 100% русские надписи (без англицизмов) (20-RENDERING.md §2.5).
+   └─ Концептуальная инфографика — InfographicFigure; интерактивные концепт-карты —
+      ConceptFlow (React Flow) (20-RENDERING.md §2.7–2.8); применять только там, где необходимо.
 
 [Шаг 5] Модульная структура в src/components/study/topics/<topicSlug>/
    └─ <Topic>TheoryView.tsx (navItems section-*, scrollToNav, openStudyBlock с blockId семейства).
@@ -129,6 +131,7 @@
 | Модульная файловая структура | «Углерод и кремний» ХЭ-08 ([`carbonSilicon/`](../../src/components/study/topics/carbonSilicon/)) | исторический дефект blockId исправлен |
 | Объём теории и тематический практикум | «Азот и фосфор» ХЭ-07 ([`nitrogenPhosphorus/`](../../src/components/study/topics/nitrogenPhosphorus/)) | также эталон разнообразных dark-блоков (разделы «Простые вещества», «Нитриты и удобрения») и tree-диаграммы разложения солей аммония — воспроизводить без номера схемы и без `font-serif` |
 | Новейшие полные темы ХЭ | «Галогены» ХЭ-05, «d-Металлы: хром и марганец» ХЭ-04 | автозамены катализаторов FeBr₃/AlBr₃ в парсере, элементы F/Br/I в `ELEMENT_INFO` |
+| Концептуальная инфографика и интерактивные концепт-карты (React Flow) | «Основные понятия и законы химии» ОХ-01 ([`generalBasics/`](../../src/components/study/topics/generalBasics/)) | `InfographicFigure` + `ConceptFlow`: светлая тема, справочные панели, без модалок |
 | Семейство ОХ | каркасы ОХ-01…ОХ-08 | профиль: [`topic-types/general-topic.md`](topic-types/general-topic.md) |
 
 **Точки входа в код** (каталог компонентов с пропсами — [`10-ARCHITECTURE.md`](10-ARCHITECTURE.md) §3; точки регистрации — §2 того же модуля):

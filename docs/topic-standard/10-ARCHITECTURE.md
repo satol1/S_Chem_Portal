@@ -16,6 +16,7 @@
 | `<Topic>DarkBlocks.tsx` | Тёмные акцентные блоки на `DarkBlockCard` (2–5 шт.: 2–3 больших + 1–2 малых; содержание не ограничено промышленным химизмом — [`30-DESIGN.md`](30-DESIGN.md) §6) | ~150–250 строк |
 | `<Topic>FunFacts.tsx` | Интересные факты через централизованный `TheoryCallout` (≥ 2 шт., равномерно распределяются по секциям — [`30-DESIGN.md`](30-DESIGN.md) §5) | ~20 строк |
 | `<Topic>2DRenders.tsx` | Векторные SVG-схемы темы на примитивах `scientific/svg/*` ([`20-RENDERING.md`](20-RENDERING.md) §2.2) | ~270 строк |
+| *Опционально:* `<Topic>Infographics.tsx`, `<Topic>ConceptFlow.tsx` | Концептуальная инфографика и интерактивные концепт-карты на `InfographicFigure`/`ConceptFlow` ([`20-RENDERING.md`](20-RENDERING.md) §2.7–2.8) | по необходимости |
 | *Опционально:* `<Topic>Diagrams.tsx`, `<Topic>ReactionMatrix.tsx` | Tree-диаграммы плотной сводной информации ([`20-RENDERING.md`](20-RENDERING.md) §2.6, без номеров схем) и сравнительные матрицы реакций | по необходимости |
 
 Плюс обязательный **ре-экспорт** на уровень выше — `src/components/study/topics/<Topic>TheoryView.tsx`:
@@ -63,6 +64,8 @@ export default SulfurOxygenTheoryView;
 | `MoleculeViewer2D` | [`src/components/scientific/MoleculeViewer2D.tsx`](../../src/components/scientific/MoleculeViewer2D.tsx) | Универсальный 2D-просмотрщик ([`20-RENDERING.md`](20-RENDERING.md) §2.1) | см. 20-RENDERING §2.1 |
 | `StructuralFormula2D` | [`src/components/scientific/StructuralFormula2D.tsx`](../../src/components/scientific/StructuralFormula2D.tsx) | Структурная формула по SMILES ([`20-RENDERING.md`](20-RENDERING.md) §2.1) | см. 20-RENDERING §2.1 |
 | `MolecularDiagram2D` | [`src/components/scientific/svg/MolecularDiagram2D.tsx`](../../src/components/scientific/svg/MolecularDiagram2D.tsx) | Дата-драйвен генератор учебных структурных схем ([`20-RENDERING.md`](20-RENDERING.md) §2.2): авто-обрезка связей у подписей, размерные линии длин, роли цветов | `atoms`, `bonds`, `lengths`, `notes`, `theme` |
+| `InfographicFigure` | [`src/components/scientific/svg/InfographicFigure.tsx`](../../src/components/scientific/svg/InfographicFigure.tsx) | Концептуальная инфографика: деревья/бары/мини-графики, светлая тема, справочная панель справа, без модалок ([`20-RENDERING.md`](20-RENDERING.md) §2.7) | `title`, `spec`, `reference?`, `caption?`, `legend?` |
+| `ConceptFlow` | [`src/components/interactive/ConceptFlow.tsx`](../../src/components/interactive/ConceptFlow.tsx) | Интерактивные концепт-карты на React Flow ([`20-RENDERING.md`](20-RENDERING.md) §2.8) | `title`, `nodes`, `edges`, `details?`, `reference?`, `caption?` |
 | SVG-примитивы | `src/components/scientific/svg/` (`SvgDiagramWrapper`, `SvgAtom`, `SvgTextAtom`, `SvgFunctionalGroup`, `SvgBond`, `SvgBadge`, `SvgAngleArc`, `SvgLengthAnnotation`, `SvgCaption`) | Конструктор векторных схем ([`20-RENDERING.md`](20-RENDERING.md) §2.2) | см. 20-RENDERING §2.2 |
 
 > [!IMPORTANT]

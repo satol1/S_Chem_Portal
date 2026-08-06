@@ -10,7 +10,7 @@ import { ChemFormula } from '../../../scientific/ChemFormula';
 
 /** Секция 1.1 (вещества и смеси) — рядом с методами разделения смесей */
 export const GeneralBasicsFactChromatography: React.FC = () => (
-  <TheoryCallout title="Интересный факт: Хроматография — открытие русского ботаника">
+  <TheoryCallout title="Хроматография — открытие русского ботаника">
     В 1903 г. ботаник М. С. Цвет разделил зелёные пигменты листьев (хлорофиллы) на колонке с мелом:
     пропуская раствор через порошок карбоната кальция, он получил отдельные окрашенные полосы. Метод он
     назвал <code className="font-mono text-amber-900 font-bold">хроматографией</code> — от греческого
@@ -22,7 +22,7 @@ export const GeneralBasicsFactChromatography: React.FC = () => (
 
 /** Секция 1.4 (атомы, элементы, изотопы) — рядом с изотопами водорода */
 export const GeneralBasicsFactHeavyWater: React.FC = () => (
-  <TheoryCallout title="Интересный факт: Тяжёлая вода — «изотопный двойник» обычной">
+  <TheoryCallout title="Тяжёлая вода — «изотопный двойник» обычной">
     Оксид дейтерия <ChemFormula formula="D2O" className="font-semibold text-slate-900" /> — вода, в которой
     вместо протия находится дейтерий. Она заметно «тяжелее» обычной: плотность ≈ 1.105 г/см³, температура
     плавления ≈ 3.8 °C, температура кипения ≈ 101.4 °C. В природной воде дейтерия совсем немного —
@@ -33,7 +33,7 @@ export const GeneralBasicsFactHeavyWater: React.FC = () => (
 
 /** Секция 1.9 (моль и молярная масса) — рядом с определением моля */
 export const GeneralBasicsFactMole: React.FC = () => (
-  <TheoryCallout title="Интересный факт: Откуда взялся «моль»">
+  <TheoryCallout title="Откуда взялся «моль»">
     Слово «моль» (нем. <code className="font-mono text-amber-900 font-bold">Mol</code>) ввёл в 1893–1894 гг.
     В. Оствальд — по одной версии, от латинского <code className="font-mono text-amber-900 font-bold">moles</code> («масса»),
     по другой — сокращением от «молекула». С 20 мая 2019 г. моль определён в СИ через точное число:

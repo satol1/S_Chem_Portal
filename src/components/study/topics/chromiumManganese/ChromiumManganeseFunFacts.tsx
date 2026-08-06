@@ -10,7 +10,7 @@ import { ChemFormula } from '../../../scientific/ChemFormula';
 
 /** Секция 4 — хроматы/дихроматы: цвет ионов и минералов */
 export const ChromiumColorFunFact: React.FC = () => (
-  <TheoryCallout title="Интересный факт: хром — «цветной» элемент">
+  <TheoryCallout title="Хром — «цветной» элемент">
     <p>
       Название «хром» происходит от греческого <code className="font-mono text-amber-900 font-bold">χρῶμα</code> —
       «цвет»: соединения хрома окрашены буквально во все цвета радуги. Ионы{' '}
@@ -25,7 +25,7 @@ export const ChromiumColorFunFact: React.FC = () => (
 
 /** Секция 3 — получение Cr₂O₃ разложением дихромата аммония */
 export const ChemicalVolcanoFunFact: React.FC = () => (
-  <TheoryCallout title="Интересный факт: «химический вулкан»">
+  <TheoryCallout title="«Химический вулкан»">
     <p>
       Разложение дихромата аммония — одна из самых зрелищных демонстраций: искра запускает реакцию{' '}
       <ChemFormula formula="(NH4)2Cr2O7 -t-> Cr2O3 + N2^ + 4H2O" className="font-bold" />,
@@ -37,7 +37,7 @@ export const ChemicalVolcanoFunFact: React.FC = () => (
 
 /** Секция 5 — диоксид марганца: окислитель и катализатор */
 export const ManganeseBatteryFunFact: React.FC = () => (
-  <TheoryCallout title="Интересный факт: марганец в батарейках и в живых клетках">
+  <TheoryCallout title="Марганец в батарейках и в живых клетках">
     <p>
       Диоксид марганца <ChemFormula formula="MnO2" className="font-bold" /> служил деполяризатором
       ещё в элементе Лекланше (1866) и до сих пор работает в современных щелочных батарейках.
@@ -50,7 +50,7 @@ export const ManganeseBatteryFunFact: React.FC = () => (
 
 /** Секция 7 — применение хрома и марганца в сплавах */
 export const AlloyFunFact: React.FC = () => (
-  <TheoryCallout title="Интересный факт: стали, которым не страшны ржавчина и удары">
+  <TheoryCallout title="Стали, которым не страшны ржавчина и удары">
     <p>
       Добавка 12–20 % хрома превращает сталь в нержавеющую, а знаменитая марганцовистая сталь
       Гадфильда (~13 % Mn) при ударах не ломается, а самоупрочняется — из неё делают крестовины

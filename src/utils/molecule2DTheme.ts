@@ -251,6 +251,28 @@ export function getDiagramRoleColor(role: DiagramRole, palette: ThemePalette): s
   }
 }
 
+// ═══════════════════════════════════════
+// Цветовые категории концептуальных схем (инфографика, React Flow)
+// Восемь приглушённых академических тонов на базе элементных токенов
+// LIGHT_PALETTE — единый источник разнообразия для InfographicFigure
+// и ConceptFlow.
+// ═══════════════════════════════════════
+export type InfoCategory = 'amber' | 'blue' | 'red' | 'green' | 'ochre' | 'orange' | 'teal' | 'purple';
+
+/** Цвет категории из палитры (по умолчанию — светлая академическая) */
+export function getInfoCategoryColor(category: InfoCategory, palette: ThemePalette = LIGHT_PALETTE): string {
+  switch (category) {
+    case 'amber': return palette.highlight;
+    case 'blue': return palette.atomN.fill;
+    case 'red': return palette.atomO.fill;
+    case 'green': return palette.atomCl.fill;
+    case 'ochre': return palette.atomS.fill;
+    case 'orange': return palette.atomP.fill;
+    case 'teal': return palette.atomSi.fill;
+    case 'purple': return palette.atomI.fill;
+  }
+}
+
 /**
  * Уникальный ID для SVG pattern/gradient, чтобы избежать конфликтов при нескольких диаграммах на странице.
  */

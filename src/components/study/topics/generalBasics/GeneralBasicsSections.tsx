@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
-import { FlaskConical, BookOpen, CheckCircle2, ZoomIn, X } from 'lucide-react';
+import React from 'react';
+import { FlaskConical, BookOpen, CheckCircle2 } from 'lucide-react';
 import { SectionBadge } from '../../SectionBadge';
 import { ScrollToNavButton } from '../../ScrollToNavButton';
 import { PracticeBanner } from '../../PracticeBanner';
 import { ChemFormula } from '../../../scientific/ChemFormula';
 import { TermTooltip } from '../../../scientific/TermTooltip';
 import { MoleculeViewer3D } from '../../../interactive/MoleculeViewer3D';
-import { GeneralBasics2DRender, type GeneralBasics2DProps } from './GeneralBasics2DRenders';
+import {
+  MixturesClassificationInfographic,
+  MultipleProportionsInfographic,
+  GasLawsInfographic,
+} from './GeneralBasicsInfographics';
+import { MoleHubConceptFlow } from './GeneralBasicsConceptFlow';
 import {
   GeneralBasicsDarkBlock1,
   GeneralBasicsDarkBlock2,
@@ -39,8 +44,6 @@ export const GeneralBasicsSections: React.FC<SectionsProps> = ({
   scrollToNav,
   handleGoToPractice
 }) => {
-  const [modalDiagram, setModalDiagram] = useState<{ type: GeneralBasics2DProps['type']; title: string } | null>(null);
-
   return (
     <div className="space-y-8 font-body text-slate-800 leading-relaxed text-sm sm:text-base">
 
@@ -70,34 +73,17 @@ export const GeneralBasicsSections: React.FC<SectionsProps> = ({
         </p>
 
         <div className="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-4">
-          <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start">
-            <button
-              onClick={() => setModalDiagram({
-                type: 'mixtures-classification',
-                title: 'Вещества и смеси — классификация и способы разделения'
-              })}
-              className="relative rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-2xs group h-32 sm:h-36 w-full sm:w-36 shrink-0 flex items-center justify-center p-1.5 cursor-pointer hover:border-amber-500 transition-colors"
-              title="Нажмите для открытия схемы с классификацией веществ и смесей"
-            >
-              <GeneralBasics2DRender type="mixtures-classification" />
-              <div className="absolute inset-0 bg-slate-950/0 group-hover:bg-slate-950/40 transition-colors flex items-center justify-center">
-                <ZoomIn className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
-              </div>
-              <div className="absolute bottom-1 left-1 bg-slate-900/90 text-white text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-700">
-                Вещества и смеси
-              </div>
-            </button>
-            <div className="space-y-2 text-xs sm:text-sm flex-1">
-              <span className="font-bold text-slate-900 text-base block">Классификация: чистое вещество или смесь?</span>
-              <p className="text-slate-600 font-normal">
-                Критерий — постоянство состава и свойств. Чистая вода кипит при 100 °C строго при 101.325 кПа,
-                а раствор соли — при более высокой температуре, и температура кипения растёт по мере выпаривания.
-                Классическая гомогенная смесь — воздух: <ChemFormula formula="N2" className="font-semibold" /> ≈ 78 %,{' '}
-                <ChemFormula formula="O2" className="font-semibold" /> ≈ 21 %, аргон ≈ 0.93 % и{' '}
-                <ChemFormula formula="CO2" className="font-semibold" /> ≈ 0.04 % по объёму.
-              </p>
-            </div>
+          <div className="space-y-2 text-xs sm:text-sm">
+            <span className="font-bold text-slate-900 text-base block">Классификация: чистое вещество или смесь?</span>
+            <p className="text-slate-600 font-normal">
+              Критерий — постоянство состава и свойств. Чистая вода кипит при 100 °C строго при 101.325 кПа,
+              а раствор соли — при более высокой температуре, и температура кипения растёт по мере выпаривания.
+              Классическая гомогенная смесь — воздух: <ChemFormula formula="N2" className="font-semibold" /> ≈ 78 %,{' '}
+              <ChemFormula formula="O2" className="font-semibold" /> ≈ 21 %, аргон ≈ 0.93 % и{' '}
+              <ChemFormula formula="CO2" className="font-semibold" /> ≈ 0.04 % по объёму.
+            </p>
           </div>
+          <MixturesClassificationInfographic />
         </div>
 
         <div className="overflow-x-auto border border-slate-200 rounded-xl">
@@ -404,35 +390,18 @@ export const GeneralBasicsSections: React.FC<SectionsProps> = ({
         </p>
 
         <div className="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-4">
-          <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start">
-            <button
-              onClick={() => setModalDiagram({
-                type: 'multiple-proportions',
-                title: 'Закон кратных отношений: оксиды азота (масса O на 14 г N)'
-              })}
-              className="relative rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-2xs group h-32 sm:h-36 w-full sm:w-36 shrink-0 flex items-center justify-center p-1.5 cursor-pointer hover:border-amber-500 transition-colors"
-              title="Нажмите для открытия схемы закона кратных отношений"
-            >
-              <GeneralBasics2DRender type="multiple-proportions" />
-              <div className="absolute inset-0 bg-slate-950/0 group-hover:bg-slate-950/40 transition-colors flex items-center justify-center">
-                <ZoomIn className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
-              </div>
-              <div className="absolute bottom-1 left-1 bg-slate-900/90 text-white text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-700">
-                Оксиды азота
-              </div>
-            </button>
-            <div className="space-y-2 text-xs sm:text-sm flex-1">
-              <span className="font-bold text-slate-900 text-base block">Целочисленная последовательность — следствие дискретности атомов</span>
-              <p className="text-slate-600 font-normal">
-                Кислород присоединяется к азоту «порциями» по числу атомов в молекуле, поэтому массы кислорода
-                в ряду <ChemFormula formula="N2O" className="font-semibold" /> → <ChemFormula formula="NO" className="font-semibold" /> →{' '}
-                <ChemFormula formula="N2O3" className="font-semibold" /> → <ChemFormula formula="NO2" className="font-semibold" /> →{' '}
-                <ChemFormula formula="N2O5" className="font-semibold" /> растут в 1, 2, 3, 4, 5 раз. Тот же закон иллюстрируют
-                оксиды углерода: в <ChemFormula formula="CO" className="font-semibold" /> и <ChemFormula formula="CO2" className="font-semibold" /> на
-                12 г углерода приходится 16 и 32 г кислорода — отношение 1 : 2.
-              </p>
-            </div>
+          <div className="space-y-2 text-xs sm:text-sm">
+            <span className="font-bold text-slate-900 text-base block">Целочисленная последовательность — следствие дискретности атомов</span>
+            <p className="text-slate-600 font-normal">
+              Кислород присоединяется к азоту «порциями» по числу атомов в молекуле, поэтому массы кислорода
+              в ряду <ChemFormula formula="N2O" className="font-semibold" /> → <ChemFormula formula="NO" className="font-semibold" /> →{' '}
+              <ChemFormula formula="N2O3" className="font-semibold" /> → <ChemFormula formula="NO2" className="font-semibold" /> →{' '}
+              <ChemFormula formula="N2O5" className="font-semibold" /> растут в 1, 2, 3, 4, 5 раз. Тот же закон иллюстрируют
+              оксиды углерода: в <ChemFormula formula="CO" className="font-semibold" /> и <ChemFormula formula="CO2" className="font-semibold" /> на
+              12 г углерода приходится 16 и 32 г кислорода — отношение 1 : 2.
+            </p>
           </div>
+          <MultipleProportionsInfographic />
         </div>
 
         <div className="overflow-x-auto border border-amber-200/80 rounded-xl bg-amber-50/40 shadow-xs">
@@ -664,32 +633,15 @@ export const GeneralBasicsSections: React.FC<SectionsProps> = ({
         </p>
 
         <div className="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-4">
-          <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start">
-            <button
-              onClick={() => setModalDiagram({
-                type: 'mole-hub',
-                title: 'Моль — узел количественных расчётов'
-              })}
-              className="relative rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-2xs group h-32 sm:h-36 w-full sm:w-36 shrink-0 flex items-center justify-center p-1.5 cursor-pointer hover:border-amber-500 transition-colors"
-              title="Нажмите для открытия схемы связей моля с другими величинами"
-            >
-              <GeneralBasics2DRender type="mole-hub" />
-              <div className="absolute inset-0 bg-slate-950/0 group-hover:bg-slate-950/40 transition-colors flex items-center justify-center">
-                <ZoomIn className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
-              </div>
-              <div className="absolute bottom-1 left-1 bg-slate-900/90 text-white text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-700">
-                Моль и расчёты
-              </div>
-            </button>
-            <div className="space-y-2 text-xs sm:text-sm flex-1">
-              <span className="font-bold text-slate-900 text-base block">Три дороги к количеству вещества</span>
-              <p className="text-slate-600 font-normal">
-                Зная массу, число частиц или объём газа при н. у., можно найти количество вещества — и наоборот.
-                Пример: порция воды массой 36 г — это <ChemFormula math="n = \dfrac{36}{18} = 2" className="font-semibold" /> моль,
-                то есть <ChemFormula math="1.204\cdot10^{24}" className="font-semibold" /> молекул.
-              </p>
-            </div>
+          <div className="space-y-2 text-xs sm:text-sm">
+            <span className="font-bold text-slate-900 text-base block">Три дороги к количеству вещества</span>
+            <p className="text-slate-600 font-normal">
+              Зная массу, число частиц или объём газа при н. у., можно найти количество вещества — и наоборот.
+              Пример: порция воды массой 36 г — это <ChemFormula math="n = \dfrac{36}{18} = 2" className="font-semibold" /> моль,
+              то есть <ChemFormula math="1.204\cdot10^{24}" className="font-semibold" /> молекул.
+            </p>
           </div>
+          <MoleHubConceptFlow />
         </div>
 
         <div className="p-4 sm:p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
@@ -738,32 +690,15 @@ export const GeneralBasicsSections: React.FC<SectionsProps> = ({
         </p>
 
         <div className="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-4">
-          <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start">
-            <button
-              onClick={() => setModalDiagram({
-                type: 'gas-laws',
-                title: 'Газовые законы — изопроцессы идеального газа'
-              })}
-              className="relative rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-2xs group h-32 sm:h-36 w-full sm:w-36 shrink-0 flex items-center justify-center p-1.5 cursor-pointer hover:border-amber-500 transition-colors"
-              title="Нажмите для открытия схемы газовых законов"
-            >
-              <GeneralBasics2DRender type="gas-laws" />
-              <div className="absolute inset-0 bg-slate-950/0 group-hover:bg-slate-950/40 transition-colors flex items-center justify-center">
-                <ZoomIn className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
-              </div>
-              <div className="absolute bottom-1 left-1 bg-slate-900/90 text-white text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-700">
-                Газовые законы
-              </div>
-            </button>
-            <div className="space-y-2 text-xs sm:text-sm flex-1">
-              <span className="font-bold text-slate-900 text-base block">Изопроцессы и уравнение состояния</span>
-              <p className="text-slate-600 font-normal">
-                При фиксации одного из параметров уравнение состояния вырождается в частный закон: изотерму
-                Бойля — Мариотта, изобару Гей-Люссака или изохору Шарля. Универсальная газовая постоянная
-                связывает все величины: <ChemFormula math="R = 8.314\,\dfrac{\text{Дж}}{\text{моль}\cdot\text{К}}" className="font-semibold" />.
-              </p>
-            </div>
+          <div className="space-y-2 text-xs sm:text-sm">
+            <span className="font-bold text-slate-900 text-base block">Изопроцессы и уравнение состояния</span>
+            <p className="text-slate-600 font-normal">
+              При фиксации одного из параметров уравнение состояния вырождается в частный закон: изотерму
+              Бойля — Мариотта, изобару Гей-Люссака или изохору Шарля. Универсальная газовая постоянная
+              связывает все величины: <ChemFormula math="R = 8.314\,\dfrac{\text{Дж}}{\text{моль}\cdot\text{К}}" className="font-semibold" />.
+            </p>
           </div>
+          <GasLawsInfographic />
         </div>
 
         <div className="overflow-x-auto border border-slate-200 rounded-xl">
@@ -881,38 +816,6 @@ export const GeneralBasicsSections: React.FC<SectionsProps> = ({
 
       {/* Practice Banner */}
       <PracticeBanner topicCode="ОХ-01" onGoToPractice={handleGoToPractice} />
-
-      {/* Static Fullscreen 2D Render Modal */}
-      {modalDiagram && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-4xl w-full p-5 sm:p-6 space-y-4 shadow-2xl relative">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-              <h3 className="font-bold text-white text-base sm:text-lg">
-                {modalDiagram.title}
-              </h3>
-              <button
-                onClick={() => setModalDiagram(null)}
-                className="p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white transition cursor-pointer"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            <div className="flex items-center justify-center bg-slate-950 rounded-xl p-4 border border-slate-800 min-h-[320px]">
-              <GeneralBasics2DRender type={modalDiagram.type} isModal={true} />
-            </div>
-
-            <div className="flex justify-end">
-              <button
-                onClick={() => setModalDiagram(null)}
-                className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs rounded-xl shadow transition cursor-pointer"
-              >
-                Закрыть
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
