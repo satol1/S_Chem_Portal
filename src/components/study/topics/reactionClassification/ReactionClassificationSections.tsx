@@ -11,11 +11,12 @@ import {
   ReactionsClassificationTreeInfographic,
   PhaseCompositionInfographic,
   ParticleTransferInfographic,
-  ThermalEffectsEnergyProfileInfographic,
-  BondCleavageMechanismInfographic
+  ThermalEffectsEnergyProfileInfographic
 } from './ReactionClassificationInfographics';
 
 import { ChemicalEquilibriumConceptFlow } from './ReactionClassificationConceptFlow';
+
+import { ReactionClassification2DRenders } from './ReactionClassification2DRenders';
 
 import {
   ReactionClassificationDarkBlock1,
@@ -416,9 +417,9 @@ export const ReactionClassificationSections: React.FC<SectionsProps> = ({
           </div>
         </div>
 
-        {/* Инфографика механизмов разрыва связи */}
+        {/* Схема механизмов разрыва ковалентной связи */}
         <div className="my-6">
-          <BondCleavageMechanismInfographic />
+          <ReactionClassification2DRenders type="bond-cleavage" />
         </div>
 
         <ReactionClassificationDarkBlock1 />
