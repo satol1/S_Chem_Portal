@@ -13,7 +13,9 @@ export const InorganicClassesTheoryView: React.FC = () => {
     { id: 'section-acids', label: '4.3. Кислоты: классификация, свойства и способы получения' },
     { id: 'section-amphoteric', label: '4.4. Амфотерные гидроксиды: классификация, свойства и способы получения' },
     { id: 'section-salts', label: '4.5. Соли: классификация, свойства и способы получения' },
-    { id: 'section-genetic-link', label: '4.6. Генетическая связь' },
+    { id: 'section-genetic-link', label: '4.6. Генетическая связь между классами' },
+    { id: 'section-preparation', label: '4.7. Сводная таблица способов получения' },
+    { id: 'section-molecules-3d', label: '4.8. 3D-модели ключевых соединений' },
   ];
 
   const scrollToNav = () => {

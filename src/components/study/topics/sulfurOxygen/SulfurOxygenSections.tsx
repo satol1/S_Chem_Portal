@@ -268,14 +268,14 @@ export const SulfurOxygenSections: React.FC<SectionsProps> = ({
                   title: 'Ромбическая сера — 3D-корончатая конформация S₈ (sp³-гибридизация, валентный угол 107.9°, торсионный 98.0°)'
                 })}
                 className="relative rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-2xs group h-32 sm:h-36 w-full sm:w-36 shrink-0 flex items-center justify-center p-1.5 cursor-pointer hover:border-amber-500 transition-colors"
-                title="Нажмите для открытия справочной 2D-схемы"
+                title="Нажмите для открытия справочной структурной формулы"
               >
                 <SulfurOxygen2DRender type="rhombic-sulfur" />
                 <div className="absolute inset-0 bg-slate-950/0 group-hover:bg-slate-950/40 transition-colors flex items-center justify-center">
                   <ZoomIn className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
                 <div className="absolute bottom-1 left-1 bg-slate-900/90 text-white text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-700">
-                  2D-схема
+                  Ромбическая сера S₈
                 </div>
               </button>
 
@@ -296,17 +296,17 @@ export const SulfurOxygenSections: React.FC<SectionsProps> = ({
               <button 
                 onClick={() => setModalDiagram({
                   type: 'ozone',
-                  title: 'Озон — 2D-схема изогнутой молекулы O₃ (sp²-гибридизация, угол 116.8°)'
+                  title: 'Озон — структурная формула изогнутой молекулы O₃ (sp²-гибридизация, угол 116.8°)'
                 })}
                 className="relative rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-2xs group h-32 sm:h-36 w-full sm:w-36 shrink-0 flex items-center justify-center p-1.5 cursor-pointer hover:border-sky-500 transition-colors"
-                title="Нажмите для открытия справочной 2D-схемы"
+                title="Нажмите для открытия справочной структурной формулы"
               >
                 <SulfurOxygen2DRender type="ozone" />
                 <div className="absolute inset-0 bg-slate-950/0 group-hover:bg-slate-950/40 transition-colors flex items-center justify-center">
                   <ZoomIn className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
                 <div className="absolute bottom-1 left-1 bg-slate-900/90 text-white text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-700">
-                  2D-схема
+                  Озон O₃
                 </div>
               </button>
 
@@ -533,17 +533,17 @@ export const SulfurOxygenSections: React.FC<SectionsProps> = ({
             <button 
               onClick={() => setModalDiagram({
                 type: 'so2',
-                title: 'Диоксид серы — 2D-схема уголковой молекулы SO₂ (sp²-гибридизация, угол 119.5°)'
+                title: 'Диоксид серы — структурная формула уголковой молекулы SO₂ (sp²-гибридизация, угол 119.5°)'
               })}
               className="relative rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-2xs group h-32 sm:h-36 w-full sm:w-36 shrink-0 flex items-center justify-center p-1.5 cursor-pointer hover:border-amber-500 transition-colors"
-              title="Нажмите для открытия справочной 2D-схемы"
+              title="Нажмите для открытия справочной структурной формулы"
             >
               <SulfurOxygen2DRender type="so2" />
               <div className="absolute inset-0 bg-slate-950/0 group-hover:bg-slate-950/40 transition-colors flex items-center justify-center">
                 <ZoomIn className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
               <div className="absolute bottom-1 left-1 bg-slate-900/90 text-white text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-700">
-                2D-схема
+                Диоксид серы SO₂
               </div>
             </button>
 
@@ -591,17 +591,17 @@ export const SulfurOxygenSections: React.FC<SectionsProps> = ({
             <button 
               onClick={() => setModalDiagram({
                 type: 'h2so4',
-                title: 'Серная кислота — 2D-структура тетраэдра H₂SO₄ (sp³-гибридизация, S(+6))'
+                title: 'Серная кислота — структурная формула тетраэдра H₂SO₄ (sp³-гибридизация, S(+6))'
               })}
               className="relative rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-2xs group h-32 sm:h-36 w-full sm:w-36 shrink-0 flex items-center justify-center p-1.5 cursor-pointer hover:border-amber-500 transition-colors"
-              title="Нажмите для открытия справочной 2D-схемы"
+              title="Нажмите для открытия справочной структурной формулы"
             >
               <SulfurOxygen2DRender type="h2so4" />
               <div className="absolute inset-0 bg-slate-950/0 group-hover:bg-slate-950/40 transition-colors flex items-center justify-center">
                 <ZoomIn className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
               <div className="absolute bottom-1 left-1 bg-slate-900/90 text-white text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-700">
-                2D-схема
+                Серная кислота H₂SO₄
               </div>
             </button>
 

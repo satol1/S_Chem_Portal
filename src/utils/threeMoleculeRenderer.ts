@@ -354,34 +354,69 @@ export function buildMoleculeSceneGroup(group: THREE.Group, molecule: Molecule, 
   });
 
   // 2. Render Bonds (Cylinders)
+  // Multiple bonds are drawn as parallel rods (standard ball-and-stick convention):
+  // order 2 -> two rods side by side, order 3 -> three rods in a triangular arrangement.
   const bondScale = 1.0 - t;
   if (bondScale > 0.01) {
+    const MULTI_BOND_OFFSET = 0.11;
+
     molecule.bonds.forEach((bond) => {
       const posA = atomPositions[bond.source];
       const posB = atomPositions[bond.target];
       if (!posA || !posB) return;
 
       const distance = posA.distanceTo(posB);
-      const bondRadius = 0.08 * bondScale;
+      const order = bond.order ?? 1;
+      const bondRadius = (order > 1 ? 0.065 : 0.08) * bondScale;
 
-      const bondGeometry = new THREE.CylinderGeometry(bondRadius, bondRadius, distance, 16);
-      const bondMaterial = new THREE.MeshStandardMaterial({
-        color: 0xcbd5e1,
-        roughness: 0.3,
-        transparent: t > 0,
-        opacity: bondScale,
-      });
+      // Rod offsets in the plane perpendicular to the bond axis
+      const offsets: THREE.Vector3[] = [];
+      if (order === 1) {
+        offsets.push(new THREE.Vector3(0, 0, 0));
+      } else {
+        const bondDir = new THREE.Vector3().subVectors(posB, posA).normalize();
+        const refAxis = Math.abs(bondDir.y) < 0.9 ? new THREE.Vector3(0, 1, 0) : new THREE.Vector3(1, 0, 0);
+        const perp1 = new THREE.Vector3().crossVectors(bondDir, refAxis).normalize();
+        const perp2 = new THREE.Vector3().crossVectors(bondDir, perp1).normalize();
 
-      const bondMesh = new THREE.Mesh(bondGeometry, bondMaterial);
-      const midpoint = new THREE.Vector3().addVectors(posA, posB).multiplyScalar(0.5);
-      bondMesh.position.copy(midpoint);
+        if (order === 2) {
+          offsets.push(perp1.clone().multiplyScalar(MULTI_BOND_OFFSET));
+          offsets.push(perp1.clone().multiplyScalar(-MULTI_BOND_OFFSET));
+        } else {
+          // Triple bond: three rods at 120° around the bond axis
+          for (let i = 0; i < 3; i++) {
+            const angle = (i * 2 * Math.PI) / 3;
+            offsets.push(
+              new THREE.Vector3()
+                .addScaledVector(perp1, Math.cos(angle))
+                .addScaledVector(perp2, Math.sin(angle))
+                .multiplyScalar(MULTI_BOND_OFFSET)
+            );
+          }
+        }
+      }
 
       const orientation = new THREE.Matrix4();
       orientation.lookAt(posA, posB, new THREE.Vector3(0, 1, 0));
-      bondMesh.setRotationFromMatrix(orientation);
-      bondMesh.rotateX(Math.PI / 2);
 
-      group.add(bondMesh);
+      offsets.forEach((offset) => {
+        const bondGeometry = new THREE.CylinderGeometry(bondRadius, bondRadius, distance, 16);
+        const bondMaterial = new THREE.MeshStandardMaterial({
+          color: 0xcbd5e1,
+          roughness: 0.3,
+          transparent: t > 0,
+          opacity: bondScale,
+        });
+
+        const bondMesh = new THREE.Mesh(bondGeometry, bondMaterial);
+        const midpoint = new THREE.Vector3().addVectors(posA, posB).multiplyScalar(0.5).add(offset);
+        bondMesh.position.copy(midpoint);
+
+        bondMesh.setRotationFromMatrix(orientation);
+        bondMesh.rotateX(Math.PI / 2);
+
+        group.add(bondMesh);
+      });
     });
   }
 

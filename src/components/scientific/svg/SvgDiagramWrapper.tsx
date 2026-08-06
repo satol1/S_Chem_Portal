@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { type Molecule2DTheme, getThemePalette, uniqueSvgId } from '../../../utils/molecule2DTheme';
 
 // ═══════════════════════════════════════
@@ -18,8 +18,6 @@ export interface SvgDiagramWrapperProps {
   viewBox?: string;
   /** Заголовок схемы (отображается в SVG) */
   title?: string;
-  /** Подзаголовок / формула */
-  subtitle?: string;
   /** Список элементов спецификации (правая панель в модалке) */
   specItems?: SvgSpecItem[];
   /** Заголовок панели спецификации */
@@ -43,9 +41,9 @@ export interface SvgDiagramWrapperProps {
  *
  * Обеспечивает единый стиль для всех тем:
  * - Фон + сетка из палитры темы
- * - Заголовок схемы
- * - Правая панель спецификаций (в модалке)
- * - Нижний подписной текст (в компактном режиме)
+ * - Заголовок схемы и правая панель спецификаций (в модалке)
+ * - Компактный режим: viewBox автоподбирается под габариты схемы,
+ *   превью заполняет плитку и читается без микротекста (детали — в модалке)
  *
  * Новые темы используют этот wrapper вместо хардкода grid pattern,
  * rect background и spec panel — достаточно передать детей и метаданные.
@@ -77,7 +75,6 @@ export const SvgDiagramWrapper: React.FC<SvgDiagramWrapperProps> = ({
   theme = 'dark',
   viewBox,
   title,
-  subtitle,
   specItems,
   specTitle,
   isModal = false,
@@ -89,12 +86,35 @@ export const SvgDiagramWrapper: React.FC<SvgDiagramWrapperProps> = ({
 }) => {
   const palette = getThemePalette(theme);
   const gridId = uniqueSvgId('grid');
-  const defaultViewBox = isModal ? '0 0 760 430' : '0 0 300 200';
-  const usedViewBox = viewBox || defaultViewBox;
 
-  // Default diagram center transform; в модалке схема укрупняется централизованно
-  const defaultTransform = isModal ? 'translate(210, 215)' : 'translate(150, 100)';
-  const transform = `${diagramTransform || defaultTransform}${isModal ? ` scale(${modalScale})` : ''}`;
+  // Компактный режим: viewBox подгоняется под реальные габариты схемы,
+  // чтобы превью заполняло плитку и подписи атомов оставались читаемыми
+  const contentRef = useRef<SVGGElement | null>(null);
+  const [fitViewBox, setFitViewBox] = useState<string | null>(null);
+  useLayoutEffect(() => {
+    if (isModal) {
+      setFitViewBox(null);
+      return;
+    }
+    const g = contentRef.current;
+    if (!g) return;
+    const b = g.getBBox();
+    if (b.width < 1 || b.height < 1) return;
+    const pad = 8;
+    const next = `${b.x - pad} ${b.y - pad} ${b.width + 2 * pad} ${b.height + 2 * pad}`;
+    setFitViewBox((prev) => (prev === next ? prev : next));
+  }, [isModal, children]);
+
+  const defaultViewBox = isModal ? '0 0 760 430' : '0 0 300 200';
+  const usedViewBox = isModal
+    ? viewBox || defaultViewBox
+    : fitViewBox || viewBox || defaultViewBox;
+
+  // В модалке схема укрупняется централизованно; в компактном режиме
+  // центрирование выполняет автоподбор viewBox — transform не нужен
+  const transform = isModal
+    ? `${diagramTransform || 'translate(210, 215)'} scale(${modalScale})`
+    : undefined;
 
   // Раскладка строк панели спецификаций (автоперенос длинных значений)
   const specRows = (specItems || []).map((item) => {
@@ -143,7 +163,7 @@ export const SvgDiagramWrapper: React.FC<SvgDiagramWrapperProps> = ({
       )}
 
       {/* Central Diagram Area */}
-      <g transform={transform}>{children}</g>
+      <g ref={contentRef} transform={transform}>{children}</g>
 
       {/* Modal Right Side Specification Panel */}
       {isModal && specRows.length > 0 && (
@@ -189,20 +209,6 @@ export const SvgDiagramWrapper: React.FC<SvgDiagramWrapperProps> = ({
         </g>
       )}
 
-      {/* Compact Mode Footer Caption */}
-      {!isModal && subtitle && (
-        <text
-          x="150"
-          y="188"
-          textAnchor="middle"
-          fill={palette.textMuted}
-          fontSize="10"
-          fontWeight="bold"
-          fontFamily="sans-serif"
-        >
-          {subtitle}
-        </text>
-      )}
     </svg>
   );
 };

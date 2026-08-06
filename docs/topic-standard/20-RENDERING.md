@@ -2,6 +2,8 @@
 
 Все химические формулы, уравнения реакций, электронные конфигурации, орбитали, кратные связи, ионы, термодинамические и кинетические константы **должны рендериться со 100% академической точностью** научными библиотеками проекта.
 
+> **Как читать модуль**: секции читаются выборочно по задаче. **§1** — формулы, константы, термины, аудит рендера; **§2** — 2D-схемы, превью и модалки, инфографика и концепт-карты; **§3** — 3D-модели. Пропсы и интерфейсы компонентов авторитетны **в исходном коде компонентов** — здесь приводятся только ключевые пропсы и правила применения.
+
 ---
 
 ## 1. Формулы, константы и термины
@@ -31,7 +33,7 @@
 | **Кириллические** условия НАД стрелкой | `-(электролиз)->`, `-(сплавление)->`, `-(прокаливание)->` | ⚠️ **не поддерживается парсером**: сырая кириллица в `\xrightarrow{...}` даёт красный KaTeX-error — такие уравнения пишутся через проп `math` с `\xrightarrow{\text{...}}` (правило 3 ниже) |
 | Обратимая реакция | `<=(V2O5, t=450-500°C)=>`, `<=(конц)=>`, `<-(условие)->` | `\xrightleftharpoons{...}` |
 | Равновесие без условий | `<=>`, `⇄` | `\rightleftharpoons` |
-| ❌ Неподдерживаемые стрелки | `<==>`, `<-`, `<-->` и другие формы | **запрещены**: парсер их не распознаёт — в рендере остаётся сырой текст (аудит-скрипт такие строки не ловит); заменяйте на `<=>`/`⇄` или `<=(условие)=>` |
+| ❌ Неподдерживаемые стрелки | `<==>`, `<-`, `<-->` и другие формы | **запрещены**: парсер их не распознаёт — в рендере остаётся сырой текст; ловятся аудит-скриптом (§1.8) как ошибка `policy: неподдерживаемая стрелка`; заменяйте на `<=>`/`⇄` или `<=(условие)=>` |
 | Скобочные пометки | `HNO3(конц)`, `(разб)`, `(олеум)`, `(98.3%)`, `(газ)`, `(тв)`, `(водн)` | `\text{\,\scriptsize{(конц)}}`, в т.ч. приклеенные к формуле |
 | Кристаллогидраты, двойные соли | `CuSO4*5H2O`, `Na2O·CaO·6SiO2` | `\cdot` |
 | Газ / осадок | `CO2^`, `CO2↑`, `Sv`, `S↓` | `\uparrow` / `\downarrow` |
@@ -49,7 +51,7 @@
   <ChemFormula math="2NaCl \xrightarrow{\text{электролиз}} 2Na + Cl_2\uparrow" />
   ```
 
-  Централизованное решение — расширить `formatConditionLatex`, чтобы оборачивать в `\text{...}` любые кириллические токены условий; **до внесения этой правки в парсер вариант с `math` обязателен** и проверяется агентом постпроверки ([`../../.qwen/agents/topic-proofreader.md`](../../.qwen/agents/topic-proofreader.md), проверка «Научный рендеринг», п. 5).
+  Централизованное решение — расширить `formatConditionLatex`, чтобы оборачивать в `\text{...}` любые кириллические токены условий; **до внесения этой правки в парсер вариант с `math` обязателен**. Нарушение ловится механически: аудит-скрипт (§1.8) печатает `policy: кириллические условия над стрелкой…`, агент постпроверки ([`../../.qwen/agents/topic-proofreader.md`](../../.qwen/agents/topic-proofreader.md), проверка «Научный рендеринг», п. 5) проверяет дополнительно.
 
 ### 1.3. Константы и физические величины — только через KaTeX
 
@@ -100,7 +102,7 @@
 Парсер `ChemFormula` — эвристический, поэтому **достоверность формулы определяется только по отрендеренному результату**, а не по исходной строке. Любая новая или изменённая формула/уравнение темы обязана пройти проверку рендера ДО коммита:
 
 1. Запустить аудит: `node scripts/audit-formulas.mjs`. Скрипт собирает все строки `formula=` / `math=` / `caption=`, массивы `formulae:` и локальные константы (`formula:`, `shortFormula:`, `bond:`) из `src/components/study/topics/**` и `src/data/studyBlocksData.ts`, прогоняет их через реальный парсер + KaTeX и печатает два списка.
-2. Секция `KATEX/PARSER ERRORS` обязана быть пустой (иначе в UI — красный `katex-error`).
+2. Секция `KATEX/PARSER ERRORS` обязана быть пустой (иначе в UI — красный `katex-error`). Сюда же попадают нарушения политик §1.2 с пометкой `policy:` — mhchem `\ce{...}` (§1.1), кириллические условия над стрелкой через `formula` (правило 3), неподдерживаемые стрелки (`<==>`, `<-`, `<-->`).
 3. Секцию `SUSPICIOUS ^{digit...}` просмотреть **вручную построчно**: допустимы только осмысленные верхние индексы — заряды одноатомных ионов (`Cu^{2+}`), степени окисления (`N^{+5}`), орбитали с главным квантовым числом (`3d^{5}`), порядки величин (`10^{23}`). Если цифра должна быть нижним индексом, а оказалась вверху (исторические дефекты: `NH4+` → NH⁴⁺, `S8` → S⁸, `P4` → P⁴) — это блокирующий дефект: правится строка данных либо (если дефект системный) парсер в [`ChemFormula.tsx`](../../src/components/scientific/ChemFormula.tsx) с последующим повторным прогоном аудита.
 4. Визуально убедиться в UI: индексы внизу, заряды и степени окисления вверху, условия над стрелкой, конфигурации с номерами уровней (`1s² 2s² 2p⁶`, а не `s² s² p⁶`).
 
@@ -114,27 +116,7 @@
 
 ### 2.1. Уровень 1 — универсальные компоненты (использовать в первую очередь)
 
-**[`MoleculeViewer2D`](../../src/components/scientific/MoleculeViewer2D.tsx)** — интерактивный просмотрщик 2D-представлений:
-
-```tsx
-interface MoleculeViewer2DProps {
-  molecule?: Molecule;          // свой объект молекулы (приоритет 1)
-  moleculeId?: string;          // поиск в MOLECULES_DATA по id (приоритет 2)
-  smiles?: string;              // свой SMILES → старт в режиме 'smiles'
-  allotropeType?: Allotrope2DType; // старт в режиме 'allotrope'
-  initialMode?: Render2DMode;   // default: 'structural'
-  theme?: Molecule2DTheme;      // 'dark' | 'light' (default 'dark')
-  showControls?: boolean;       // default: true
-  isModal?: boolean;            // прокидывается в аллотропные рендеры
-  title?: string; description?: string;
-  width?: number; height?: number; // default 400×300 (viewBox проекции)
-  onOpenModal?: () => void;     // добавляет кнопку «развернуть»
-  className?: string;
-}
-// Render2DMode = 'skeletal' | 'structural' | 'lewis' | 'ball-and-stick' | ...
-// Allotrope2DType = 'diamond' | 'graphite' | 'fullerene' | 'silicon'
-//                 | 'rhombic-sulfur' | 'ozone' | 'so2' | 'h2so4'
-```
+**[`MoleculeViewer2D`](../../src/components/scientific/MoleculeViewer2D.tsx)** — интерактивный просмотрщик 2D-представлений. Ключевые пропсы (полный интерфейс — в исходнике компонента): источник молекулы — `molecule` (свой объект, приоритет 1) либо `moleculeId` (поиск в `MOLECULES_DATA`, приоритет 2) либо `smiles`/`allotropeType` (стартовый режим); `initialMode` (`'skeletal' | 'structural' | 'lewis' | 'ball-and-stick' | …`, по умолчанию `'structural'`), `theme` (`'dark' | 'light'`, по умолчанию `'dark'`), `isModal`, `showControls`, `onOpenModal` (кнопка «развернуть»), `width`/`height` (по умолчанию 400×300), `title`/`description`, `className`. Набор типов `Allotrope2DType` (алмаз, графит, фуллерен, кремний, ромбическая сера, озон, SO₂, H₂SO₄) — в исходнике.
 
 Примеры:
 
@@ -144,18 +126,7 @@ interface MoleculeViewer2DProps {
 <MoleculeViewer2D smiles="CC(=O)O" theme="light" />
 ```
 
-**[`StructuralFormula2D`](../../src/components/scientific/StructuralFormula2D.tsx)** — единая точка входа для научных структурных схем по SMILES (раскладка выполняется библиотекой `smiles-drawer`):
-
-```tsx
-interface StructuralFormula2DProps {
-  smiles: string;               // например "O=P(O)(O)O" для H3PO4
-  theme?: Molecule2DTheme;      // default 'light' — классический учебный стиль на белом фоне
-  width?: number; height?: number; // default 420×240
-  caption?: string;             // подпись под схемой — рендерится через ChemFormula
-  bondThickness?: number;       // default 1.6
-  className?: string;
-}
-```
+**[`StructuralFormula2D`](../../src/components/scientific/StructuralFormula2D.tsx)** — единая точка входа для научных структурных схем по SMILES (раскладка выполняется библиотекой `smiles-drawer`). Ключевые пропсы (полный интерфейс — в исходнике): `smiles` (например `"O=P(O)(O)O"` для H3PO4), `theme` (по умолчанию `'light'` — классический учебный стиль на белом фоне), `width`/`height` (по умолчанию 420×240), `caption` (подпись — рендерится через ChemFormula), `bondThickness`, `className`:
 
 ```tsx
 <StructuralFormula2D smiles="O=P(O)(O)O" theme="light" caption="H3PO4" />
@@ -195,14 +166,10 @@ interface StructuralFormula2DProps {
 
 ```tsx
 <MolecularDiagram2D
-  theme="light"
-  centerX={210} centerY={128}
-  atoms={[
-    { id: 'P', label: 'P', x: 0, y: 0, role: 'ink', fontSize: 17, fontWeight: 'extrabold' },
-    { id: 'OH', label: 'OH', x: 82, y: 28, role: 'oh', fontSize: 14 },
-  ]}
+  theme="light" centerX={210} centerY={128}
+  atoms={[{ id: 'P', label: 'P', x: 0, y: 0, role: 'ink' }, { id: 'OH', label: 'OH', x: 82, y: 28, role: 'oh' }]}
   bonds={[{ from: 'P', to: 'OH', role: 'oh' }]}
-  lengths={[{ from: 'P', to: 'OH', label: '157 pm', side: 1, distance: 14 }]}
+  lengths={[{ from: 'P', to: 'OH', label: '157 pm', side: 1 }]}
 />
 ```
 
@@ -244,44 +211,22 @@ export interface <Topic>2DProps {
 ### 2.4. 2D-превью в секциях и модальное окно (финальный стандарт)
 
 - **Категорически запрещено**: `object-cover` с фиксированным `aspect-ratio` для научных схем (обрезание текста и граней).
-- **Стандарт превью** (эталон S/O): квадратная кнопка-плитка с **живым SVG-рендером** слева от текста, оверлей `ZoomIn` при наведении и угловая метка с **названием изображённого соединения** (безликая подпись «структурная формула» запрещена):
-
-```tsx
-<button onClick={() => setModalDiagram({ type: 'so2', title: 'Молекула SO₂ ...' })}
-  className="relative rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-2xs group h-32 sm:h-36 w-full sm:w-36 shrink-0 flex items-center justify-center p-1.5 cursor-pointer hover:border-amber-500 transition-colors"
-  title="Нажмите для открытия справочной структурной формулы">
-  <SulfurOxygen2DRender type="so2" />
-  <div className="absolute inset-0 bg-slate-950/0 group-hover:bg-slate-950/40 transition-colors flex items-center justify-center">
-    <ZoomIn className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
-  </div>
-  <div className="absolute bottom-1 left-1 bg-slate-900/90 text-white text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-700">Диоксид серы SO₂</div>
-</button>
-```
+- **Стандарт превью** (эталон — кнопки-плитки в [`SulfurOxygenSections.tsx`](../../src/components/study/topics/sulfurOxygen/SulfurOxygenSections.tsx); разметка и классы копируются дословно): квадратная кнопка-плитка (`h-32 sm:h-36 w-full sm:w-36`, тёмный фон) с **живым SVG-рендером** слева от текста; при наведении — оверлей с иконкой `ZoomIn` и янтарная подсветка рамки; угловая метка `text-[10px] font-mono` с **названием изображённого соединения** (безликая подпись «структурная формула» запрещена). Клик открывает статическую модалку (ниже) с полным названием схемы в шапке.
 
 - **Правило угловой метки**: в метке пишется русское название соединения, изображённого на плитке, по возможности с формулой юникод-символами: «Озон O₃», «Серная кислота H₂SO₄», «Хромат-ион CrO₄²⁻», «Хлороводород HCl», «Алмаз», «Фуллерен C₆₀». Метка обязана быть короткой — не длиннее ~22 моноширинных символов (`text-[10px]`), иначе она обрезается краем плитки 144 px; если полное название с формулой не умещается, оставляют только название («хлорид хромоила», «оксид марганца(VII)»). Названия элементов в метке — со строчной буквы по общему правилу (§1.7), первое слово метки — с прописной.
 
 - **Читаемость компактного превью (без «микромира» в тексте статьи)**: плитку заполняет только укрупнённый каркас молекулы — `MolecularDiagramBody compact={!isModal}` скрывает размерные линии/углы/надписи и укрупняет подписи атомов, а `SvgDiagramWrapper` автоподбирает viewBox под габариты контента (микроподписи внутри SVG запрещены). Справочные детали (длины связей, углы, спецификации, подписи) живут в статической модалке. Тёмная плитка — для **одной** структурной формулы.
 - **Несколько структурных формул в одном блоке — светлая панель** (триггер: **≥ 3 структурных формул в одном разделе — панель обязательна**): когда разделу нужны сразу несколько структурных формул (ряд X₂, семейство кислот, ряд кислородсодержащих ионов), вместо тёмной плитки вставляется светлая панель на белом фоне: контейнер `bg-white rounded-2xl border border-slate-200 shadow-sm` (вариант-обёртка — серая плашка `p-5 rounded-xl bg-slate-50 border border-slate-200` с вводным абзацем, как в блоке «Причина „аномальной“ основности…» в N/P), сетка плиток со светлыми схемами `MolecularDiagram2D theme="light"` (autoFit), формулы через `ChemFormula` и чипы параметров (mono, не мельче `text-[11px]`), при необходимости поясняющая строка внизу. Эталоны: фосфорные кислоты в N/P ([`PhosphorusAcids2DRenders.tsx`](../../src/components/study/topics/nitrogenPhosphorus/PhosphorusAcids2DRenders.tsx)) и панель X₂ в галогенах (`HalogensX2LightPanel` в [`Halogens2DRenders.tsx`](../../src/components/study/topics/halogens/Halogens2DRenders.tsx)). Панель самодостаточна и читаема без модалки.
 
-- **Статическая модалка** (без внешних библиотек и без отдельных интерактивных «viewer»-компонентов — они удалены из эталона как избыточные):
-  - Состояние: `useState<{ type: <union>; title: string } | null>(null)`.
-  - Оверлей: `fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6`.
-  - Панель: `bg-slate-900 border border-slate-800 rounded-2xl max-w-4xl w-full p-5 sm:p-6 space-y-4 shadow-2xl relative`; шапка с полным русским названием схемы и кнопкой `X` (`p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white`).
-  - Область рендера: `flex items-center justify-center bg-slate-950 rounded-xl p-4 border border-slate-800 min-h-[320px]` с `<Topic2DRender type={modalDiagram.type} isModal={true} />`.
-  - Кнопка «Закрыть»: `px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs rounded-xl`.
+- **Статическая модалка** (эталон — модалка в [`SulfurOxygenSections.tsx`](../../src/components/study/topics/sulfurOxygen/SulfurOxygenSections.tsx), разметка копируется дословно; без внешних библиотек и без отдельных интерактивных «viewer»-компонентов — они удалены из эталона как избыточные):
+  - Состояние: `useState<{ type: <union>; title: string } | null>(null)`; открытие — клик по плитке-превью, закрытие — кнопка `X` в шапке и кнопка «Закрыть».
+  - Состав: тёмный оверлей с блюром (`z-50`); панель `bg-slate-900 max-w-4xl` с шапкой — полное русское название схемы; область рендера на тёмном фоне (`min-h-[320px]`) с `<Topic2DRender type={modalDiagram.type} isModal={true} />` — модалка укрупняет схему централизованно (§2.2, `diagramTransform`/`modalScale`), вручную координаты не увеличиваются.
 
 ### 2.5. Язык и терминология схем (российская научная школа)
 
 - **100% русский язык**: любая схема, 2D-рендер, SVG-чертёж, легенда, подписи связей и заголовки — строго на русском языке.
 - **Запрет англицизмов на графике**: *«GRAPHITE CRYSTAL STRUCTURE»*, *«Graphene Layer»*, *«INTERLAYER SPACING»*, *«van der Waals WEAK BONDS»*, *«FULLERENE C60 BUCKYBALL»*, *«CRYSTALLINE SILICON»* — запрещены.
-- **Эталонные русские формулировки**:
-  - `Graphene Layer` → `Графеновый слой (плоские сетки)`
-  - `Interlayer Spacing (3.35 Å)` → `Межслойное расстояние 3.35 Å`
-  - `van der Waals Weak Bonds` → `Слабые связи Ван-дер-Ваальса (d = 3.35 Å)`
-  - `Delocalized π-electrons` → `Делокализованные π-электроны (p-орбитали)`
-  - `Buckyball / Truncated Icosahedron` → `Усечённый икосаэдр (бакибол)`
-  - `Diamond Cubic Lattice Unit Cell` → `Элементарная кубическая ячейка типа алмаза`
-  - `Silicon Atom (Si)` → `Атом кремния (Si)`
+- **Эталонные русские формулировки** (примеры): `Graphene Layer` → `Графеновый слой (плоские сетки)`; `Interlayer Spacing (3.35 Å)` → `Межслойное расстояние 3.35 Å`; `van der Waals Weak Bonds` → `Слабые связи Ван-дер-Ваальса (d = 3.35 Å)`; `Buckyball / Truncated Icosahedron` → `Усечённый икосаэдр (бакибол)`; `Diamond Cubic Lattice Unit Cell` → `Элементарная кубическая ячейка типа алмаза`.
 
 ### 2.6. Сводные tree-диаграммы (классификации, разложения, цепочки превращений)
 

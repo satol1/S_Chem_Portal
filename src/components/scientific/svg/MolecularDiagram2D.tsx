@@ -109,6 +109,10 @@ export interface MolecularDiagramBodyProps {
   lines?: DiagramLineSpec[];
   notes?: DiagramNoteSpec[];
   theme?: Molecule2DTheme;
+  /** Компактный режим (превью-плитка в тексте статьи): подписи атомов укрупняются,
+   * размерные линии, дуги углов и пояснительные надписи скрываются —
+   * детали рассматриваются в модалке, превью не содержит микротекста. */
+  compact?: boolean;
 }
 
 export interface MolecularDiagram2DProps extends MolecularDiagramBodyProps {
@@ -122,6 +126,15 @@ export interface MolecularDiagram2DProps extends MolecularDiagramBodyProps {
   autoFit?: boolean;
   /** Поле вокруг контента при автоподборе */
   fitPadding?: number;
+}
+
+/** Минимальный шрифт подписей атомов в компактном режиме — превью должно читаться без модалки */
+const COMPACT_MIN_ATOM_FONT = 16;
+
+/** Эффективный шрифт подписи атома (в compact укрупняется до читаемого минимума) */
+function atomFontSize(a: DiagramAtomSpec, compact?: boolean): number {
+  const base = a.fontSize ?? 14;
+  return compact ? Math.max(base, COMPACT_MIN_ATOM_FONT) : base;
 }
 
 /** Габаритный бокс контента схемы (атомы, аннотации, надписи) в локальных координатах */
@@ -139,57 +152,60 @@ function computeContentBBox(p: MolecularDiagramBodyProps, pad: number) {
   };
 
   for (const a of p.atoms) {
-    const e = labelHalfExtents(a.label, a.fontSize ?? 14);
+    const e = labelHalfExtents(a.label, atomFontSize(a, p.compact));
     add(a.x - e.hw - 2, a.y - e.hh - 2);
     add(a.x + e.hw + 2, a.y + e.hh + 2);
   }
 
-  for (const n of p.notes ?? []) {
-    const fs = n.fontSize ?? 10;
-    const w = n.text.length * fs * 0.62;
-    const x1 = n.anchor === 'start' ? n.x : n.anchor === 'end' ? n.x - w : n.x - w / 2;
-    add(x1, n.y - fs * 0.8);
-    add(x1 + w, n.y + fs * 0.6);
-  }
+  // В компактном режиме микро-аннотации не рендерятся и не учитываются в габаритах
+  if (!p.compact) {
+    for (const n of p.notes ?? []) {
+      const fs = n.fontSize ?? 10;
+      const w = n.text.length * fs * 0.62;
+      const x1 = n.anchor === 'start' ? n.x : n.anchor === 'end' ? n.x - w : n.x - w / 2;
+      add(x1, n.y - fs * 0.8);
+      add(x1 + w, n.y + fs * 0.6);
+    }
 
-  for (const ln of p.lengths ?? []) {
-    const a = byId.get(ln.from);
-    const b = byId.get(ln.to);
-    if (!a || !b) continue;
-    const dx = b.x - a.x;
-    const dy = b.y - a.y;
-    const L = Math.sqrt(dx * dx + dy * dy) || 1;
-    const side = ln.side ?? 1;
-    const nx = (-dy / L) * side;
-    const ny = (dx / L) * side;
-    const d = ln.distance ?? 14;
-    add(a.x + nx * d, a.y + ny * d);
-    add(b.x + nx * d, b.y + ny * d);
-    const mx = (a.x + b.x) / 2 + nx * (d + 11);
-    const my = (a.y + b.y) / 2 + ny * (d + 11);
-    const lw = (ln.label.length * 10 * 0.62) / 2;
-    add(mx - lw, my - 8);
-    add(mx + lw, my + 8);
-  }
+    for (const ln of p.lengths ?? []) {
+      const a = byId.get(ln.from);
+      const b = byId.get(ln.to);
+      if (!a || !b) continue;
+      const dx = b.x - a.x;
+      const dy = b.y - a.y;
+      const L = Math.sqrt(dx * dx + dy * dy) || 1;
+      const side = ln.side ?? 1;
+      const nx = (-dy / L) * side;
+      const ny = (dx / L) * side;
+      const d = ln.distance ?? 14;
+      add(a.x + nx * d, a.y + ny * d);
+      add(b.x + nx * d, b.y + ny * d);
+      const mx = (a.x + b.x) / 2 + nx * (d + 11);
+      const my = (a.y + b.y) / 2 + ny * (d + 11);
+      const lw = (ln.label.length * 10 * 0.62) / 2;
+      add(mx - lw, my - 8);
+      add(mx + lw, my + 8);
+    }
 
-  for (const ang of p.angles ?? []) {
-    const v = byId.get(ang.vertex);
-    const a = byId.get(ang.a);
-    const b = byId.get(ang.b);
-    if (!v || !a || !b) continue;
-    const r = ang.radius ?? 24;
-    add(v.x - r, v.y - r);
-    add(v.x + r, v.y + r);
-    const la = Math.hypot(a.x - v.x, a.y - v.y) || 1;
-    const lb = Math.hypot(b.x - v.x, b.y - v.y) || 1;
-    let bx = (a.x - v.x) / la + (b.x - v.x) / lb;
-    let by = (a.y - v.y) / la + (b.y - v.y) / lb;
-    const bl = Math.sqrt(bx * bx + by * by) || 1;
-    bx /= bl;
-    by /= bl;
-    const off = r + (ang.labelOffset ?? 14) + 8;
-    add(v.x + bx * off - 20, v.y + by * off - 8);
-    add(v.x + bx * off + 20, v.y + by * off + 8);
+    for (const ang of p.angles ?? []) {
+      const v = byId.get(ang.vertex);
+      const a = byId.get(ang.a);
+      const b = byId.get(ang.b);
+      if (!v || !a || !b) continue;
+      const r = ang.radius ?? 24;
+      add(v.x - r, v.y - r);
+      add(v.x + r, v.y + r);
+      const la = Math.hypot(a.x - v.x, a.y - v.y) || 1;
+      const lb = Math.hypot(b.x - v.x, b.y - v.y) || 1;
+      let bx = (a.x - v.x) / la + (b.x - v.x) / lb;
+      let by = (a.y - v.y) / la + (b.y - v.y) / lb;
+      const bl = Math.sqrt(bx * bx + by * by) || 1;
+      bx /= bl;
+      by /= bl;
+      const off = r + (ang.labelOffset ?? 14) + 8;
+      add(v.x + bx * off - 20, v.y + by * off - 8);
+      add(v.x + bx * off + 20, v.y + by * off + 8);
+    }
   }
 
   return {
@@ -234,6 +250,7 @@ export const MolecularDiagramBody: React.FC<MolecularDiagramBodyProps> = ({
   lines = [],
   notes = [],
   theme = 'light',
+  compact = false,
 }) => {
   const palette = getThemePalette(theme);
   const byId = new Map(atoms.map((a) => [a.id, a]));
@@ -251,8 +268,8 @@ export const MolecularDiagramBody: React.FC<MolecularDiagramBodyProps> = ({
     const len = Math.sqrt(dx * dx + dy * dy) || 1;
     const ux = dx / len;
     const uy = dy / len;
-    const ea = labelHalfExtents(a.label, a.fontSize ?? 14);
-    const eb = labelHalfExtents(b.label, b.fontSize ?? 14);
+    const ea = labelHalfExtents(a.label, atomFontSize(a, compact));
+    const eb = labelHalfExtents(b.label, atomFontSize(b, compact));
     const p1 = labelEdgePoint(a.x, a.y, ux, uy, ea.hw, ea.hh, LABEL_PAD);
     const p2 = labelEdgePoint(b.x, b.y, -ux, -uy, eb.hw, eb.hh, LABEL_PAD);
     return { p1, p2, ux, uy };
@@ -260,8 +277,8 @@ export const MolecularDiagramBody: React.FC<MolecularDiagramBodyProps> = ({
 
   return (
     <>
-      {/* 0. Направляющие (плоскости, оси) */}
-      {lines.map((ln, idx) => (
+      {/* 0. Направляющие (плоскости, оси); в compact скрыты */}
+      {!compact && lines.map((ln, idx) => (
         <line
           key={`line-${idx}`}
           x1={ln.x1} y1={ln.y1} x2={ln.x2} y2={ln.y2}
@@ -290,8 +307,8 @@ export const MolecularDiagramBody: React.FC<MolecularDiagramBodyProps> = ({
         );
       })}
 
-      {/* 2. Размерные линии длин связей (параллельно связи, вне каркаса) */}
-      {lengths.map((ln, idx) => {
+      {/* 2. Размерные линии длин связей (параллельно связи, вне каркаса); в compact скрыты */}
+      {!compact && lengths.map((ln, idx) => {
         const t = trimmedBond(ln.from, ln.to);
         if (!t) return null;
         const side = ln.side ?? 1;
@@ -310,8 +327,8 @@ export const MolecularDiagramBody: React.FC<MolecularDiagramBodyProps> = ({
         );
       })}
 
-      {/* 3. Дуги валентных углов с подписью на биссектрисе */}
-      {angles.map((ang, idx) => {
+      {/* 3. Дуги валентных углов с подписью на биссектрисе; в compact скрыты */}
+      {!compact && angles.map((ang, idx) => {
         const v = byId.get(ang.vertex);
         const a = byId.get(ang.a);
         const b = byId.get(ang.b);
@@ -369,7 +386,7 @@ export const MolecularDiagramBody: React.FC<MolecularDiagramBodyProps> = ({
         );
       })}
 
-      {/* 4. Подписи атомов (поверх связей, с halo) */}
+      {/* 4. Подписи атомов (поверх связей, с halo); в compact укрупнены до читаемого минимума */}
       {atoms.map((a) => (
         <SvgTextAtom
           key={a.id}
@@ -377,15 +394,15 @@ export const MolecularDiagramBody: React.FC<MolecularDiagramBodyProps> = ({
           cx={a.x}
           cy={a.y}
           theme={theme}
-          fontSize={a.fontSize ?? 14}
+          fontSize={atomFontSize(a, compact)}
           fontWeight={a.fontWeight ?? 'bold'}
           customColor={resolve(a.role, a.color)}
           opacity={a.opacity}
         />
       ))}
 
-      {/* 5. Свободные пояснительные надписи */}
-      {notes.map((n, idx) => (
+      {/* 5. Свободные пояснительные надписи; в compact скрыты */}
+      {!compact && notes.map((n, idx) => (
         <text
           key={`note-${idx}`}
           x={n.x}

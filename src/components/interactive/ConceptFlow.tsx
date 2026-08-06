@@ -79,6 +79,10 @@ export interface ConceptFlowProps {
   height?: number;
   /** Максимальная ширина канваса, px (default 620) */
   canvasMaxWidth?: number;
+  /** Полуось X эллипса автораскладки (default 170) — для разреженных карт */
+  layoutRx?: number;
+  /** Полуось Y эллипса автораскладки (default 72) — для разреженных карт */
+  layoutRy?: number;
   className?: string;
 }
 
@@ -144,14 +148,22 @@ const HUB_RX = 170;
 const HUB_RY = 72;
 
 /** Автораскладка «хаб в центре, спутники по эллипсу» */
-function computePositions(nodes: ConceptFlowNodeSpec[]) {
+function computePositions(nodes: ConceptFlowNodeSpec[], rx: number, ry: number) {
   const satellites = nodes.filter((n) => !n.hub && (n.x === undefined || n.y === undefined));
   const positions = new Map<string, { x: number; y: number }>();
   satellites.forEach((node, i) => {
     const angle = -Math.PI / 2 + (i * 2 * Math.PI) / Math.max(satellites.length, 1);
-    positions.set(node.id, { x: HUB_RX * Math.cos(angle), y: HUB_RY * Math.sin(angle) });
+    positions.set(node.id, { x: rx * Math.cos(angle), y: ry * Math.sin(angle) });
   });
   return positions;
+}
+
+/** Реальные полугабариты карточки узла (по измеренной ширине заголовка) */
+function nodeHalfSize(node: ConceptFlowNodeSpec) {
+  const pad = node.hub ? 40 : 28;
+  const hw = (measureSvgTextWidth(node.label, node.hub ? 12 : 11, true) + pad) / 2;
+  const hh = node.hub ? 24 : 21;
+  return { hw, hh };
 }
 
 /** Сторона узла, ближайшая к направлению (угол в градусах, экранные координаты) */
@@ -171,11 +183,6 @@ function angleDelta(from: number, to: number): number {
   return d;
 }
 
-/** Полуширина узла (оценка по заголовку) и полувысота карточки */
-function nodeHalfExtents(node: ConceptFlowNodeSpec) {
-  return { hw: (measureSvgTextWidth(node.label, 11, true) + 34) / 2, hh: 24 };
-}
-
 /**
  * Интерактивная концептуальная схема: светлая академическая фигура
  * (заголовок, канвас React Flow с зумом и панорамированием, раскрываемые
@@ -191,6 +198,8 @@ export const ConceptFlow: React.FC<ConceptFlowProps> = ({
   caption,
   height = 250,
   canvasMaxWidth = 620,
+  layoutRx = HUB_RX,
+  layoutRy = HUB_RY,
   className = '',
 }) => {
   const p = LIGHT_PALETTE;
@@ -198,14 +207,14 @@ export const ConceptFlow: React.FC<ConceptFlowProps> = ({
 
   // Центры узлов: явные координаты либо автораскладка
   const centers = useMemo(() => {
-    const auto = computePositions(nodes);
+    const auto = computePositions(nodes, layoutRx, layoutRy);
     const map = new Map<string, { x: number; y: number }>();
     for (const node of nodes) {
       const explicit = node.x !== undefined && node.y !== undefined;
       map.set(node.id, explicit ? { x: node.x!, y: node.y! } : auto.get(node.id) ?? { x: 0, y: 0 });
     }
     return map;
-  }, [nodes]);
+  }, [nodes, layoutRx, layoutRy]);
 
   const hubCenter = useMemo(() => {
     const hub = nodes.find((n) => n.hub);
@@ -219,10 +228,11 @@ export const ConceptFlow: React.FC<ConceptFlowProps> = ({
       nodes.map((node) => {
         const colorHex = node.color ? getInfoCategoryColor(node.color, p) : p.panelBorder;
         const center = centers.get(node.id)!;
+        const { hw, hh } = nodeHalfSize(node);
         return {
           id: node.id,
           type: 'concept' as const,
-          position: { x: center.x - 55, y: center.y - 18 },
+          position: { x: center.x - hw, y: center.y - hh },
           data: { label: node.label, sub: node.sub, colorHex, hub: node.hub },
         };
       }),
@@ -252,7 +262,9 @@ export const ConceptFlow: React.FC<ConceptFlowProps> = ({
           }
         }
         // Контроль подписей: если подпись шире свободного зазора между
-        // блоками, она автоматически смещается над линией — без наложений
+        // блоками, она смещается по диагонали в свободную зону между
+        // «лучами» раскладки (вверх для верхней полуплоскости, вниз для
+        // нижней) — без наложений на блоки
         let labelX = 0;
         let labelY = 0;
         if (edge.label && s && t) {
@@ -262,14 +274,18 @@ export const ConceptFlow: React.FC<ConceptFlowProps> = ({
           const ns = nodesById.get(edge.from);
           const nt = nodesById.get(edge.to);
           if (ns && nt && Math.abs(ux) >= Math.abs(uy)) {
-            const es = nodeHalfExtents(ns);
-            const et = nodeHalfExtents(nt);
+            const es = nodeHalfSize(ns);
+            const et = nodeHalfSize(nt);
             const gap =
               dist -
               (es.hw * Math.abs(ux) + es.hh * Math.abs(uy)) -
               (et.hw * Math.abs(ux) + et.hh * Math.abs(uy));
             const labelW = measureSvgTextWidth(edge.label, 10, true) + 18;
-            if (labelW > gap - 4) labelY = -34;
+            if (labelW > gap - 4) {
+              const below = (s.y + t.y) / 2 > hubCenter.y;
+              labelY = below ? 40 : -40;
+              labelX = -20;
+            }
           }
         }
         return {

@@ -20,9 +20,9 @@ export const ReactionClassificationHeader: React.FC<HeaderProps> = ({
   setActiveSection
 }) => {
   const quickNavTags: QuickNavTag[] = [
-    { targetId: 'section-by-number', label: 'По числу и составу', icon: Atom },
-    { targetId: 'section-by-transfer', label: 'По переносимым частицам', icon: TestTube },
-    { targetId: 'section-reversibility', label: 'Обратимость', icon: Orbit },
+    { targetId: 'section-by-number', label: 'Типы реакций', icon: Atom },
+    { targetId: 'section-thermal-effects', label: 'Тепловой эффект', icon: TestTube },
+    { targetId: 'section-molecules-3d', label: '3D-модели', icon: Orbit },
   ];
   const { openStudyBlock } = useRouter();
 

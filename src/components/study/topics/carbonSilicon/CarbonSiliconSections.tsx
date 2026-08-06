@@ -11,10 +11,7 @@ import { CarbonSiliconReactionMatrix } from './CarbonSiliconReactionMatrix';
 import { CarbonSiliconDarkBlock1, CarbonSiliconDarkBlock2 } from './CarbonSiliconDarkBlocks';
 import { CarbonSiliconFunFact } from './CarbonSiliconFunFacts';
 
-import diamondImg from '../../../../assets/images/allotropes/diamond.jpg';
-import graphiteImg from '../../../../assets/images/allotropes/graphite.jpg';
-import fullereneImg from '../../../../assets/images/allotropes/fullerene.jpg';
-import siliconImg from '../../../../assets/images/allotropes/silicon.jpg';
+import { CarbonSilicon2DRender } from './CarbonSilicon2DRenders';
 
 interface SectionsProps {
   scrollToNav: () => void;
@@ -22,7 +19,7 @@ interface SectionsProps {
 }
 
 export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, handleGoToPractice }) => {
-  const [modalImage, setModalImage] = useState<{ src: string; title: string } | null>(null);
+  const [modalDiagram, setModalDiagram] = useState<{ type: 'diamond' | 'graphite' | 'fullerene' | 'silicon'; title: string } | null>(null);
 
   return (
     <div className="space-y-8 font-body text-slate-800 leading-relaxed text-sm sm:text-base">
@@ -138,24 +135,20 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start pt-1">
-              <button 
-                onClick={() => setModalImage({ 
-                  src: diamondImg, 
-                  title: 'Алмаз — 2D-структура тетраэдра (sp³-гибридизация, валентный угол 109°28\')' 
+              <button
+                onClick={() => setModalDiagram({
+                  type: 'diamond',
+                  title: 'Алмаз — тетраэдрическая атомная кристаллическая решётка (sp³, валентный угол 109°28\')'
                 })}
                 className="relative rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-2xs group h-32 sm:h-36 w-full sm:w-36 shrink-0 flex items-center justify-center p-1.5 cursor-pointer hover:border-amber-500 transition-colors"
-                title="Нажмите для увеличения"
+                title="Нажмите для открытия справочной структурной формулы"
               >
-                <img 
-                  src={diamondImg} 
-                  alt="2D структура Алмаза" 
-                  className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300 rounded" 
-                />
+                <CarbonSilicon2DRender type="diamond" />
                 <div className="absolute inset-0 bg-slate-950/0 group-hover:bg-slate-950/40 transition-colors flex items-center justify-center">
                   <ZoomIn className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
                 <div className="absolute bottom-1 left-1 bg-slate-900/90 text-white text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-700">
-                  2D-схема
+                  Алмаз
                 </div>
               </button>
 
@@ -173,24 +166,20 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start pt-1">
-              <button 
-                onClick={() => setModalImage({ 
-                  src: graphiteImg, 
-                  title: 'Графит — 2D-структура графеновых слоев (sp²-гибридизация, межслойное расстояние 3.35 Å)' 
+              <button
+                onClick={() => setModalDiagram({
+                  type: 'graphite',
+                  title: 'Графит — слоистая гексагональная решётка графеновых слоёв (sp², межслойное расстояние 3.35 Å)'
                 })}
                 className="relative rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-2xs group h-32 sm:h-36 w-full sm:w-36 shrink-0 flex items-center justify-center p-1.5 cursor-pointer hover:border-amber-500 transition-colors"
-                title="Нажмите для увеличения"
+                title="Нажмите для открытия справочной структурной формулы"
               >
-                <img 
-                  src={graphiteImg} 
-                  alt="2D структура Графита" 
-                  className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300 rounded" 
-                />
+                <CarbonSilicon2DRender type="graphite" />
                 <div className="absolute inset-0 bg-slate-950/0 group-hover:bg-slate-950/40 transition-colors flex items-center justify-center">
                   <ZoomIn className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
                 <div className="absolute bottom-1 left-1 bg-slate-900/90 text-white text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-700">
-                  2D-схема
+                  Графит
                 </div>
               </button>
 
@@ -208,24 +197,20 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start pt-1">
-              <button 
-                onClick={() => setModalImage({ 
-                  src: fullereneImg, 
-                  title: 'Фуллерен C₆₀ — 2D-структура замкнутого икосаэдра (бакибол)' 
+              <button
+                onClick={() => setModalDiagram({
+                  type: 'fullerene',
+                  title: 'Фуллерен C₆₀ — замкнутый сферический кластер (усечённый икосаэдр, бакибол)'
                 })}
                 className="relative rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-2xs group h-32 sm:h-36 w-full sm:w-36 shrink-0 flex items-center justify-center p-1.5 cursor-pointer hover:border-amber-500 transition-colors"
-                title="Нажмите для увеличения"
+                title="Нажмите для открытия справочной структурной формулы"
               >
-                <img 
-                  src={fullereneImg} 
-                  alt="2D структура Фуллерена C60" 
-                  className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300 rounded" 
-                />
+                <CarbonSilicon2DRender type="fullerene" />
                 <div className="absolute inset-0 bg-slate-950/0 group-hover:bg-slate-950/40 transition-colors flex items-center justify-center">
                   <ZoomIn className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
                 <div className="absolute bottom-1 left-1 bg-slate-900/90 text-white text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-700">
-                  2D-схема
+                  Фуллерен C₆₀
                 </div>
               </button>
 
@@ -243,24 +228,20 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start pt-1">
-              <button 
-                onClick={() => setModalImage({ 
-                  src: siliconImg, 
-                  title: 'Кристаллический кремний Si — 2D-структура кубической решетки (длина связи Si-Si 2.35 Å)' 
+              <button
+                onClick={() => setModalDiagram({
+                  type: 'silicon',
+                  title: 'Кристаллический кремний Si — кубическая решётка типа алмаза (длина связи Si–Si 2.35 Å)'
                 })}
                 className="relative rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-2xs group h-32 sm:h-36 w-full sm:w-36 shrink-0 flex items-center justify-center p-1.5 cursor-pointer hover:border-amber-500 transition-colors"
-                title="Нажмите для увеличения"
+                title="Нажмите для открытия справочной структурной формулы"
               >
-                <img 
-                  src={siliconImg} 
-                  alt="2D структура кремния" 
-                  className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300 rounded" 
-                />
+                <CarbonSilicon2DRender type="silicon" />
                 <div className="absolute inset-0 bg-slate-950/0 group-hover:bg-slate-950/40 transition-colors flex items-center justify-center">
                   <ZoomIn className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
                 <div className="absolute bottom-1 left-1 bg-slate-900/90 text-white text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-700">
-                  2D-схема
+                  Кремний Si
                 </div>
               </button>
 
@@ -273,7 +254,7 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
 
         {/* Fun Fact 1 with Yellow Bracket */}
         <CarbonSiliconFunFact 
-          title="Интересный факт: 1 грамм угля = 1000 м² поверхности!"
+          title="1 грамм угля = 1000 м² поверхности!"
           description={
             <span>
               Благодаря разветвленной системе микропор площадь внутренней поверхности всего 1 грамма активированного древесного угля достигает от 1000 до 1500 м² (целое футбольное поле!). Именно это физическое свойство (адсорбция) лежит в основе работы угольных фильтров воды, противогазов Зелинского и медицинского активированного угля.
@@ -398,7 +379,7 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
 
         {/* Fun Fact 2 with Yellow Bracket */}
         <CarbonSiliconFunFact 
-          title="Интересный факт: Карборунд SiC — космический абразив"
+          title="Карборунд SiC — космический абразив"
           description={
             <span>
               Карбид кремния <ChemFormula formula="SiC" className="font-semibold text-amber-950" /> имеет твердость 9.5 по шкале Мооса и уступает только алмазу. На Земле натуральный карборунд (минерал муассанит) встречается крайне редко, зато образуется в газовых оболочках звезд-гигантов и входит в состав каменных метеоритов. Из него делают бронепластины, тормоза спорткаров и абразивные круги.
@@ -472,7 +453,7 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
 
         {/* Fun Fact 3 with Yellow Bracket */}
         <CarbonSiliconFunFact 
-          title="Интересный факт: Почему угарный газ CO смертельно опасен?"
+          title="Почему угарный газ CO смертельно опасен?"
           description={
             <span>
               Угарный газ <ChemFormula formula="CO" className="font-semibold text-amber-950" /> совершенно не имеет цвета, запаха и вкуса. Попадая в легкие, он связывается с атомом железа гемоглобина крови в 200–300 раз прочнее кислорода, превращая его в устойчивый карбоксигемоглобин. Кровь теряет способность переносить кислород к тканям и головному мозгу.
@@ -630,42 +611,32 @@ export const CarbonSiliconSections: React.FC<SectionsProps> = ({ scrollToNav, ha
       {/* Bottom Action Banner */}
       <PracticeBanner onGoToPractice={handleGoToPractice} topicCode="ХЭ-08" />
 
-      {/* FULLSCREEN MODAL FOR 2D RENDERS */}
-      {modalImage && (
-        <div 
-          className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 transition-all"
-          onClick={() => setModalImage(null)}
-        >
-          <div 
-            className="relative max-w-3xl w-full bg-slate-900 border border-slate-700 rounded-2xl p-4 sm:p-6 shadow-2xl space-y-4 text-white animate-in fade-in zoom-in duration-200"
-            onClick={(e) => e.stopPropagation()}
-          >
+      {/* Static Fullscreen 2D Render Modal */}
+      {modalDiagram && (
+        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-4xl w-full p-5 sm:p-6 space-y-4 shadow-2xl relative">
             <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-              <h3 className="font-bold text-sm sm:text-base text-white pr-4">{modalImage.title}</h3>
-              <button 
-                onClick={() => setModalImage(null)}
-                className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition shrink-0 cursor-pointer"
-                title="Закрыть"
+              <h3 className="font-bold text-white text-base sm:text-lg">
+                {modalDiagram.title}
+              </h3>
+              <button
+                onClick={() => setModalDiagram(null)}
+                className="p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white transition cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="flex items-center justify-center bg-slate-950 p-3 sm:p-5 rounded-xl border border-slate-800 max-h-[70vh]">
-              <img 
-                src={modalImage.src} 
-                alt={modalImage.title} 
-                className="max-h-[65vh] max-w-full object-contain rounded-lg shadow-lg" 
-              />
+            <div className="flex items-center justify-center bg-slate-950 rounded-xl p-4 border border-slate-800 min-h-[320px]">
+              <CarbonSilicon2DRender type={modalDiagram.type} isModal={true} />
             </div>
 
-            <div className="flex items-center justify-between pt-1">
-              <span className="text-xs text-slate-400 font-mono">Нажмите в любой точке снаружи или кнопку для закрытия</span>
-              <button 
-                onClick={() => setModalImage(null)}
-                className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition cursor-pointer"
+            <div className="flex justify-end">
+              <button
+                onClick={() => setModalDiagram(null)}
+                className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs rounded-xl shadow transition cursor-pointer"
               >
-                Закрыть окно
+                Закрыть
               </button>
             </div>
           </div>

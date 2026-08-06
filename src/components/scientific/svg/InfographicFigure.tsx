@@ -95,8 +95,13 @@ export interface InfoPlotSpec {
   xAxis: string;
   /** Подпись вертикальной оси */
   yAxis: string;
-  /** hyperbola — обратная пропорция, linear — прямая */
-  curve: 'hyperbola' | 'linear';
+  /**
+   * hyperbola — обратная пропорция, linear — прямая,
+   * energy — энергетический профиль реакции (барьер активации, уровни реагентов/продуктов)
+   */
+  curve: 'hyperbola' | 'linear' | 'energy';
+  /** Для кривой energy: exo — продукты ниже реагентов, endo — выше (default exo) */
+  profile?: 'exo' | 'endo';
   /** Цвет заголовка и кривой (default amber) */
   color?: InfoCategory;
   /** Высота панели (default 100) */
@@ -438,6 +443,10 @@ const InfoBarChart: React.FC<{ spec: InfoBarChartSpec; palette: ThemePalette }> 
   );
 };
 
+/** Открытый V-образный наконечник вертикальной стрелки; dir = -1 — остриё вверх, 1 — вниз */
+const vArrowHead = (ax: number, ay: number, dir: -1 | 1): string =>
+  `M ${ax - 3} ${ay + 5 * dir} L ${ax} ${ay} L ${ax + 3} ${ay + 5 * dir}`;
+
 /** Панель мини-графика с осями и кривой (геометрия рассчитана) */
 const InfoPlotPanel: React.FC<{ spec: InfoPlotSpec; x: number; y: number; width: number; palette: ThemePalette }> = ({
   spec,
@@ -452,6 +461,18 @@ const InfoPlotPanel: React.FC<{ spec: InfoPlotSpec; x: number; y: number; width:
   const axY = y + h - 34;
   const axW = width - 32;
   const axH = h - 60;
+
+  // Геометрия энергетического профиля: уровни реагентов/продуктов, барьер активации
+  const exo = spec.profile !== 'endo';
+  const yR = axY - axH * (exo ? 0.55 : 0.28);
+  const yP = axY - axH * (exo ? 0.18 : 0.66);
+  const yT = axY - axH * 0.96;
+  const x0 = axX + 3;
+  const x3 = axX + axW - 3;
+  const x1 = axX + axW * 0.15;
+  const xPeak = axX + axW * 0.44;
+  const x2 = axX + axW * 0.72;
+  const dHx = x3 - 10;
 
   return (
     <g>
@@ -470,14 +491,15 @@ const InfoPlotPanel: React.FC<{ spec: InfoPlotSpec; x: number; y: number; width:
       {/* Оси */}
       <line x1={axX} y1={axY} x2={axX} y2={axY - axH} stroke={p.textMuted} strokeWidth={1.1} />
       <line x1={axX} y1={axY} x2={axX + axW} y2={axY} stroke={p.textMuted} strokeWidth={1.1} />
-      {spec.curve === 'hyperbola' ? (
+      {spec.curve === 'hyperbola' && (
         <path
           d={`M ${axX + 4} ${axY - axH + 5} Q ${axX + axW * 0.22} ${axY - axH * 0.15} ${axX + axW - 4} ${axY - axH * 0.09}`}
           fill="none"
           stroke={color}
           strokeWidth={1.8}
         />
-      ) : (
+      )}
+      {spec.curve === 'linear' && (
         <line
           x1={axX + 3}
           y1={axY - 3}
@@ -487,10 +509,59 @@ const InfoPlotPanel: React.FC<{ spec: InfoPlotSpec; x: number; y: number; width:
           strokeWidth={1.8}
         />
       )}
+      {spec.curve === 'energy' && (
+        <g>
+          {/* Пунктирные уровни реагентов и продуктов */}
+          <line x1={x1} y1={yR} x2={x3} y2={yR} stroke={p.bondSecondary} strokeWidth={1} strokeDasharray="4 3" />
+          <line x1={x2} y1={yP} x2={x3} y2={yP} stroke={p.bondSecondary} strokeWidth={1} strokeDasharray="4 3" />
+          {/* Путь реакции: полка реагентов — барьер — полка продуктов */}
+          <path
+            d={`M ${x0} ${yR} L ${x1} ${yR} C ${x1 + 16} ${yR} ${xPeak - 16} ${yT} ${xPeak} ${yT} C ${xPeak + 16} ${yT} ${x2 - 16} ${yP} ${x2} ${yP} L ${x3} ${yP}`}
+            fill="none"
+            stroke={color}
+            strokeWidth={1.8}
+          />
+          {/* Стрелка Ea: от уровня реагентов до переходного состояния */}
+          <line x1={xPeak} y1={yR} x2={xPeak} y2={yT + 5} stroke={p.textMuted} strokeWidth={1.1} />
+          <path d={vArrowHead(xPeak, yT + 5, -1)} fill="none" stroke={p.textMuted} strokeWidth={1.1} />
+          <text
+            x={xPeak + 5}
+            y={(yR + yT) / 2}
+            fill={p.textPrimary}
+            fontSize={9}
+            fontWeight="bold"
+            fontFamily="sans-serif"
+          >
+            Ea
+          </text>
+          {/* Стрелка ΔH: разница уровней реагентов и продуктов */}
+          <line x1={dHx} y1={yR} x2={dHx} y2={yP} stroke={p.textMuted} strokeWidth={1.1} />
+          <path d={vArrowHead(dHx, yP, exo ? 1 : -1)} fill="none" stroke={p.textMuted} strokeWidth={1.1} />
+          <text
+            x={dHx + 6}
+            y={(yR + yP) / 2 + 3}
+            fill={p.textPrimary}
+            fontSize={9}
+            fontWeight="bold"
+            fontFamily="sans-serif"
+          >
+            ΔH
+          </text>
+        </g>
+      )}
       <text x={axX + axW / 2} y={axY + 13} textAnchor="middle" fill={p.textMuted} fontSize={10} fontFamily="sans-serif">
         {spec.xAxis}
       </text>
-      <text x={axX - 5} y={axY - axH + 4} textAnchor="end" fill={p.textMuted} fontSize={10} fontFamily="sans-serif">
+      {/* Подпись вертикальной оси — повёрнута вдоль оси внутри панели */}
+      <text
+        x={x + 10}
+        y={axY - axH / 2}
+        transform={`rotate(-90 ${x + 10} ${axY - axH / 2})`}
+        textAnchor="middle"
+        fill={p.textMuted}
+        fontSize={10}
+        fontFamily="sans-serif"
+      >
         {spec.yAxis}
       </text>
       <text

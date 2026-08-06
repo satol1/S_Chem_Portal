@@ -35,7 +35,6 @@ export const TopicNavGrid: React.FC<TopicNavGridProps> = ({
           <BookOpen className="w-4 h-4 text-slate-700" />
           <span>{title}</span>
         </span>
-        <span className="text-xs text-slate-500 font-normal">{navItems.length} разделов</span>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">

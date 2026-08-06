@@ -57,15 +57,11 @@
 
 ## 4. Шапка темы — 4 блока (финальный стандарт)
 
-По образцу [`SulfurOxygenHeader.tsx`](../../src/components/study/topics/sulfurOxygen/SulfurOxygenHeader.tsx):
+По образцу [`SulfurOxygenHeader.tsx`](../../src/components/study/topics/sulfurOxygen/SulfurOxygenHeader.tsx) — **разметка и классы шапки копируются из эталона дословно**, меняется только наполнение. Состав 4 блоков и инварианты:
 
-1. **Карточка темы** `bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-4`:
-   - Мета-строка: код темы («ХЭ-NN» / «ОХ-NN») в светлом чипе `px-2.5 py-0.5 rounded bg-slate-100 text-slate-900 font-mono font-semibold`, через `<span>•</span>` — название блока и группа (для ХЭ: «Химия элементов» и «VI-A Группа (Подгруппа кислорода)»; для ОХ: «Общая химия» и раздел).
-   - H1: `text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight flex items-center gap-3` с иконкой `FlaskConical w-8 h-8 text-slate-800 shrink-0`.
-   - Описание: `text-sm sm:text-base text-slate-700 leading-relaxed font-normal max-w-4xl`.
-   - Нижняя панель (`pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4`): слева `TopicQuickNavTags`, справа тёмная кнопка практикума `px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs sm:text-sm shadow-sm transition flex items-center gap-2` с `Zap w-4 h-4 text-amber-400 fill-amber-400` и `ArrowRight`.
-2. **Ключевая идея темы** (нейтральная серая плашка): `p-4 sm:p-5 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 flex items-start gap-3.5 shadow-xs`; иконка `Lightbulb` в квадрате `p-2.5 rounded-lg bg-slate-200 text-slate-800 shrink-0`; заголовок `font-bold text-slate-900` «Ключевая идея темы:»; текст `text-slate-600 leading-relaxed font-normal`.
-3. **Подводные камни ФИПИ** (жёлтая скобка с нумерованным списком): `p-5 rounded-xl bg-slate-50 border-l-4 border-l-amber-500 border-y border-r border-slate-200 text-slate-800 space-y-3 shadow-xs`; заголовок с `AlertTriangle w-5 h-5 text-amber-600` «Важные экзаменационные „подводные камни“ и тонкости:», отделён `border-b border-slate-200/60 pb-2`; 4 пункта `<li className="flex items-start gap-2">` с номером-чипом `px-1.5 py-0.5 rounded bg-slate-200 text-slate-900 text-xs font-mono font-bold shrink-0`.
+1. **Карточка темы** (светлая карточка): мета-строка — код темы («ХЭ-NN» / «ОХ-NN») в светлом `font-mono` чипе, через `•` — название блока и группа (для ХЭ: «Химия элементов» и подгруппа; для ОХ: «Общая химия» и раздел); H1 с иконкой `FlaskConical`; описание `max-w-4xl`; нижняя панель с `border-t`: слева `TopicQuickNavTags`, справа тёмная кнопка практикума с иконками `Zap` (янтарная, с заполнением) + `ArrowRight`.
+2. **Ключевая идея темы** — нейтральная серая плашка (НЕ янтарная): иконка `Lightbulb` в квадрате, заголовок «Ключевая идея темы:», далее текст.
+3. **Подводные камни ФИПИ** — жёлтая скобка (`border-l-amber-500`) с нумерованным списком из 4 пунктов; номера — `font-mono` чипы; заголовок с `AlertTriangle` отделён от списка тонким бордером.
 4. **Содержание**: `<TopicNavGrid navItems={navItems} activeSection={activeSection} onSelectSection={setActiveSection} />` (контейнер `id="nav-toc"`).
 
 **Запрещено в шапке нового стандарта** (признаки устаревшего стиля):
@@ -100,11 +96,11 @@
 - Блоки распределяются по профильным секциям, а не собираются в одном месте.
 - Точное число зависит от объёма информации в теме.
 
-Каркас — централизованный компонент `DarkBlockCard` (файл `<Topic>DarkBlocks.tsx`); ширина и расположение задаются обёрткой/`className`. Внутренние стадии:
+Каркас — централизованный компонент `DarkBlockCard` (файл `<Topic>DarkBlocks.tsx`; **разметка стадий копируется дословно** из эталона [`NitrogenPhosphorusDarkBlocks.tsx`](../../src/components/study/topics/nitrogenPhosphorus/NitrogenPhosphorusDarkBlocks.tsx)); ширина и расположение задаются обёрткой/`className`. Инварианты внутренних стадий:
 
-- Стадия: `p-3.5 rounded-xl bg-slate-800 border border-slate-700 space-y-2`; название стадии `font-bold text-amber-400 block text-xs sm:text-sm`.
-- Уравнение в плашке: `text-amber-300 font-bold p-2 bg-slate-900/80 rounded-lg border border-slate-700 text-xs sm:text-sm` (альтернативный цвет катализаторов/суммарных уравнений — `text-teal-300`).
-- Пояснения: `text-slate-300` / `text-slate-400`; нумерованные шаги — чип `px-1.5 py-0.5 rounded bg-slate-700 text-amber-300 text-xs font-mono font-bold shrink-0`.
+- Стадия — тёмная плашка `bg-slate-800` с янтарным названием стадии (`text-amber-400 font-bold`).
+- Уравнение — на самой тёмной плашке `bg-slate-900/80`, цвет `text-amber-300` (альтернатива для катализаторов/суммарных уравнений — `text-teal-300`), формулы через `ChemFormula`.
+- Пояснения — `text-slate-300/400`; нумерованные шаги — `font-mono` чипы.
 - `subtitle` блока — `font-mono` категория («Промышленный химизм • Тройной каталитический цикл»).
 
 ## 7. Таблицы

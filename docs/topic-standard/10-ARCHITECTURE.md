@@ -45,28 +45,28 @@ export default SulfurOxygenTheoryView;
 
 ## 3. DRY (Don't Repeat Yourself) — единая система централизованных компонентов
 
-**Запрещено** создавать дублирующие макеты страниц или «велосипеды» для типичных элементов. **Обязательно к использованию**:
+**Запрещено** создавать дублирующие макеты страниц или «велосипеды» для типичных элементов. **Обязательно к использованию** (пропсы и интерфейсы авторитетны в исходном коде компонентов; краткие описания ключевых — в [`20-RENDERING.md`](20-RENDERING.md) §1–2):
 
-| Компонент | Путь | Назначение | Ключевые пропсы |
-|---|---|---|---|
-| `StudyTopicTheoryPage` / `StudyTopicPracticePage` | `src/components/study/` | Каркас страниц теории/практики (не дублировать) | — |
-| `SectionBadge` | [`src/components/study/SectionBadge.tsx`](../../src/components/study/SectionBadge.tsx) | Значок заголовка раздела (стрелка `ArrowRight` вместо цифр) | `icon?`, `className?`, `iconClassName?` |
-| `ScrollToNavButton` | [`src/components/study/ScrollToNavButton.tsx`](../../src/components/study/ScrollToNavButton.tsx) | Кнопка возврата к содержанию (`#nav-toc`) | `onClick` |
-| `TopicNavGrid` | [`src/components/study/TopicNavGrid.tsx`](../../src/components/study/TopicNavGrid.tsx) | Сетка «Содержание» с якорем `id="nav-toc"` | `navItems`, `activeSection`, `onSelectSection`, `title?` |
-| `TopicQuickNavTags` | [`src/components/study/TopicQuickNavTags.tsx`](../../src/components/study/TopicQuickNavTags.tsx) | Быстрые теги шапки (клик — плавный скролл к секции) | `tags: QuickNavTag[]`, где `QuickNavTag = { targetId, label, icon: LucideIcon }` |
-| `PracticeBanner` | [`src/components/study/PracticeBanner.tsx`](../../src/components/study/PracticeBanner.tsx) | Нижний призыв к практикуму | `topicCode` («ХЭ-NN» / «ОХ-NN»), `onGoToPractice` |
-| `TheoryCallout` | [`src/components/study/TheoryCallout.tsx`](../../src/components/study/TheoryCallout.tsx) | Жёлтая скобка: интересные факты, выноски | `title`, `children`, `icon?` (по умолчанию `Lightbulb`), `iconColor?` (по умолчанию `text-amber-600`), `className?` |
-| `DarkBlockCard` | [`src/components/study/DarkBlockCard.tsx`](../../src/components/study/DarkBlockCard.tsx) | Тёмная карточка промышленного химизма | `title?`, `subtitle?` (`font-mono` справа), `icon?`, `children`, `className?` |
-| `ChemFormula` | [`src/components/scientific/ChemFormula.tsx`](../../src/components/scientific/ChemFormula.tsx) | Рендеринг формул/уравнений через KaTeX | `formula?` (сырая строка), `math?` (готовый LaTeX), `className?`, `displayMode?` |
-| `ChemText` | [`src/components/scientific/ChemText.tsx`](../../src/components/scientific/ChemText.tsx) | Смешанный русский текст с вкраплениями формул | `text` (поддерживает инлайн `$LaTeX$`), `className?` |
-| `TermTooltip` | [`src/components/scientific/TermTooltip.tsx`](../../src/components/scientific/TermTooltip.tsx) | Интерактивные подсказки к терминам | `term`, `definition`, `className?`, `position?` |
-| `MoleculeViewer3D` | [`src/components/interactive/MoleculeViewer3D.tsx`](../../src/components/interactive/MoleculeViewer3D.tsx) | 3D-просмотрщик (Three.js) | `moleculeIds?`, `initialSelectedId?`, `title?` |
-| `MoleculeViewer2D` | [`src/components/scientific/MoleculeViewer2D.tsx`](../../src/components/scientific/MoleculeViewer2D.tsx) | Универсальный 2D-просмотрщик ([`20-RENDERING.md`](20-RENDERING.md) §2.1) | см. 20-RENDERING §2.1 |
-| `StructuralFormula2D` | [`src/components/scientific/StructuralFormula2D.tsx`](../../src/components/scientific/StructuralFormula2D.tsx) | Структурная формула по SMILES ([`20-RENDERING.md`](20-RENDERING.md) §2.1) | см. 20-RENDERING §2.1 |
-| `MolecularDiagram2D` | [`src/components/scientific/svg/MolecularDiagram2D.tsx`](../../src/components/scientific/svg/MolecularDiagram2D.tsx) | Дата-драйвен генератор учебных структурных схем ([`20-RENDERING.md`](20-RENDERING.md) §2.2): авто-обрезка связей у подписей, размерные линии длин, роли цветов | `atoms`, `bonds`, `lengths`, `notes`, `theme` |
-| `InfographicFigure` | [`src/components/scientific/svg/InfographicFigure.tsx`](../../src/components/scientific/svg/InfographicFigure.tsx) | Концептуальная инфографика: деревья/бары/мини-графики, светлая тема, справочная панель справа, без модалок ([`20-RENDERING.md`](20-RENDERING.md) §2.7) | `title`, `spec`, `reference?`, `caption?`, `legend?` |
-| `ConceptFlow` | [`src/components/interactive/ConceptFlow.tsx`](../../src/components/interactive/ConceptFlow.tsx) | Интерактивные концепт-карты на React Flow ([`20-RENDERING.md`](20-RENDERING.md) §2.8) | `title`, `nodes`, `edges`, `details?`, `reference?`, `caption?` |
-| SVG-примитивы | `src/components/scientific/svg/` (`SvgDiagramWrapper`, `SvgAtom`, `SvgTextAtom`, `SvgFunctionalGroup`, `SvgBond`, `SvgBadge`, `SvgAngleArc`, `SvgLengthAnnotation`, `SvgCaption`) | Конструктор векторных схем ([`20-RENDERING.md`](20-RENDERING.md) §2.2) | см. 20-RENDERING §2.2 |
+| Компонент | Путь | Назначение |
+|---|---|---|
+| `StudyTopicTheoryPage` / `StudyTopicPracticePage` | `src/components/study/` | Каркас страниц теории/практики (не дублировать) |
+| `SectionBadge` | [`src/components/study/SectionBadge.tsx`](../../src/components/study/SectionBadge.tsx) | Значок заголовка раздела (стрелка `ArrowRight` вместо цифр) |
+| `ScrollToNavButton` | [`src/components/study/ScrollToNavButton.tsx`](../../src/components/study/ScrollToNavButton.tsx) | Кнопка возврата к содержанию (`#nav-toc`) |
+| `TopicNavGrid` | [`src/components/study/TopicNavGrid.tsx`](../../src/components/study/TopicNavGrid.tsx) | Сетка «Содержание» с якорем `id="nav-toc"` |
+| `TopicQuickNavTags` | [`src/components/study/TopicQuickNavTags.tsx`](../../src/components/study/TopicQuickNavTags.tsx) | Быстрые теги шапки (клик — плавный скролл к секции) |
+| `PracticeBanner` | [`src/components/study/PracticeBanner.tsx`](../../src/components/study/PracticeBanner.tsx) | Нижний призыв к практикуму |
+| `TheoryCallout` | [`src/components/study/TheoryCallout.tsx`](../../src/components/study/TheoryCallout.tsx) | Жёлтая скобка: интересные факты, выноски |
+| `DarkBlockCard` | [`src/components/study/DarkBlockCard.tsx`](../../src/components/study/DarkBlockCard.tsx) | Тёмная акцентная карточка |
+| `ChemFormula` | [`src/components/scientific/ChemFormula.tsx`](../../src/components/scientific/ChemFormula.tsx) | Рендеринг формул/уравнений через KaTeX (`formula` — сырая строка, `math` — готовый LaTeX) |
+| `ChemText` | [`src/components/scientific/ChemText.tsx`](../../src/components/scientific/ChemText.tsx) | Смешанный русский текст с вкраплениями формул (поддерживает инлайн `$LaTeX$`) |
+| `TermTooltip` | [`src/components/scientific/TermTooltip.tsx`](../../src/components/scientific/TermTooltip.tsx) | Интерактивные подсказки к терминам |
+| `MoleculeViewer3D` | [`src/components/interactive/MoleculeViewer3D.tsx`](../../src/components/interactive/MoleculeViewer3D.tsx) | 3D-просмотрщик (Three.js) |
+| `MoleculeViewer2D` | [`src/components/scientific/MoleculeViewer2D.tsx`](../../src/components/scientific/MoleculeViewer2D.tsx) | Универсальный 2D-просмотрщик ([`20-RENDERING.md`](20-RENDERING.md) §2.1) |
+| `StructuralFormula2D` | [`src/components/scientific/StructuralFormula2D.tsx`](../../src/components/scientific/StructuralFormula2D.tsx) | Структурная формула по SMILES ([`20-RENDERING.md`](20-RENDERING.md) §2.1) |
+| `MolecularDiagram2D` | [`src/components/scientific/svg/MolecularDiagram2D.tsx`](../../src/components/scientific/svg/MolecularDiagram2D.tsx) | Дата-драйвен генератор учебных структурных схем: авто-обрезка связей у подписей, размерные линии, роли цветов ([`20-RENDERING.md`](20-RENDERING.md) §2.2) |
+| `InfographicFigure` | [`src/components/scientific/svg/InfographicFigure.tsx`](../../src/components/scientific/svg/InfographicFigure.tsx) | Концептуальная инфографика: деревья/бары/мини-графики, светлая тема, справочная панель справа, без модалок ([`20-RENDERING.md`](20-RENDERING.md) §2.7) |
+| `ConceptFlow` | [`src/components/interactive/ConceptFlow.tsx`](../../src/components/interactive/ConceptFlow.tsx) | Интерактивные концепт-карты на React Flow ([`20-RENDERING.md`](20-RENDERING.md) §2.8) |
+| SVG-примитивы | `src/components/scientific/svg/` (`SvgDiagramWrapper`, `SvgAtom`, `SvgTextAtom`, `SvgFunctionalGroup`, `SvgBond`, `SvgBadge`, `SvgAngleArc`, `SvgLengthAnnotation`, `SvgCaption`) | Конструктор векторных схем ([`20-RENDERING.md`](20-RENDERING.md) §2.2) |
 
 > [!IMPORTANT]
 > **Правило упреждающей централизации**: если при разработке новой темы требуется элемент UI, макет карточки, выноска или интерактивный блок, ранее не встречавшийся в существующих темах, **запрещено дублировать его локально в коде темы**. Такой компонент **сразу создаётся как централизованный модуль** в `src/components/study/` или `src/components/scientific/`, чтобы последующие темы переиспользовали его без копирования.

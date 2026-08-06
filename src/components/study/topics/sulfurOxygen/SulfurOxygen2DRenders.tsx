@@ -29,10 +29,8 @@ const COL = {
 
 interface SODiagramSpec {
   title: string;
-  subtitle: string;
   specTitle: string;
   specItems: SvgSpecItem[];
-  compactTransform: string;
   atoms: DiagramAtomSpec[];
   bonds: DiagramBondSpec[];
   angles?: DiagramAngleSpec[];
@@ -44,7 +42,6 @@ interface SODiagramSpec {
 const SO_DIAGRAMS: Record<SulfurOxygen2DProps['type'], SODiagramSpec> = {
   'rhombic-sulfur': {
     title: 'Ромбическая сера (α-S₈) — 3D-корончатая конформация (симметрия D₄d)',
-    subtitle: 'Ромбическая сера S₈: Корончатый цикл (sp³, 107.9°, τ=98.0°)',
     specTitle: 'Молекулярные параметры:',
     specItems: [
       { label: 'Молекула', value: 'Восьмичленный цикл S₈', color: COL.accent },
@@ -58,7 +55,6 @@ const SO_DIAGRAMS: Record<SulfurOxygen2DProps['type'], SODiagramSpec> = {
       { label: 'Плотность α-S', value: '2.07 г/см³', color: COL.muted },
       { label: 'Растворимость', value: 'В сероуглероде CS₂', color: COL.muted },
     ],
-    compactTransform: 'translate(150, 95)',
     atoms: [
       // Тыльный план (приглушённые)
       { id: 'b1', label: 'S', x: -62, y: -48, color: COL.s, fontSize: 10, opacity: 0.75 },
@@ -98,7 +94,6 @@ const SO_DIAGRAMS: Record<SulfurOxygen2DProps['type'], SODiagramSpec> = {
 
   ozone: {
     title: 'Молекула озона (O₃) — Изогнутая структура с делокализованной π-связью',
-    subtitle: 'Озон O₃: Уголковая молекула (sp², 116.8°, π₃⁴)',
     specTitle: 'Молекулярные параметры:',
     specItems: [
       { label: 'Геометрия', value: 'Уголковая (C₂v)', color: COL.accent },
@@ -110,7 +105,6 @@ const SO_DIAGRAMS: Record<SulfurOxygen2DProps['type'], SODiagramSpec> = {
       { label: 'Окислит. потенциал', value: 'E° = +2.07 В', color: COL.muted },
       { label: 'Тест', value: 'KI + крахмал (синеет)', color: COL.muted },
     ],
-    compactTransform: 'translate(150, 110)',
     atoms: [
       { id: 'oc', label: 'O', x: 0, y: -30, color: COL.o, fontSize: 13 },
       { id: 'ol', label: 'O', x: -80, y: 40, color: COL.o, fontSize: 12 },
@@ -127,7 +121,6 @@ const SO_DIAGRAMS: Record<SulfurOxygen2DProps['type'], SODiagramSpec> = {
 
   h2so4: {
     title: 'Серная кислота (H₂SO₄) — Тетраэдрическое окружение S(+6)',
-    subtitle: 'Серная кислота H₂SO₄: Тетраэдр S(+6) (sp³, 1.42/1.57 Å)',
     specTitle: 'Кристаллографические данные:',
     specItems: [
       { label: 'Геометрия', value: 'Искаженный тетраэдр', color: COL.accent },
@@ -139,7 +132,6 @@ const SO_DIAGRAMS: Record<SulfurOxygen2DProps['type'], SODiagramSpec> = {
       { label: 'Угол HO-S-OH', value: '101°', color: COL.muted },
       { label: 'Энтальпия гидрат.', value: '-880 кДж/моль', color: COL.muted },
     ],
-    compactTransform: 'translate(150, 105)',
     atoms: [
       { id: 'S', label: 'S', x: 0, y: 0, color: COL.s, fontSize: 13 },
       { id: 'o1', label: 'O', x: 0, y: -55, color: COL.o, fontSize: 11 },
@@ -161,7 +153,6 @@ const SO_DIAGRAMS: Record<SulfurOxygen2DProps['type'], SODiagramSpec> = {
 
   so2: {
     title: 'Диоксид серы (SO₂) — Уголковая молекула (sp²-гибридизация)',
-    subtitle: 'Диоксид серы SO₂: Уголковая молекула (sp², 119.5°, 1.43 Å)',
     specTitle: 'Молекулярные параметры:',
     specItems: [
       { label: 'Геометрия', value: 'Уголковая (C₂v)', color: COL.accent },
@@ -172,7 +163,6 @@ const SO_DIAGRAMS: Record<SulfurOxygen2DProps['type'], SODiagramSpec> = {
       { label: 'Запах', value: 'Резкий удушливый', color: COL.o },
       { label: 'Применение', value: 'Пищ. консервант E220', color: COL.muted },
     ],
-    compactTransform: 'translate(150, 110)',
     atoms: [
       { id: 'S', label: 'S', x: 0, y: -30, color: COL.s, fontSize: 13 },
       { id: 'o1', label: 'O', x: -75, y: 35, color: COL.o, fontSize: 12 },
@@ -204,13 +194,13 @@ export const SulfurOxygen2DRender: React.FC<SulfurOxygen2DProps> = ({
       isModal={isModal}
       className={`text-slate-100 ${className}`}
       title={spec.title}
-      subtitle={spec.subtitle}
       specTitle={spec.specTitle}
       specItems={spec.specItems}
-      diagramTransform={isModal ? 'translate(210, 215)' : spec.compactTransform}
+      diagramTransform={isModal ? 'translate(210, 215)' : undefined}
     >
       <MolecularDiagramBody
         theme="dark"
+        compact={!isModal}
         atoms={spec.atoms}
         bonds={spec.bonds}
         angles={spec.angles}

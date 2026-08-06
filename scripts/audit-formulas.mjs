@@ -2,7 +2,10 @@
 // Прогоняет ВСЕ строки formula=/math=/caption=, массивы formulae: [...] и локальные
 // константы formula:/shortFormula:/bond: из src/components/study/topics/** и
 // src/data/studyBlocksData.ts через реальный парсер ChemFormula + KaTeX и выводит:
-//   1) ошибки парсера/KaTeX (красный katex-error в UI);
+//   1) ошибки парсера/KaTeX (красный katex-error в UI), включая политические проверки
+//      (20-RENDERING §1.2): mhchem \ce{} не установлен; кириллические условия над
+//      стрелкой допустимы только через проп math; неподдерживаемые стрелки
+//      (<==>, <--, одиночный <-) запрещены;
 //   2) подозрительные верхние индексы ^{цифра...} и сырые символы внутри \mathrm —
 //      список для ручной проверки «индексы внизу, заряды/степени окисления вверху».
 // Запуск: node scripts/audit-formulas.mjs
@@ -63,10 +66,10 @@ for (const file of TARGETS) {
   const unescape = (s) => s.replace(/\\(['"\\nrt])/g, (_, c) => ({ n: '\n', r: '\r', t: '\t' }[c] ?? c));
 
   // local data constants feeding dynamic props: formula: '...', shortFormula: '...', bond: '...', caption: '...'
-  const reKeys = /(?:formula|shortFormula|bond|caption)\s*:\s*("((?:[^"\\]|\\.)*)"|'((?:[^'\\]|\\.)*)')/g;
+  const reKeys = /(formula|shortFormula|bond|caption)\s*:\s*("((?:[^"\\]|\\.)*)"|'((?:[^'\\]|\\.)*)')/g;
   let mk;
   while ((mk = reKeys.exec(src))) {
-    collected.push({ file, line: lineOf(mk.index), kind: 'const', raw: unescape(mk[2] ?? mk[3]) });
+    collected.push({ file, line: lineOf(mk.index), kind: mk[1] === 'caption' ? 'caption' : 'const', raw: unescape(mk[3] ?? mk[4]) });
   }
 
   // formula="..." and math="..." (JSX attribute strings: no escape processing)
@@ -107,6 +110,32 @@ const suspicious = [];
 let okCount = 0;
 
 for (const c of unique) {
+  // Policy checks (20-RENDERING §1.2) — ловятся до рендера
+  if (/\\ce\{/.test(c.raw)) {
+    errors.push({ ...c, issue: 'policy: mhchem \\ce{...} не установлен — используйте парсер ChemFormula (formula) или готовый LaTeX (math)' });
+    continue;
+  }
+  if (c.kind !== 'math' && c.kind !== 'caption') {
+    if (
+      /-\(\s*[^)]*[а-яё][^)]*\)->/i.test(c.raw) ||
+      /<=\(\s*[^)]*[а-яё][^)]*\)=>/i.test(c.raw) ||
+      /<-\(\s*[^)]*[а-яё][^)]*\)->/i.test(c.raw)
+    ) {
+      errors.push({ ...c, issue: 'policy: кириллические условия над стрелкой — только через проп math с \\xrightarrow{\\text{...}} (правило 3)' });
+      continue;
+    }
+    // неподдерживаемые стрелки: вырезаем поддерживаемые формы, остаток проверяем
+    const stripped = c.raw
+      .replace(/<=(?:\([^)]*\)|[^=>]+)=>/g, '')
+      .replace(/<-(?:\([^)]*\)|[^->]+)->/g, '')
+      .replace(/<=>|<->|⇄/g, '')
+      .replace(/-(?:\([^)]*\)|t\s*,\s*(?:cat|кат|к)\.?|cat|кат|к|t)->/gi, '');
+    if (/<--+>|<==+>|<-/.test(stripped)) {
+      errors.push({ ...c, issue: 'policy: неподдерживаемая стрелка — используйте ->, <=>, <=(условие)=>, <-(условие)->, -(условие)->' });
+      continue;
+    }
+  }
+
   let latex;
   if (c.kind === 'math') latex = c.raw;
   else {

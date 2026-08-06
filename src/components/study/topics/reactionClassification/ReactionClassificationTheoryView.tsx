@@ -8,11 +8,15 @@ export const ReactionClassificationTheoryView: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>('section-general-concepts');
 
   const navItems = [
-    { id: 'section-general-concepts', label: '5.1. Общие сведения' },
-    { id: 'section-by-number', label: '5.2. Классификация по числу реагентов и продуктов и их состава' },
-    { id: 'section-by-phase', label: '5.3. Классификация по агрегатному состоянию' },
-    { id: 'section-by-transfer', label: '5.4. Классификация по типу переносимых частиц' },
-    { id: 'section-reversibility', label: '5.5. Обратимые и необратимые реакции' },
+    { id: 'section-general-concepts', label: '5.1. Общие сведения и признаки реакций' },
+    { id: 'section-by-number', label: '5.2. По числу и составу реагентов и продуктов' },
+    { id: 'section-by-phase', label: '5.3. По агрегатному состоянию (фазовый состав)' },
+    { id: 'section-by-transfer', label: '5.4. По типу переносимых частиц (электроны, протоны)' },
+    { id: 'section-thermal-effects', label: '5.5. По тепловому эффекту (экзо- и эндотермические)' },
+    { id: 'section-reversibility', label: '5.6. Обратимые и необратимые реакции' },
+    { id: 'section-catalysis', label: '5.7. Каталитические и некаталитические процессы' },
+    { id: 'section-mechanisms', label: '5.8. По механизму протекания (радикальные и ионные)' },
+    { id: 'section-molecules-3d', label: '5.9. 3D-модели участников химических реакций' },
   ];
 
   const scrollToNav = () => {
