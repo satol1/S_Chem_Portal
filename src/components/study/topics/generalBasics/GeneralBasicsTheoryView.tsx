@@ -10,14 +10,16 @@ export const GeneralBasicsTheoryView: React.FC = () => {
   const navItems = [
     { id: 'section-substances', label: '1.1. Вещества и смеси' },
     { id: 'section-phenomena', label: '1.2. Физические и химические явления' },
-    { id: 'section-atoms-elements', label: '1.3. Атомы. Химические элементы' },
-    { id: 'section-molecules-theory', label: '1.4. Атомно-молекулярная теория' },
-    { id: 'section-composition-laws', label: '1.5. Постоянство состава. Кратные отношения' },
-    { id: 'section-avogadro', label: '1.6. Объёмные отношения. Закон Авогадро' },
-    { id: 'section-simple-complex', label: '1.7. Простые и сложные вещества' },
-    { id: 'section-mole', label: '1.8. Моль и молярная масса' },
-    { id: 'section-gas-laws', label: '1.9. Газовые законы' },
-    { id: 'section-equivalents', label: '1.10. Эквивалент. Закон эквивалентов' },
+    { id: 'section-conservation', label: '1.3. Закон сохранения массы' },
+    { id: 'section-atoms-elements', label: '1.4. Атомы. Химические элементы' },
+    { id: 'section-molecules-theory', label: '1.5. Атомно-молекулярная теория' },
+    { id: 'section-composition-laws', label: '1.6. Постоянство состава. Кратные отношения' },
+    { id: 'section-avogadro', label: '1.7. Объёмные отношения. Закон Авогадро' },
+    { id: 'section-simple-complex', label: '1.8. Простые и сложные вещества' },
+    { id: 'section-mole', label: '1.9. Моль и молярная масса' },
+    { id: 'section-gas-laws', label: '1.10. Газовые законы' },
+    { id: 'section-equivalents', label: '1.11. Эквивалент. Закон эквивалентов' },
+    { id: 'section-molecules-3d', label: '1.12. Молекулы в 3D' },
   ];
 
   const scrollToNav = () => {

@@ -22,7 +22,7 @@ export const GeneralBasicsHeader: React.FC<HeaderProps> = ({
   const quickNavTags: QuickNavTag[] = [
     { targetId: 'section-atoms-elements', label: 'Атомы и элементы', icon: Atom },
     { targetId: 'section-mole', label: 'Моль и молярная масса', icon: TestTube },
-    { targetId: 'section-gas-laws', label: 'Газовые законы', icon: Orbit },
+    { targetId: 'section-molecules-3d', label: 'Молекулы в 3D', icon: Orbit },
   ];
   const { openStudyBlock } = useRouter();
 
@@ -100,7 +100,7 @@ export const GeneralBasicsHeader: React.FC<HeaderProps> = ({
           <li className="flex items-start gap-2">
             <span className="px-1.5 py-0.5 rounded bg-slate-200 text-slate-900 text-xs font-mono font-bold shrink-0">2</span>
             <div>
-              <strong>Закон постоянства состава</strong> справедлив только для веществ молекулярного строения; соединения переменного состава (бертоллиды) — исключение из этого закона.
+              <strong>Закон постоянства состава</strong> выполняется только для далтонидов — молекулярных веществ и большинства ионных соединений; соединения переменного состава (бертоллиды) — исключение из этого закона.
             </div>
           </li>
           <li className="flex items-start gap-2">

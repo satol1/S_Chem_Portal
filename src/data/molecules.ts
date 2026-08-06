@@ -1090,6 +1090,130 @@ export const MOLECULES_DATA: Molecule[] = [
       { source: 0, target: 4, order: 1 },
       { source: 4, target: 5, order: 1 }
     ]
+  },
+  {
+    id: 'aloh3',
+    name: 'Гидроксид алюминия (Al(OH)₃)',
+    formula: 'Al(OH)₃',
+    iupacName: 'Тригидроксид алюминия',
+    category: 'Неорганическая',
+    description: 'Амфотерный гидроксид. Молекула имеет плоское тригональное строение с sp²-гибридизацией атома алюминия и тремя OH-группами.',
+    funFact: 'Al(OH)₃ — ключевое амфотерное соединение: в кислой среде ведёт себя как основание, в щелочной — как кислота, образуя алюминаты.',
+    atoms: [
+      { element: 'Al', x: 0, y: 0, z: 0, hybridization: 'sp2' },
+      { element: 'O', x: 1.2, y: 0, z: 0, hybridization: 'sp3' },
+      { element: 'O', x: -0.6, y: 1.04, z: 0, hybridization: 'sp3' },
+      { element: 'O', x: -0.6, y: -1.04, z: 0, hybridization: 'sp3' },
+      { element: 'H', x: 2.0, y: 0.3, z: 0 },
+      { element: 'H', x: -1.1, y: 1.7, z: 0 },
+      { element: 'H', x: -1.1, y: -1.7, z: 0 }
+    ],
+    bonds: [
+      { source: 0, target: 1, order: 1 },
+      { source: 0, target: 2, order: 1 },
+      { source: 0, target: 3, order: 1 },
+      { source: 1, target: 4, order: 1 },
+      { source: 2, target: 5, order: 1 },
+      { source: 3, target: 6, order: 1 }
+    ]
+  },
+  {
+    id: 'nacl',
+    name: 'Хлорид натрия (NaCl)',
+    formula: 'NaCl',
+    iupacName: 'Хлорид натрия',
+    category: 'Неорганическая',
+    description: 'Типичный представитель средних солей с ионной кристаллической решёткой. В узлах — ионы Na⁺ и Cl⁻, удерживаемые электростатическим притяжением.',
+    funFact: 'Поваренная соль — одно из древнейших известных человечеству веществ; в Древнем Риме солью выплачивали жалованье легионерам (отсюда слово «salary»).',
+    atoms: [
+      { element: 'Na', x: 0, y: 0, z: 0, hybridization: 'sp3' },
+      { element: 'Cl', x: 1.8, y: 0, z: 0, hybridization: 'sp3' }
+    ],
+    bonds: [
+      { source: 0, target: 1, order: 1 }
+    ]
+  },
+  {
+    id: 'na2o',
+    name: 'Оксид натрия (Na₂O)',
+    formula: 'Na₂O',
+    iupacName: 'Оксид натрия',
+    category: 'Неорганическая',
+    description: 'Типичный основный оксид. Энергично реагирует с водой, образуя щёлочь NaOH, и с кислотами с образованием солей.',
+    funFact: 'Na₂O — один из немногих основных оксидов, бурно реагирующих с водой уже при комнатной температуре: Na₂O + H₂O → 2NaOH.',
+    atoms: [
+      { element: 'O', x: 0, y: 0, z: 0, hybridization: 'sp3' },
+      { element: 'Na', x: -1.4, y: 0, z: 0, hybridization: 'sp3' },
+      { element: 'Na', x: 1.4, y: 0, z: 0, hybridization: 'sp3' }
+    ],
+    bonds: [
+      { source: 0, target: 1, order: 1 },
+      { source: 0, target: 2, order: 1 }
+    ]
+  },
+  {
+    id: 'cao',
+    name: 'Оксид кальция (CaO)',
+    formula: 'CaO',
+    iupacName: 'Оксид кальция',
+    category: 'Неорганическая',
+    description: 'Основный оксид щёлочноземельного металла (негашёная известь). Реагирует с водой с выделением тепла: CaO + H₂O → Ca(OH)₂.',
+    funFact: '«Гашение извести» — классическая экзотермическая реакция, используемая в строительстве: при взаимодействии CaO с водой температура смеси поднимается выше 100 °C.',
+    atoms: [
+      { element: 'Ca', x: 0, y: 0, z: 0, hybridization: 'sp3' },
+      { element: 'O', x: 1.4, y: 0, z: 0, hybridization: 'sp3' }
+    ],
+    bonds: [
+      { source: 0, target: 1, order: 2 }
+    ]
+  },
+  {
+    id: 'zno',
+    name: 'Оксид цинка (ZnO)',
+    formula: 'ZnO',
+    iupacName: 'Оксид цинка',
+    category: 'Неорганическая',
+    description: 'Амфотерный оксид: реагирует и с кислотами (ZnO + 2HCl → ZnCl₂ + H₂O), и со щелочами при сплавлении (ZnO + 2NaOH → Na₂ZnO₂ + H₂O).',
+    funFact: 'ZnO используется как белый пигмент (цинковые белила) и входит в состав солнцезащитных кремов благодаря способности поглощать УФ-излучение.',
+    atoms: [
+      { element: 'Zn', x: 0, y: 0, z: 0, hybridization: 'sp3' },
+      { element: 'O', x: 1.3, y: 0, z: 0, hybridization: 'sp3' }
+    ],
+    bonds: [
+      { source: 0, target: 1, order: 2 }
+    ]
+  },
+  {
+    id: 'h2',
+    name: 'Водород (H₂)',
+    formula: 'H₂',
+    iupacName: 'Диводород',
+    category: 'Простая',
+    description: 'Самое лёгкое простое вещество. Двухатомная молекула с короткой прочной связью H–H (74 пм, 436 кДж/моль); связь образована перекрыванием 1s-орбиталей атомов водорода.',
+    funFact: 'Смесь двух объёмов водорода с одним объёмом кислорода — «гремучий газ»: при поджигании она реагирует со взрывом, а единственным продуктом является вода.',
+    atoms: [
+      { element: 'H', x: -0.37, y: 0, z: 0 },
+      { element: 'H', x: 0.37, y: 0, z: 0 }
+    ],
+    bonds: [
+      { source: 0, target: 1, order: 1 }
+    ]
+  },
+  {
+    id: 'n2',
+    name: 'Азот (N₂)',
+    formula: 'N₂',
+    iupacName: 'Диазот',
+    category: 'Простая',
+    description: 'Основной компонент воздуха (~78 % по объёму). Молекула связана прочной тройной связью N≡N (110 пм, 945 кДж/моль), из-за чего азот химически инертен при обычных условиях.',
+    funFact: 'Тройная связь N≡N — одна из самых прочных в химии: чтобы разорвать её, требуется 945 кДж на каждый моль азота. Поэтому азот «включается» в реакции лишь при высоких температурах, электрическом разряде или с участием катализаторов.',
+    atoms: [
+      { element: 'N', x: -0.55, y: 0, z: 0, hybridization: 'sp' },
+      { element: 'N', x: 0.55, y: 0, z: 0, hybridization: 'sp' }
+    ],
+    bonds: [
+      { source: 0, target: 1, order: 3 }
+    ]
   }
 ];
 

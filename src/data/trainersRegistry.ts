@@ -54,5 +54,16 @@ export const TRAINERS_REGISTRY: Record<string, TrainerMeta> = {
     targetExam: 'ОГЭ / ЕГЭ Часть 1',
     iconName: 'BookCheck',
     taskCount: 14
+  },
+  'gb-test-01': {
+    id: 'gb-test-01',
+    code: 'Т-ОХ-01',
+    title: 'Тест: Основные понятия и законы химии',
+    subtitle: 'Выбор двух утверждений и соответствия по базовым понятиям, законам и расчётам',
+    description: 'Тематический тренажер ОХ-01: вещества и смеси, явления, атомно-молекулярная теория, стехиометрические законы, моль, газовые законы и химический эквивалент.',
+    badge: 'Тесты • 14 Заданий',
+    targetExam: 'ОГЭ / ЕГЭ Часть 1',
+    iconName: 'BookCheck',
+    taskCount: 14
   }
 };
