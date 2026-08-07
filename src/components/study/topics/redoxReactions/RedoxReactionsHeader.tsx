@@ -51,7 +51,10 @@ export const RedoxReactionsHeader: React.FC<HeaderProps> = ({
         </h1>
 
         <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal max-w-4xl">
-          Теория окислительно-восстановительных реакций: окисление и восстановление, важнейшие окислители и восстановители, метод электронного баланса и электролиз расплавов и растворов.
+          Окислитель и восстановитель, степени окисления и перенос электронов, важнейшие окислители и
+          восстановители, метод электронного баланса и метод полуреакций, электрохимический ряд активности
+          металлов и электролиз расплавов и растворов — от процессов на электродах до промышленного
+          получения алюминия и хлора.
         </p>
 
         <div className="pt-4 flex flex-wrap items-center justify-between gap-4 border-t border-slate-100 text-xs sm:text-sm text-slate-600">
@@ -78,7 +81,10 @@ export const RedoxReactionsHeader: React.FC<HeaderProps> = ({
             Ключевая идея темы:
           </h3>
           <p className="text-slate-600 leading-relaxed font-normal">
-            Окислитель принимает электроны и восстанавливается, восстановитель отдаёт электроны и окисляется; число отданных электронов всегда равно числу принятых — на этом основан метод электронного баланса.
+            Окислитель принимает электроны и восстанавливается, восстановитель отдаёт электроны и окисляется;
+            число отданных электронов всегда равно числу принятых — на этом основан метод электронного баланса.
+            Продукт восстановления окислителя зависит от среды раствора, а при электролизе водных растворов
+            исход конкуренции ионов и воды определяет ряд активности металлов.
           </p>
         </div>
       </div>
@@ -94,25 +100,25 @@ export const RedoxReactionsHeader: React.FC<HeaderProps> = ({
           <li className="flex items-start gap-2">
             <span className="px-1.5 py-0.5 rounded bg-slate-200 text-slate-900 text-xs font-mono font-bold shrink-0">1</span>
             <div>
-              <strong>Продукт восстановления перманганата калия зависит от среды</strong>: <ChemFormula formula="Mn(2+)" /> в кислой, <ChemFormula formula="MnO2" /> в нейтральной, <ChemFormula formula="MnO4(2-)" /> в щелочной.
+              <strong>Продукт восстановления перманганата калия зависит от среды</strong>: <ChemFormula formula="Mn(2+)" /> в кислой, <ChemFormula formula="MnO2" /> в нейтральной, <ChemFormula formula="MnO4(2-)" /> в щелочной; у дихромата в кислой среде продукт — <ChemFormula formula="Cr(3+)" /> (окраска меняется с оранжевой на зелёную).
             </div>
           </li>
           <li className="flex items-start gap-2">
             <span className="px-1.5 py-0.5 rounded bg-slate-200 text-slate-900 text-xs font-mono font-bold shrink-0">2</span>
             <div>
-              <strong>Концентрированные серная и азотная кислоты реагируют с металлами БЕЗ выделения водорода</strong>: окислителем является не ион <ChemFormula formula="H+" />, а сера или азот.
+              <strong>Концентрированные серная и азотная кислоты реагируют с металлами, как правило, без выделения водорода</strong>: окислителем является не ион <ChemFormula formula="H+" />, а сера (+6) или азот (+5); железо, хром и алюминий на холоду пассивируются этими кислотами.
             </div>
           </li>
           <li className="flex items-start gap-2">
             <span className="px-1.5 py-0.5 rounded bg-slate-200 text-slate-900 text-xs font-mono font-bold shrink-0">3</span>
             <div>
-              <strong>Роль элемента зависит от степени окисления</strong>: элемент в высшей степени окисления (например <ChemFormula formula="S(+6)" />, <ChemFormula formula="N(+5)" />) — только окислитель, в низшей (<ChemFormula formula="S(-2)" />, <ChemFormula formula="N(-3)" />) — только восстановитель, в промежуточной — проявляет двойственность.
+              <strong>Роль элемента зависит от степени окисления</strong>: элемент в высшей степени окисления (например <ChemFormula formula="S(+6)" />, <ChemFormula formula="N(+5)" />) — только окислитель, в низшей (<ChemFormula formula="S(-2)" />, <ChemFormula formula="N(-3)" />) — только восстановитель, в промежуточной (кислород −1 в <ChemFormula formula="H2O2" />) — проявляет двойственность.
             </div>
           </li>
           <li className="flex items-start gap-2">
             <span className="px-1.5 py-0.5 rounded bg-slate-200 text-slate-900 text-xs font-mono font-bold shrink-0">4</span>
             <div>
-              <strong>Электролиз растворов солей активных металлов</strong> (натрий, калий, кальций): металл на катоде НЕ выделяется — восстанавливается вода с выделением водорода <ChemFormula formula="H2" />.
+              <strong>Электролиз растворов солей активных металлов</strong> (от лития до алюминия): металл на катоде не выделяется — восстанавливается вода с выделением водорода <ChemFormula formula="H2" />; на инертном аноде кислородсодержащие анионы не окисляются — окисляется вода.
             </div>
           </li>
         </ul>

@@ -15,6 +15,7 @@ import { ReactionsTrainer } from '../trainers/ReactionsTrainer';
 import { NitrogenPhosphorusTestTrainer } from '../trainers/NitrogenPhosphorusTestTrainer';
 import { GeneralBasicsTestTrainer } from '../trainers/GeneralBasicsTestTrainer';
 import { ReactionClassificationTestTrainer } from '../trainers/ReactionClassificationTestTrainer';
+import { RedoxReactionsTestTrainer } from '../trainers/RedoxReactionsTestTrainer';
 
 interface Props {
   blockId: string;
@@ -65,6 +66,8 @@ export const StudyTopicPracticePage: React.FC<Props> = ({ blockId, topicId }) =>
         return <GeneralBasicsTestTrainer onBackToCatalog={() => openStudyBlock(block.id, topic.id, 'theory')} />;
       case 'rc-test-01':
         return <ReactionClassificationTestTrainer onBackToCatalog={() => openStudyBlock(block.id, topic.id, 'theory')} />;
+      case 'oxr-test-01':
+        return <RedoxReactionsTestTrainer onBackToCatalog={() => openStudyBlock(block.id, topic.id, 'theory')} />;
       default:
         return (
           <div className="bg-white rounded-3xl p-10 text-center border border-slate-200 space-y-4">
