@@ -7,6 +7,7 @@
 | Задача | Что читать |
 |---|---|
 | Создание новой учебной темы | [`TOPIC_CREATION_PROMPT.md`](TOPIC_CREATION_PROMPT.md) — входной шаблон запуска → [`docs/topic-standard/00-PIPELINE.md`](docs/topic-standard/00-PIPELINE.md) — конвейер, затем модули стандарта выборочно |
+| Запуск конвейера в других ИИ (Gemini/Kimi/DeepSeek) | [`docs/topic-standard/90-OTHER-AGENTS.md`](docs/topic-standard/90-OTHER-AGENTS.md) — адаптер запуска вне Qwen Code; штатный конвейер не меняется |
 | Верифицированные константы (не перепроверять) | [`docs/topic-passports/reports/verified-constants.md`](docs/topic-passports/reports/verified-constants.md) |
 | Профиль семейства темы | [`docs/topic-standard/topic-types/`](docs/topic-standard/topic-types/) — ХЭ-NN (`element-topic.md`) / ОХ-NN (`general-topic.md`) |
 | Уникальные детали конкретной темы | [`docs/topic-passports/<slug>.md`](docs/topic-passports/) — читать ДО правок темы |
